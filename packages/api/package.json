@@ -1,12 +1,25 @@
 {
-  "name": "@kanbandown/api",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+	"name": "@kanbandown/api",
+	"version": "1.0.0",
+	"description": "",
+	"main": "lib/index.js",
+	"types": "lib/index.d.ts",
+	"scripts": {
+		"test": "vitest --watch --reporter verbose",
+		"build": "tsc --project . ./src/index.ts",
+		"build:watch": "tsc --project . --watch",
+		"dev": "npm run build:watch"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@types/marked": "^4.0.8",
+		"typescript": "^4.9.3",
+		"vitest": "^0.26.3"
+	},
+	"dependencies": {
+		"markdown-it": "^13.0.1",
+		"mobx": "^6.7.0"
+	}
 }

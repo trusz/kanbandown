@@ -1,6 +1,30 @@
 <script lang="ts">
+	import { onMount } from "svelte"
 	import svelteLogo from './assets/svelte.svg'
 	import Counter from './lib/Counter.svelte'
+	
+	// 
+	// Listen
+	// 
+	onMount(() => {
+		window.addEventListener('message', event => {
+			const message = event.data; // The json data that the extension sent
+			console.log({level:"dev", msg:"got message from BE", event})
+			// switch (message.type) {
+			// 	case 'update':
+			// 		const text = message.text;
+
+			// 		// Update our webview's content
+			// 		updateContent(text);
+
+			// 		// Then persist state information.
+			// 		// This state is returned in the call to `vscode.getState` below when a webview is reloaded.
+			// 		vscode.setState({ text });
+
+			// 		return;
+			// }
+		});
+	})
 	
 
 </script>

@@ -10,6 +10,7 @@
 			type: "inc"
 		})
 	}
+	
 </script>
 
 <button on:click={increment}>

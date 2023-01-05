@@ -5,7 +5,10 @@ importers:
   .:
     specifiers: {}
 
-  packages/kanban-editor:
+  packages/api:
+    specifiers: {}
+
+  packages/app:
     specifiers:
       '@sveltejs/vite-plugin-svelte': ^2.0.0
       '@tsconfig/svelte': ^3.0.0
@@ -25,9 +28,9 @@ importers:
       vite: 4.0.1
       vite-plugin-singlefile: 0.13.2_vite@4.0.1
 
-  packages/kanban-vscode:
+  packages/plugin:
     specifiers:
-      '@kanban/app': workspace:^0.0.1
+      '@kanbandown/app': workspace:^0.0.1
       '@types/glob': ^8.0.0
       '@types/mocha': ^10.0.1
       '@types/node': 16.x
@@ -40,7 +43,7 @@ importers:
       mocha: ^10.1.0
       typescript: ^4.9.3
     dependencies:
-      '@kanban/app': link:../kanban-editor
+      '@kanbandown/app': link:../app
     devDependencies:
       '@types/glob': 8.0.0
       '@types/mocha': 10.0.1

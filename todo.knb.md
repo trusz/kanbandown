@@ -5,10 +5,10 @@ KanbanDown
 Todo
 ----
 
-- [ ] rename everything to "KanbanDown"
-- [ ] extract vscode-svelte-plugin starter template to another report
-- [ ] checkout dasyui
-- [ ] move a real project place
+- [ ] :low rename everything to "KanbanDown"
+- [ ] :low extract vscode-svelte-plugin starter template to another report
+- [ ] :low checkout dasyui
+- [x] move to a real project place @[2023-01-05]
 - [ ] roadmap, planned features
 - [ ] markdown parsing and rendering: md -> object, object->md, md->html
 - [ ] component library

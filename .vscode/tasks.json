@@ -5,7 +5,7 @@
 	"tasks": [
 		{
 			"type": "npm",
-			"path": "packages/kanban-vscode",
+			"path": "packages/plugin",
 			"script": "watch",
 			"problemMatcher": "$tsc-watch",
 			"isBackground": true,

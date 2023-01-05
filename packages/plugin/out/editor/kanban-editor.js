@@ -62,7 +62,7 @@ class KanbanDownEditorProvider {
      * Get the static html used for the editor webviews.
      */
     getHtmlForWebview(webview) {
-        const indexHTMLPath = path.join(this.context.extensionPath, 'node_modules', "@kanban/app/dist", "index.html");
+        const indexHTMLPath = path.join(this.context.extensionPath, 'node_modules', "@kanbandown/app/dist", "index.html");
         const indexContent = fs.readFileSync(indexHTMLPath.toString(), 'utf-8');
         return indexContent;
     }

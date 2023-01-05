@@ -10,10 +10,10 @@
 			"type": "extensionHost",
 			"request": "launch",
 			"args": [
-				"--extensionDevelopmentPath=${workspaceFolder}/packages/kanban-vscode"
+				"--extensionDevelopmentPath=${workspaceFolder}/packages/plugin"
 			],
 			"outFiles": [
-				"${workspaceFolder}/packages/kanban-vscode/out/**/*.js"
+				"${workspaceFolder}/packages/plugin/out/**/*.js"
 			],
 			"preLaunchTask": "${defaultBuildTask}"
 		},

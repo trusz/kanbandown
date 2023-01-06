@@ -1,5 +1,5 @@
 {
-	"name": "@kanbandown/api",
+	"name": "@kanbandown/shared",
 	"version": "1.0.0",
 	"description": "",
 	"main": "lib/index.js",
@@ -19,7 +19,7 @@
 		"vitest": "^0.26.3"
 	},
 	"dependencies": {
-		"markdown-it": "^13.0.1",
+		"marked": "^4.2.5",
 		"mobx": "^6.7.0"
 	}
 }

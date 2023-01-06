@@ -1,16 +1,16 @@
 import { suite, test, vi, expect, beforeEach, it } from "vitest"
-import { Column, State } from "./state"
+import { Column, Board } from "./board"
 
-suite("state", () => {
+suite("Board", () => {
 
-	let state: State
+	let board: Board
 	beforeEach(() => {
-		state = new State()
+		board = new Board()
 	})
 
 	test("create columns", async () => {
-		state.createColumn("c1")
-		state.createColumn("c2")
+		board.createColumn("c1")
+		board.createColumn("c2")
 
 		const expectedColumns: Column[] = [
 			new Column("c1"),
@@ -18,7 +18,7 @@ suite("state", () => {
 		]
 
 		expectedColumns.forEach( 
-			(c) => expect(state.Columns()).toContainEqual(c)
+			(c) => expect(board.Columns()).toContainEqual(c)
 		)
 	})
 
@@ -26,9 +26,9 @@ suite("state", () => {
 	suite("managing items", () => {
 		
 		type LocatedItem = {
-			label: 		 string,
-			columnIndex: number
-			position?: 	 number
+			label: 		  string,
+			columnIndex?: number
+			position?: 	  number
 		}
 		type Action = LocatedItem & {
 			type: "add" | "delete",
@@ -51,6 +51,17 @@ suite("state", () => {
 						label:		 "item1", 
 						type: 	     "add",
 						columnIndex: 0,
+					}
+				],
+				expectedItems: [ {label:"item1", columnIndex:0} ]
+			},
+			{
+				desc: "adding items to last columnt",
+				columns: ["c1"],
+				actions: [
+					{
+						label:		 "item1", 
+						type: 	     "add",
 					}
 				],
 				expectedItems: [ {label:"item1", columnIndex:0} ]
@@ -101,17 +112,16 @@ suite("state", () => {
 			test(tc.desc, () => {
 
 				// Arrange
-				tc.columns.forEach(c => state.createColumn(c))
+				tc.columns.forEach(c => board.createColumn(c))
 				let error: unknown
 
 				// Act
 				try{
 					tc.actions.forEach( action => {
 						if(action.type === "add"){
-							state.createItem(action.label, action.columnIndex, action.position)
+							board.createItem(action.label, action.columnIndex, action.position)
 						}else if (action.type === "delete"){
-							state.deleteItem(action.columnIndex, action.position!)
-							// state.createItem(action.label, action.columnIndex, action.position)
+							board.deleteItem(action.columnIndex, action.position!)
 						}
 					})
 				} catch(err){
@@ -126,13 +136,13 @@ suite("state", () => {
 					throw error
 				}
 
-				expect(state.Items()).toHaveLength(tc.expectedItems.length)
+				expect(board.Items()).toHaveLength(tc.expectedItems.length)
 
 				tc.expectedItems.forEach( expectedItem => {
-					const allItems = state.Items().map(i => ({ label: i.label }) )
+					const allItems = board.Items().map(i => ({ label: i.label }) )
 					expect(allItems).toContainEqual({label:expectedItem.label})
 
-					const column = state.Columns()[expectedItem.columnIndex]
+					const column = board.Columns()[expectedItem.columnIndex]
 					const itemsInColumn = column.Items().map( cItem => ({label: cItem.label}) )
 					expect(itemsInColumn).toContainEqual({label: expectedItem.label})
 				})

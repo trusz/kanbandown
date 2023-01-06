@@ -1,5 +1,5 @@
 
-export class State {
+export class Board {
 
 	private title				= ""
 	private description			= ""
@@ -14,7 +14,7 @@ export class State {
 	}
 
 	public Title(): string {
-		return this.Title()
+		return this.title
 	}
 
 	setDescription(desc: string){
@@ -62,7 +62,11 @@ export class State {
 	// 
 	// Item
 	// 
-	public createItem(label: string, columnIndex: number, position?: number) {
+	public createItem(
+		label: string, 
+		columnIndex: number = this.Columns().length -1, 
+		position?: number
+	) {
 		this.throwIfWrongColumnPosition(columnIndex)
 		
 		const newItem = new Item(label)
@@ -119,6 +123,7 @@ export class Column {
 export class Item {
 	constructor(
 		public label: string = "",
-		public id: 	  string = crypto.randomUUID(),
+		// public id: 	  string = crypto.randomUUID(),
+		// public id: 	  string = "",
 	){}
 }

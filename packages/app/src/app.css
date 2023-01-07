@@ -1,81 +1,101 @@
-:root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+html {
+	margin: 0;
+	padding: 0;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+	font-family: var(--vscode-editor-font-family, "Inter, Avenir, Helvetica, Arial, sans-serif");
+	font-size:   12px;
+	/* line-height: 24px; */
+	/* font-weight: 400; */
+	/* color: white; */
+	padding: 1rem;
+	background-color: var(--color-bg-primary);
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+li{
+	padding: 0;
+	margin: 0;
 }
 
-.card {
-  padding: 2em;
+
+:root {
+
+	--color-midnight-blue: 		  #03045eff;
+	--color-dark-cornflower-blue: #023e8aff;
+	--color-star-command-blue: 	  #0077b6ff;
+	--color-blue-green: 		  #0096c7ff;
+	--color-pacific-blue: 		  #00b4d8ff;
+	--color-sky-blue-crayola: 	  #48cae4ff;
+	--color-middle-blue: 		  #90e0efff;
+	--color-blizzard-blue: 		  #ade8f4ff;
+	--color-light-cyan: 		  #caf0f8ff;
+
+	--color-bg-primary: var(--color-midnight-blue)
+
+	/* --color-blue-01: #041C32; */
+	--color-blue-01: #00072D;
+	--color-blue-02: #04293A;
+	--color-blue-03: #064663;
+	
+	--color-gold: #ECB365;
+
 }
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.root1{
+	--vscode-font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    --vscode-font-weight: normal;
+    --vscode-font-size: 13px;
+    --vscode-editor-font-family: Fira Code;
+    --vscode-editor-font-weight: normal;
+    --vscode-editor-font-size: 12px;
+    --vscode-foreground: #fcfcfa;
+    --vscode-disabledForeground: rgba(204, 204, 204, 0.5);
+    --vscode-errorForeground: #ff6188;
+    --vscode-descriptionForeground: #939293;
+    --vscode-icon-foreground: #939293;
+    --vscode-focusBorder: #727072;
+    --vscode-selection-background: rgba(193, 192, 192, 0.15);
+    --vscode-textSeparator-foreground: #727072;
+    --vscode-textLink-foreground: #2979ff;
+    --vscode-textLink-activeForeground: #fcfcfa;
+    --vscode-textPreformat-foreground: #fcfcfa;
+    --vscode-textBlockQuote-background: #403e41;
+    --vscode-textBlockQuote-border: #403e41;
+    --vscode-textCodeBlock-background: #403e41;
+    --vscode-widget-shadow: #19181a;
+    --vscode-input-background: #403e41;
+    --vscode-input-foreground: #fcfcfa;
+    --vscode-input-border: #403e41;
+    --vscode-inputOption-activeBorder: #5b595c;
+    --vscode-inputOption-hoverBackground: #5b595c;
+    --vscode-inputOption-activeBackground: #5b595c;
+    --vscode-inputOption-activeForeground: #fcfcfa;
+    --vscode-input-placeholderForeground: #727072;
+    --vscode-inputValidation-infoBackground: #403e41;
+    --vscode-inputValidation-infoForeground: #78dce8;
+    --vscode-inputValidation-infoBorder: #78dce8;
+    --vscode-inputValidation-warningBackground: #403e41;
+    --vscode-inputValidation-warningForeground: #fc9867;
+    --vscode-inputValidation-warningBorder: #fc9867;
+    --vscode-inputValidation-errorBackground: #403e41;
+    --vscode-inputValidation-errorForeground: #ff6188;
+    --vscode-inputValidation-errorBorder: #ff6188;
+    --vscode-dropdown-background: #2d2a2e;
+    --vscode-dropdown-listBackground: #403e41;
+    --vscode-dropdown-foreground: #939293;
+    --vscode-dropdown-border: #2d2a2e;
+    --vscode-button-foreground: #c1c0c0;
+    --vscode-button-separator: #2d2a2e;
+    --vscode-button-background: #403e41;
+    --vscode-button-hoverBackground: #5b595c;
+    --vscode-button-secondaryForeground: #c1c0c0;
+    --vscode-button-secondaryBackground: #403e41;
+    --vscode-button-secondaryHoverBackground: #5b595c;
+    --vscode-badge-background: #ffd866;
 }

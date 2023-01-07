@@ -4,6 +4,7 @@ exports.KanbanDownEditorProvider = void 0;
 const vscode = require("vscode");
 const fs = require("fs");
 const path = require("path");
+const commonjs_1 = require("@kanbandown/shared/commonjs");
 class KanbanDownEditorProvider {
     static register(context) {
         const provider = new KanbanDownEditorProvider(context);
@@ -23,11 +24,11 @@ class KanbanDownEditorProvider {
             ]
         };
         webviewPanel.webview.html = this.getHtmlForWebview(webviewPanel.webview);
+        const frontendAPI = new commonjs_1.FrontendAPI(webviewPanel.webview);
         function updateWebview() {
-            webviewPanel.webview.postMessage({
-                type: 'update',
-                text: document.getText(),
-            });
+            const newBoard = (0, commonjs_1.parse)(document.getText());
+            frontendAPI.sendBoard(newBoard);
+            console.log({ level: "dev", msg: "document changed", newBoard });
         }
         // Hook up event handlers so that we can synchronize the webview with the text document.
         //
@@ -37,7 +38,6 @@ class KanbanDownEditorProvider {
         // Remember that a single text document can also be shared between multiple custom
         // editors (this happens for example when you split a custom editor)
         const changeDocumentSubscription = vscode.workspace.onDidChangeTextDocument(e => {
-            console.log({ level: "dev", msg: "document changed", event: e });
             if (e.document.uri.toString() === document.uri.toString()) {
                 updateWebview();
             }

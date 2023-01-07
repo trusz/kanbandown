@@ -1,13 +1,18 @@
 {
 	"name": "@kanbandown/shared",
-	"version": "1.0.0",
+	"version": "0.0.1",
 	"description": "",
-	"main": "lib/index.js",
-	"types": "lib/index.d.ts",
+	"main": "commonjs/index.js",
+	"_main": "src/index.ts",
+	"_type": "module",
+	"_types": "lib/index.d.ts",
 	"scripts": {
-		"test": "vitest --watch --reporter verbose",
+		"test": "vitest --root ./src --watch --reporter verbose",
 		"build": "tsc --project . ./src/index.ts",
-		"build:watch": "tsc --project . --watch",
+		"build:commonjs": "tsc --project . --module commonjs --outDir commonjs --watch",
+		"build:esmodule": "tsc --project . --module esnext --outDir esmodule --watch",
+		"_build:watch": "tsc --project . --watch",
+		"build:watch": "concurrently pnpm:build:commonjs pnpm:build:esmodule",
 		"dev": "npm run build:watch"
 	},
 	"keywords": [],
@@ -19,7 +24,9 @@
 		"vitest": "^0.26.3"
 	},
 	"dependencies": {
+		"concurrently": "^7.6.0",
 		"marked": "^4.2.5",
-		"mobx": "^6.7.0"
+		"mobx": "^6.7.0",
+		"svelte": "^3.54.0"
 	}
 }

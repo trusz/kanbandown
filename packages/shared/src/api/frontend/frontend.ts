@@ -1,15 +1,22 @@
-import { VSCodeAPI } from "./vscode-api";
+import { Board } from "../../shared/board"
+import { MessageBoard, MessageType } from "../../shared/message"
+import { Webview } from "../frontend/webview"
 
 export class FrontendAPI {
 	constructor(
-		private readonly vscode: VSCodeAPI
+		
+		private readonly webview: Webview 
 	){}
 
-	public addItem(label: string, columnIndex: number, position: number){
-		
+	public sendBoard(b: Board){
+		const msg: MessageBoard = {
+			type:    MessageType.Board,
+			payload: b,
+		}
+		this.sendMessage(msg)
 	}
 
 	private sendMessage<T>(message: T){
-		this.vscode.postMessage(message)
+		this.webview.postMessage(message)
 	}
 }

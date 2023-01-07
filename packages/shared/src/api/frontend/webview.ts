@@ -1,3 +1,3 @@
-export type Webview {
+export type Webview = {
 	postMessage: (message: any) => void
 }

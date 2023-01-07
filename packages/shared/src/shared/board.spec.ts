@@ -119,9 +119,9 @@ suite("Board", () => {
 				try{
 					tc.actions.forEach( action => {
 						if(action.type === "add"){
-							board.createItem(action.label, action.columnIndex, action.position)
+							board.createItem(action.label, false, action.columnIndex, action.position)
 						}else if (action.type === "delete"){
-							board.deleteItem(action.columnIndex, action.position!)
+							board.deleteItem(action.columnIndex!, action.position!)
 						}
 					})
 				} catch(err){
@@ -142,7 +142,7 @@ suite("Board", () => {
 					const allItems = board.Items().map(i => ({ label: i.label }) )
 					expect(allItems).toContainEqual({label:expectedItem.label})
 
-					const column = board.Columns()[expectedItem.columnIndex]
+					const column = board.Columns()[expectedItem.columnIndex!]
 					const itemsInColumn = column.Items().map( cItem => ({label: cItem.label}) )
 					expect(itemsInColumn).toContainEqual({label: expectedItem.label})
 				})

@@ -40,7 +40,7 @@ function loadTitle(board: Board, token: marked.Token) {
 
 	token = token as marked.Tokens.Heading
 	console.log({level:"dev", msg:"loadTitle", token})
-	board.setTitle(token.text)
+	board.title = token.text
 }
 
 function loadColumn(board:Board, token: marked.Token){

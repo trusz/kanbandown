@@ -1,25 +1,25 @@
 
 export class Board {
 
-	private title				= ""
-	private description			= ""
-	private columns: Column[]	= []
-	private items:	 Item[]		= []
+	public title				= ""
+	public description			= ""
+	public columns: Column[]	= []
+	public items:	 Item[]		= []
 
 	// 
 	// State
 	// 
-	setTitle(title: string){
-		this.title = title
-	}
+	// setTitle(title: string){
+	// 	this.title = title
+	// }
 
 	public Title(): string {
 		return this.title
 	}
 
-	setDescription(desc: string){
-		this.description = desc
-	}
+	// setDescription(desc: string){
+	// 	this.description = desc
+	// }
 
 	public Description(): string {
 		return this.description
@@ -63,8 +63,9 @@ export class Board {
 	// Item
 	// 
 	public createItem(
-		label: string, 
-		columnIndex: number = this.Columns().length -1, 
+		label: string,
+		done = false,
+		columnIndex = this.Columns().length -1, 
 		position?: number
 	) {
 		this.throwIfWrongColumnPosition(columnIndex)
@@ -96,7 +97,7 @@ export class Board {
 }
 
 export class Column {
-	private items: Item[] = []
+	public readonly items: Item[] = []
 
 	constructor(
 		public title: string,
@@ -122,7 +123,8 @@ export class Column {
 
 export class Item {
 	constructor(
-		public label: string = "",
+		public label = "",
+		public done  = false
 		// public id: 	  string = crypto.randomUUID(),
 		// public id: 	  string = "",
 	){}

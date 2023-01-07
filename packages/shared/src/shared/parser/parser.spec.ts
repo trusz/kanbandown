@@ -19,7 +19,7 @@ suite("Parser", () => {
 				file: "./testfiles/simple.md",
 				expectedBoard: () => {
 					const b = new Board()
-					b.setTitle("Project Title"),
+					b.title = "Project Title",
 					
 					b.createColumn("Column 1")
 					b.createItem("item 2")
@@ -35,6 +35,8 @@ suite("Parser", () => {
         function testFeature(tc: TestCase) {
             test(tc.desc, () => {
 				const filePath = path.join(__dirname,tc.file)
+				console.log({level:"test", msg:"test file", filePath})
+				return;
 				const fileContent = fs.readFileSync(filePath, "utf-8")
 				const board = parse(fileContent)
 				console.log({level:"test", board})

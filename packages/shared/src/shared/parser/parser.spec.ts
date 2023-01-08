@@ -35,8 +35,7 @@ suite("Parser", () => {
         function testFeature(tc: TestCase) {
             test(tc.desc, () => {
 				const filePath = path.join(__dirname,tc.file)
-				console.log({level:"test", msg:"test file", filePath})
-				return;
+
 				const fileContent = fs.readFileSync(filePath, "utf-8")
 				const board = parse(fileContent)
 				console.log({level:"test", board})

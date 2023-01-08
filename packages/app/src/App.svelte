@@ -20,18 +20,23 @@
 	onMount(() => {
 		backendAPI.listenOnBoard((newBoard?: Board) => {
 			if(!newBoard){ return }
-			console.log({level:"dev", msg:"got new board", newBoard})
+
 			board = newBoard	
 		})
 	})
 
-	$: console.log({level:"dev", msg:"board changed", board})
+	function handleBoard(e: CustomEvent<Board>){
+		console.log({level:"dev", msg:"saving board", board:e.detail})
+		backendAPI.saveBoard(e.detail)
+	}
 
 </script>
 
 <main>
 	{#if board}
-		<CompBoard {board} />
+		<CompBoard 
+		{board} 
+		on:board={handleBoard} />
 	{/if}
 </main>
 

@@ -12,12 +12,14 @@ importers:
       '@tsconfig/svelte': ^3.0.0
       svelte: ^3.54.0
       svelte-check: ^2.10.0
+      svelte-dnd-action: ^0.9.22
       tslib: ^2.4.1
       typescript: ^4.9.3
       vite: ^4.0.0
       vite-plugin-singlefile: ^0.13.2
     dependencies:
       '@kanbandown/shared': link:../shared
+      svelte-dnd-action: 0.9.22_svelte@3.55.0
     devDependencies:
       '@sveltejs/vite-plugin-svelte': 2.0.2_svelte@3.55.0+vite@4.0.1
       '@tsconfig/svelte': 3.0.0
@@ -1988,6 +1990,14 @@ packages:
       - stylus
       - sugarss
     dev: true
+
+  /svelte-dnd-action/0.9.22_svelte@3.55.0:
+    resolution: {integrity: sha512-lOQJsNLM1QWv5mdxIkCVtk6k4lHCtLgfE59y8rs7iOM6erchbLC9hMEFYSveZz7biJV0mpg7yDSs4bj/RT/YkA==}
+    peerDependencies:
+      svelte: '>=3.23.0'
+    dependencies:
+      svelte: 3.55.0
+    dev: false
 
   /svelte-hmr/0.15.1_svelte@3.55.0:
     resolution: {integrity: sha512-BiKB4RZ8YSwRKCNVdNxK/GfY+r4Kjgp9jCLEy0DuqAKfmQtpL38cQK3afdpjw4sqSs4PLi3jIPJIFp259NkZtA==}

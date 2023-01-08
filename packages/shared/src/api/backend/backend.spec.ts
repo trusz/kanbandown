@@ -16,11 +16,11 @@ suite("backend", () => {
 })
 
 const mockWebView: Webview = {
-	postMessage(message){}
+	postMessage: (message) => {return},
+	onDidReceiveMessage: (handler) => { return }
 }
 
 const mockWindow: Window = {
 	addEventListener: <T>(type: string, listener:(event:{data:T}) => void ) => void {
-
 	}
 }

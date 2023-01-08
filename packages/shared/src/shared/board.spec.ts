@@ -18,7 +18,7 @@ suite("Board", () => {
 		]
 
 		expectedColumns.forEach( 
-			(c) => expect(board.Columns()).toContainEqual(c)
+			(c) => expect(board.columns).toContainEqual(c)
 		)
 	})
 
@@ -136,14 +136,14 @@ suite("Board", () => {
 					throw error
 				}
 
-				expect(board.Items()).toHaveLength(tc.expectedItems.length)
+				expect(board.items).toHaveLength(tc.expectedItems.length)
 
 				tc.expectedItems.forEach( expectedItem => {
-					const allItems = board.Items().map(i => ({ label: i.label }) )
+					const allItems = board.items.map(i => ({ label: i.label }) )
 					expect(allItems).toContainEqual({label:expectedItem.label})
 
-					const column = board.Columns()[expectedItem.columnIndex!]
-					const itemsInColumn = column.Items().map( cItem => ({label: cItem.label}) )
+					const column = board.columns[expectedItem.columnIndex!]
+					const itemsInColumn = column.items.map( cItem => ({label: cItem.label}) )
 					expect(itemsInColumn).toContainEqual({label: expectedItem.label})
 				})
 

@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import { getNonce } from './util';
 import * as fs from "fs";
 import * as path from "path";
-import { FrontendAPI, parse } from '@kanbandown/shared/commonjs';
+import { Board, FrontendAPI, parse, render } from '@kanbandown/shared/commonjs';
 export class KanbanDownEditorProvider implements vscode.CustomTextEditorProvider {
 
 	public static register(context: vscode.ExtensionContext): vscode.Disposable {
@@ -36,8 +36,28 @@ export class KanbanDownEditorProvider implements vscode.CustomTextEditorProvider
 		function updateWebview() {
 			const newBoard = parse(document.getText());
 			frontendAPI.sendBoard(newBoard);
-			console.log({level:"dev", msg:"document changed", newBoard});
 		}
+
+		frontendAPI.onSaveBoard((board: Board)=>{
+			console.log({level:"dev", msg:"plugin>onSaveBoard", board});
+
+			const renderedContent = render(board);
+			console.log({level:"dev", msg:"plugin>renderedcontent", renderedContent});
+			const edit = new vscode.WorkspaceEdit();
+		// Just replace the entire document every time for this example extension.
+		// A more complete extension should compute minimal edits instead.
+			edit.replace(
+				document.uri,
+				new vscode.Range(0, 0, document.lineCount, 0),
+				renderedContent,
+			);
+
+			try{
+				vscode.workspace.applyEdit(edit);
+			}catch(err){
+				console.error(err);
+			}
+		});
 		
 
 		// Hook up event handlers so that we can synchronize the webview with the text document.
@@ -62,7 +82,6 @@ export class KanbanDownEditorProvider implements vscode.CustomTextEditorProvider
 		webviewPanel.webview.onDidReceiveMessage(e => {
 			switch (e.type) {
 				case 'inc':
-					console.log({level:"dev", msg:"got inc from client"});
 					console.warn("code is commented out");
 					// this.incDocument(document);
 					return;
@@ -85,9 +104,7 @@ export class KanbanDownEditorProvider implements vscode.CustomTextEditorProvider
 
 	private incDocument(document:vscode.TextDocument){
 		let text = document.getText();
-		console.log({level:"dev", msg:"current text", text});
 		let counter = parseInt(text);
-		console.log({level:"dev", msg:"parsed counter", counter});
 		if( isNaN(counter)){
 			counter = 0;
 		}
@@ -109,7 +126,6 @@ export class KanbanDownEditorProvider implements vscode.CustomTextEditorProvider
 			console.error(err);
 		}
 
-		console.log({level:"dev", msg:"text updated"});
 		return;
 	}
 

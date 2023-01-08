@@ -1,5 +1,6 @@
 export * from "./api/frontend"
 export * from "./api/backend"
 export * from "./shared/parser"
+export * from "./shared/renderer"
 export * from "./shared/board"
 export * from "./shared/message"

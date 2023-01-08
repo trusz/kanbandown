@@ -7,25 +7,6 @@ export class Board {
 	public items:	 Item[]		= []
 
 	// 
-	// State
-	// 
-	// setTitle(title: string){
-	// 	this.title = title
-	// }
-
-	public Title(): string {
-		return this.title
-	}
-
-	// setDescription(desc: string){
-	// 	this.description = desc
-	// }
-
-	public Description(): string {
-		return this.description
-	}
-
-	// 
 	// Column
 	// 
 	public createColumn(title:string, at:number = this.columns.length){
@@ -37,12 +18,8 @@ export class Board {
 		this.columns.splice(at,0,newColumn)
 	}
 
-	public Columns(): Column[] {
-		return this.columns
-	}
-
 	private hasColumnAt(index:number): boolean{
-		const c = this.Columns()[index]
+		const c = this.columns[index]
 		return Boolean(c)
 	}
 
@@ -65,15 +42,15 @@ export class Board {
 	public createItem(
 		label: string,
 		done = false,
-		columnIndex = this.Columns().length -1, 
+		columnIndex = this.columns.length -1, 
 		position?: number
 	) {
 		this.throwIfWrongColumnPosition(columnIndex)
 		
-		const newItem = new Item(label)
+		const newItem = new Item(label, done, this.items.length)
 		this.items.push(newItem)
 
-		const column = this.Columns()[columnIndex]
+		const column = this.columns[columnIndex]
 		column.addItem(newItem, position)
 
 	}
@@ -81,23 +58,19 @@ export class Board {
 	public deleteItem(columnIndex: number, position: number){
 		this.throwIfWrongColumnPosition(columnIndex)
 
-		const column = this.Columns()[columnIndex]
+		const column = this.columns[columnIndex]
 		
 		const item = column.getItem(position)
-		const itemIndex = this.Items().indexOf(item)
+		const itemIndex = this.items.indexOf(item)
 		this.items.splice(itemIndex,1)
 
 		column.deleteItem(position)
 	}
 
-	public Items(): Item[] {
-		return this.items
-	}
-
 }
 
 export class Column {
-	public readonly items: Item[] = []
+	public items: Item[] = []
 
 	constructor(
 		public title: string,
@@ -115,17 +88,14 @@ export class Column {
 		return this.items[position]
 	}
 
-	public Items(): Item[] {
-		return this.items
-	}
 }
 
 
 export class Item {
 	constructor(
 		public label = "",
-		public done  = false
-		// public id: 	  string = crypto.randomUUID(),
+		public done  = false,
+		public id    = -1,
 		// public id: 	  string = "",
 	){}
 }

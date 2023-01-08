@@ -12,7 +12,8 @@
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "dependencies": {
-    "@kanbandown/shared": "workspace:^0.0.1"
+    "@kanbandown/shared": "workspace:^0.0.1",
+    "svelte-dnd-action": "^0.9.22"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^2.0.0",

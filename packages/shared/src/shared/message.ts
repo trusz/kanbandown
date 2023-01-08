@@ -6,10 +6,15 @@ export type Message = {
 }
 
 export enum MessageType {
-    Board = "board",
+    Board 	  = "board",
+	SaveBoard = "board",
 }
 
 export type MessageBoard = Message & {
 	type:    MessageType.Board,
 	payload: Board
+}
+export type MessageSaveBoard = Message & {
+	type: MessageType.SaveBoard,
+	payload: Board,
 }

@@ -2,7 +2,7 @@ import { VSCodeAPI } from "./vscode-api"
 import { writable, Unsubscriber } from "svelte/store"
 import { filteredStore } from "../../shared/filtered-store"
 import { Board } from "../../shared/board"
-import { Message, MessageBoard, MessageType } from "../../shared/message"
+import { Message, MessageBoard, MessageSaveBoard, MessageType } from "../../shared/message"
 import { Window } from "./window"
 
 export type HandlerFn = (b?: Board) => void
@@ -25,13 +25,20 @@ export class BackendAPI {
 		return this.boardEventStore.subscribe(handler)
 	}
 
+	public saveBoard(b: Board): void {
+		const message: MessageSaveBoard = {
+			type:    MessageType.SaveBoard,
+			payload: b,
+		}
+		this.sendMessage(message)
+	}
+
 	private sendMessage<T>(message: T): void {
 		this.vscode.postMessage(message)
 	}
 
 	private setupListening(){
 		this.window.addEventListener<Message>('message', event => {
-			console.log({level:"dev", msg:"got message from be", event})
 			this.messageStore.set(event.data)
 		});
 	}

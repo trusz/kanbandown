@@ -1,24 +1,25 @@
-KanbanDown
-==========
+# KanbanDown
 
+## Todo
 
-In Progress
------------
-
-- [ ] just another todo
-
-Todo
-----
-
-- [x] :low rename everything to "KanbanDown"
-- [ ] :low extract vscode-svelte-plugin starter template to another report
-- [ ] :low checkout dasyui
-- [x] move to a real project place @[2023-01-05]
-- [ ] roadmap, planned features
-- [ ] markdown parsing and rendering: md -> object, object->md, md->html
+- [ ] 1 :low rename everything to "KanbanDown"
+- [ ] 2 :low extract vscode-svelte-plugin starter template to another report
+- [ ] 3 :low checkout dasyui
+- [ ] 4 move to a real project place @[2023-01-05]
 - [ ] component library
 - [ ] vscode marketplace
+- [ ] just another todo
+- [ ] road map, planned features
 - [ ] Readme.md
+- [ ] markdown parsing and rendering: md -> object, object->md, md->html
 - [ ] Changelog.md
-- [ ] settings for file pattern
 - [ ] render effort (:low, :medium, :high), tags (#tag1), @ (@person) project (+project), dates
+- [ ] settings for file pattern
+- [ ] what is done?
+- [ ] nothing???
+
+## In Progress
+
+
+
+## Done

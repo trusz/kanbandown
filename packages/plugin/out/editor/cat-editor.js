@@ -79,7 +79,6 @@ class CatScratchEditorProvider {
         const styleResetUri = webview.asWebviewUri(vscode.Uri.joinPath(this.context.extensionUri, 'media', 'reset.css'));
         const styleVSCodeUri = webview.asWebviewUri(vscode.Uri.joinPath(this.context.extensionUri, 'media', 'vscode.css'));
         const styleMainUri = webview.asWebviewUri(vscode.Uri.joinPath(this.context.extensionUri, 'media', 'catScratch.css'));
-        console.log({ level: "dev", msg: "getting HTMl", scriptUri, styleResetUri, styleVSCodeUri, styleMainUri });
         // Use a nonce to whitelist which scripts can be run
         const nonce = (0, util_1.getNonce)();
         return /* html */ `

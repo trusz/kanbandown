@@ -16,7 +16,6 @@ const loaders: LoaderConfig[] = [
 
 export function parse(content: string) {
 	const tokens = marked.lexer(content)
-	console.log({level:"dev", tokens: tokens})
 
 	const board = new Board()
 	for(let token of tokens){
@@ -36,10 +35,9 @@ export function parse(content: string) {
 function loadTitle(board: Board, token: marked.Token) {
 	token = token as marked.Tokens.Heading
 	if(token.depth !== 1){ return }
-	if(board.Title().trim() !== ""){ return }
+	if(board.title.trim() !== ""){ return }
 
 	token = token as marked.Tokens.Heading
-	console.log({level:"dev", msg:"loadTitle", token})
 	board.title = token.text
 }
 
@@ -54,7 +52,6 @@ function loadColumn(board:Board, token: marked.Token){
 function loadTasks(board:Board, token: marked.Token){
 	token = token as marked.Tokens.List
 	const tasks = token.items.filter(item => item.task)
-	console.log({level:"dev", msg:"gathered tasks", tasks})
 
 	for(let task of tasks){
 		board.createItem(task.text)

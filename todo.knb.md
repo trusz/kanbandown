@@ -2,11 +2,8 @@
 
 ## Todo
 
-- [ ] 1 :low rename everything to "KanbanDown"
-- [ ] 2 :low extract vscode-svelte-plugin starter template to another report
-- [ ] 3 :low checkout dasyui
 - [ ] 4 move to a real project place @[2023-01-05]
-- [ ] component library
+- [ ] 2 :low extract vscode-svelte-plugin starter template to another report
 - [ ] vscode marketplace
 - [ ] just another todo
 - [ ] road map, planned features
@@ -20,6 +17,8 @@
 
 ## In Progress
 
-
+- [ ] component library
 
 ## Done
+
+- [x] 3 :low checkout dasyui

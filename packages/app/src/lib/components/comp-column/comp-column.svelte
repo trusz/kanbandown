@@ -68,8 +68,9 @@
 	}
 
 	ul{
-		display: flex;
+		display: 		flex;
 		flex-direction: column;
-		gap:0.5rem;
+		gap:			0.5rem;
+		min-height: 	5rem;
 	}
 </style>

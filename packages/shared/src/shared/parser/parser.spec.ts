@@ -22,7 +22,9 @@ suite("Parser", () => {
 					b.title = "Project Title",
 					
 					b.createColumn("Column 1")
+					b.createItem("item 1")
 					b.createItem("item 2")
+					b.columns[0].items[1].done = true
 
 					b.createColumn("Column 2")
 					return b

@@ -54,7 +54,7 @@ function loadTasks(board:Board, token: marked.Token){
 	const tasks = token.items.filter(item => item.task)
 
 	for(let task of tasks){
-		board.createItem(task.text)
+		board.createItem(task.text, task.checked)
 	}
 }
 

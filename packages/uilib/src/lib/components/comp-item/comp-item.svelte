@@ -1,9 +1,18 @@
 <script lang="ts">
+	import { createEventDispatcher } from "svelte"
+	import EditableText from "$lib/components/editable-text/editable-text.svelte";
+
 	export let label: string
+
+	const dispatch = createEventDispatcher()
+
+	function handleLabelChange(event:CustomEvent<string>){
+		dispatch("change", event.detail)
+	}
 </script>
 
 <comp-item>
-	  <p>{label}</p>
+	  <EditableText tag="p" value={label} on:change={handleLabelChange} />
 </comp-item>
 
 <style>

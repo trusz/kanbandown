@@ -1,7 +1,7 @@
 <h1>Board</h1>
 
 <Example name="Board">
-    <CompBoard board={board} />
+    <CompBoard board={board} on:board={handleBoardChange} />
 </Example>
 
 <script lang="ts">
@@ -20,4 +20,8 @@
 	board.createItem("task 4")
 	board.createColumn("Done")
 	board.createItem("task 5")
+
+	function handleBoardChange(event:CustomEvent<Board>) {
+		console.log({level:"dev", msg:"saving new board", board:event.detail})
+	}
 </script>

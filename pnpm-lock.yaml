@@ -8,6 +8,7 @@ importers:
   packages/app:
     specifiers:
       '@kanbandown/shared': workspace:^0.0.1
+      '@kanbandown/uilib': workspace:^0.0.1
       '@sveltejs/vite-plugin-svelte': ^2.0.0
       '@tsconfig/svelte': ^3.0.0
       svelte: ^3.54.0
@@ -19,6 +20,7 @@ importers:
       vite-plugin-singlefile: ^0.13.2
     dependencies:
       '@kanbandown/shared': link:../shared
+      '@kanbandown/uilib': link:../uilib/package
       svelte-dnd-action: 0.9.22_svelte@3.55.0
     devDependencies:
       '@sveltejs/vite-plugin-svelte': 2.0.2_svelte@3.55.0+vite@4.0.1
@@ -80,7 +82,7 @@ importers:
       typescript: 4.9.4
       vitest: 0.26.3
 
-  packages/uilib:
+  packages/uilib/package:
     specifiers:
       '@kanbandown/shared': workspace:^0.0.1
       '@sveltejs/adapter-auto': next
@@ -98,7 +100,7 @@ importers:
       typescript: ^4.9.3
       vite: ^4.0.0
     dependencies:
-      '@kanbandown/shared': link:../shared
+      '@kanbandown/shared': link:../../shared
       carbon-icons-svelte: 11.4.0
       svelte-dnd-action: 0.9.22_svelte@3.55.0
     devDependencies:

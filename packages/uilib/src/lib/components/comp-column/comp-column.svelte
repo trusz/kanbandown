@@ -6,6 +6,7 @@
 	import {fade} from 'svelte/transition';
 	import {cubicIn} from 'svelte/easing';
 	import {flip} from 'svelte/animate';
+  	import {EditableText} from "../editable-text";
 
 
 	type ShadowItem = Item & {
@@ -34,22 +35,29 @@
         items = e.detail.items;
 		dispatchFinalize()
     }
+	function handleTitleChange(event:CustomEvent<string>){
+		const newTitle = event.detail
+		dispatch("titlechanged", newTitle)
+	}
+	function handleTaskChange(taskIndex: number, newLabel:string){
+		dispatch("taskchange",{taskIndex, newLabel})
+	}
 </script>
 
 
 <comp-column >
-	<h2>{title}</h2>
+	<EditableText tag="h2" value={title} on:change={handleTitleChange} />
 		<ul 
 			use:dndzone="{{items, flipDurationMs, dropTargetStyle}}" 
 			on:consider="{handleDndConsider}" 
 			on:finalize="{handleDndFinalize}"
 		>
-			{#each items as item(item.id)}
+			{#each items as item,index(item.id)}
 				<li>
 					{#if Object.hasOwn(item,SHADOW_ITEM_MARKER_PROPERTY_NAME)}
 						<div class='custom-shadow-item'>{item.label}</div>
 					{/if}
-					<CompItem label={item.label} />
+					<CompItem label={item.label} on:change={(e) => {handleTaskChange(index, e.detail)}} />
 				</li>
 			{/each}
 		</ul>

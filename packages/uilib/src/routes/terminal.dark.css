@@ -1,0 +1,42 @@
+:root {
+    --global-font-size:   15px;
+    --global-line-height: 1.4em;
+    --global-space:       10px;
+
+    --font-stack: Menlo, Monaco, Lucida Console, Liberation Mono,
+      DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace,
+      serif;
+    --mono-font-stack: Menlo, Monaco, Lucida Console, Liberation Mono,
+      DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace,
+      serif;
+
+    
+
+      --color-black:       #222225;
+      --color-white:       #e8e9ed;
+      --color-red:         #ff3c74;
+      --color-red-dark:    #8A1A2E;
+      --color-blue:        #62c4ff;
+      --color-gray-03:     #d1cfcc;
+      --color-gray-light:  #bdb9b4;
+      --color-gray:        #a3abba;
+      --color-gray-02:     #6B6B6B;
+      --color-gray-dark:   #3f3f44;
+      --color-gray-04:     #414548;
+      --color-gray-darker: #39404c;
+  
+      --background-color:        var(--color-black);
+      --font-color:              var(--color-white);
+      --invert-font-color:       var(--color-black);
+      --secondary-color:         var(--color-gray);
+      --tertiary-color:          var(--color-gray);
+      --primary-color:           var(--color-blue);
+      --error-color:             var(--color-red);
+      --progress-bar-background: var(--color-gray-dark);
+      --progress-bar-fill:       var(--color-blue);
+      --code-bg-color:           var(--color-gray-dark);
+    
+    --page-width:            60em;
+    --input-style:           solid;
+    --display-h1-decoration: none;
+  }

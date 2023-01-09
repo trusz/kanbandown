@@ -7,7 +7,7 @@
 	export const ssr = false
 	export const prerender = false
 
-	const modules = import.meta.glob('./components/**/*.svelte')
+	const modules = import.meta.glob('./components/**/\+page.svelte')
 	$: paths = Object
 		.keys(modules)
 		.map(path => path.replace("/+page.svelte","").replace("./","/") )

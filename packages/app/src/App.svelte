@@ -4,6 +4,7 @@
 	import Counter from './lib/Counter.svelte'
 	import { type MessageBoard, BackendAPI, Board} from "@kanbandown/shared/esmodule"
 	import { CompBoard } from "@kanbandown/uilib"
+	import "@kanbandown/uilib/style.css"
 
 	
 	// @ts-ignore

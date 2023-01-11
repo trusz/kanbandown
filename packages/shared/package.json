@@ -7,7 +7,7 @@
 	"_type": "module",
 	"_types": "lib/index.d.ts",
 	"scripts": {
-		"test": "vitest --root ./src --watch --reporter verbose",
+		"test": "vitest --root ./src --watch --reporter dot",
 		"build": "tsc --project . ./src/index.ts",
 		"build:commonjs": "tsc --project . --module commonjs --outDir commonjs --watch",
 		"build:esmodule": "tsc --project . --module esnext --outDir esmodule --watch",

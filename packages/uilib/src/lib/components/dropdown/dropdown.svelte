@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { Button } from "$lib/components/button"
 
     type Item = {
         label: string
@@ -14,32 +15,31 @@
 <dropdown class:open={isOpen}>
     <ol>
         {#each items as item, index}
-            <li class:selected={index===selectedIndex}>
-                <span class="content">
-                    <a href="_" on:click|preventDefault={item.onClick}>
-                        {item.label}
-                    </a>
-                </span>
+            <li>
+                <Button on:click={item.onClick}>
+                    {item.label}
+                </Button>
             </li>
         {/each}
     </ol>
 </dropdown>
 
 <style>
-dropdown{
+ 
+    dropdown{
         position:   absolute;
         left:       0;
-        top:        2rem;
-        width:      100%;
-        border:     white 1px solid;
-        background: var(--background-color);
-        display:    inline-block;
+        top:        0;
+        display:    none;
         opacity:    0;
         transition: opacity 0.2s;
-        display:    none;
-        padding:    0.5rem;
+        padding:    0.5rem 0.5rem;
         z-index:    1000;
-        
+
+        background:    var(--vscode-dropdown-background);
+        color:         var(--vscode-dropdown-foreground);
+        border:        var(--vscode-dropdown-border) 1px solid;
+        border-radius: var(--border-radius);
     }
 
     dropdown.open{
@@ -47,19 +47,24 @@ dropdown{
         opacity: 1;
     }
 
+
     ol {
         list-style-type: none;
+        padding:         0;
+        margin:          0;
     }
+    /*
     li::before{
         content: "";
         margin-right: 2ch;
     }
     li.selected .content {
-        /* text-decoration: underline; */
+        text-decoration: underline;
     }
     li.selected::before {
         content: "> ";
         margin-right: 0;
         text-decoration: none;
     }
+    */
 </style>

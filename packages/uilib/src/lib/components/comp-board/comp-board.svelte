@@ -1,11 +1,12 @@
 <script lang="ts">
-  	import type { Board, Column, Item } from "@kanbandown/shared/esmodule";
+  	import { Board, type Column, type Item } from "@kanbandown/shared/esmodule";
 	import { CompColumn } from "../comp-column"
 	import { createEventDispatcher } from "svelte"
-  import EditableText from "$lib/components/editable-text/editable-text.svelte";
+  	import EditableText from "$lib/components/editable-text/editable-text.svelte";
 
 	export let board: Board
-	$: modifiedBoard = {...board} as Board
+	$: modifiedBoard = Object.setPrototypeOf({...board}, Board.prototype) as Board
+	// $: console.log({level:"dev", msg:"modifiedBoard has been reset", modifiedBoard})
 
 	const dispatch = createEventDispatcher()
 	function dispatchBoardChange(){
@@ -31,6 +32,10 @@
 		modifiedBoard.columns[columnIndex].items[taskIndex].label = newLabel
 		dispatchBoardChange()
 	}
+	function handleTaskAdd(columnIndex: number){
+		modifiedBoard.createItem("new",false,columnIndex, 0)
+		dispatchBoardChange()
+	}
 </script>
 
 <comp-board>
@@ -47,7 +52,7 @@
 				on:finalize={handleFinalize}
 				on:titlechanged={(e) => handleColumnTitleChange(index, e.detail)}
 				on:taskchange={(e)=> handleTaskChange(index, e.detail.taskIndex, e.detail.newLabel)}
-
+				on:taskadd={() => handleTaskAdd(index)}
 			/>
 		</li>
 	{/each}

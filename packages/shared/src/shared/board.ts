@@ -49,10 +49,16 @@ export class Board {
 		
 		const newItem = new Item(label, done, this.items.length)
 		this.items.push(newItem)
-
+		
 		const column = this.columns[columnIndex]
-		column.addItem(newItem, position)
+		console.log({level:"dev", msg:"createItem", column})
+		this.addItemToColumn(column, newItem, position)
+		// column.addItem(newItem, position)
 
+	}
+
+	public addItemToColumn(c: Column, i: Item, at: number = c.items.length){
+		c.items.splice(at, 0, i)
 	}
 
 	public deleteItem(columnIndex: number, position: number){

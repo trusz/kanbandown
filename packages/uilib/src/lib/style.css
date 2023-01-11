@@ -15,6 +15,10 @@ body {
 
 }
 
+* {
+    box-sizing: border-box;
+}
+
 ul {
 	list-style: none;
 	padding: 0;
@@ -25,15 +29,43 @@ li{
 	margin: 0;
 }
 
+p {
+    margin: 0;
+    padding: 0;
+}
+
+prio{
+    display: inline-block;
+    color: var(--vscode-textLink-foreground);
+    border-radius: 2px;
+    font-weight: bold;
+}
+
+project{
+    display: inline-block;
+    color: var(--vscode-textPreformat-foreground);
+    border-radius: 2px;
+    padding: 0 4px;
+}
+
+tag{
+    background-color: var(--vscode-badge-background);
+    padding: 2px 8px;
+    color: var(--vscode-badge-foreground);
+    border-radius: 16px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+textarea,
 input {
     font-family: inherit;
     background-color: var(--vscode-input-background);
     color: var(--vscode-input-foreground);
-    padding: 0.5rem 0.5rem;
 
     border: var(--vscode-inputOption-activeBorder) thin solid;
     border-radius: 4px;
-
 }
 
 input:hover{
@@ -55,24 +87,7 @@ a:active {
 
 :root{
 
-	--color-midnight-blue: 		  #03045eff;
-	--color-dark-cornflower-blue: #023e8aff;
-	--color-star-command-blue: 	  #0077b6ff;
-	--color-blue-green: 		  #0096c7ff;
-	--color-pacific-blue: 		  #00b4d8ff;
-	--color-sky-blue-crayola: 	  #48cae4ff;
-	--color-middle-blue: 		  #90e0efff;
-	--color-blizzard-blue: 		  #ade8f4ff;
-	--color-light-cyan: 		  #caf0f8ff;
-
-	--color-bg-primary: var(--color-midnight-blue)
-
-	/* --color-blue-01: #041C32; */
-	--color-blue-01: #00072D;
-	--color-blue-02: #04293A;
-	--color-blue-03: #064663;
-	
-	--color-gold: #ECB365;
+    --border-radius: 4px;
 
 }
 

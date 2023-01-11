@@ -15,11 +15,12 @@
     import { Item } from "@kanbandown/shared/esmodule";
 
     const title="Todo"
+    const longText = "Whereas disregard and contempt for human rights have resulted"
     let items: Item[] = [
-        new Item("task 1", false,0),
-        new Item("task 2", false,1),
-        new Item("task 3", false,2),
-        new Item("task 4", false,3),
+        new Item("task 1 "+longText, false,0),
+        new Item("task 2 "+longText, false,1),
+        new Item("task 3 "+longText, false,2),
+        new Item("task 4 "+longText, false,3),
     ]
 
     function handleMove(event: CustomEvent<Item[]>){

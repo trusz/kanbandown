@@ -17,18 +17,14 @@
 
 <style>
 	comp-item{
+		width:			  100%;
+		display: 	      block;
 		border:  		  var(--vscode-textBlockQuote-border) thin solid;
 		background-color: var(--vscode-textBlockQuote-background);
-		display: 		  block;
+		display: 		  inline-block;
 		box-shadow: 	  0px 0px 10px 2px var(--vscode-widget-shadow);
-		
-		
 		border-radius: 	  4px;
-		
-		display: 	           grid;
-		grid-template-columns: 1fr 10px;
-		
-		width: 10rem;
+		padding: 		  0.5rem;
 	}
 	/* comp-item::after{
 		content:"┋";
@@ -37,7 +33,7 @@
 		justify-content: center;
 		cursor: grab;
 	} */
-	p{
+	p {
 		padding: 0;
 		margin: 0;
 		/* border-right: var(--vscode-textBlockQuote-border) thin solid; */

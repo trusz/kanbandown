@@ -27,7 +27,9 @@
 	"type": "module",
 	"dependencies": {
 		"@kanbandown/shared": "workspace:^0.0.1",
+		"@types/marked": "^4.0.8",
 		"carbon-icons-svelte": "^11.4.0",
+		"marked": "^4.2.5",
 		"svelte-dnd-action": "^0.9.22"
 	}
 }

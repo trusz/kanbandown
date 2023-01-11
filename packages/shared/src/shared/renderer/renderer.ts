@@ -53,6 +53,13 @@ function renderItems(items: Item[]): string {
 function renderItem(item: Item): string {
 	let result = ""
 	const checkMark = item.done ? "x": " "
-	result += `- [${checkMark}] ${item.label}`
+	const label = renderSoftNewLines(item.label)
+	result += `- [${checkMark}] ${label}`
 	return result
+}
+
+function renderSoftNewLines(text: string): string {
+	// replaceAll exists
+	// @ts-ignore
+	return text.replaceAll("\n"," <br />");
 }

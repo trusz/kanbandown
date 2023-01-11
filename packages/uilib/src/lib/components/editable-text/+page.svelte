@@ -33,6 +33,44 @@
 	/>
 </Example>
 
+<Example name="In container">
+	<div>
+		<input 
+			type="range" 
+			min="200" 
+			max="500" 
+			bind:value={sliderValue}
+			on:change={onWidthChange}
+		>
+	</div>
+	<div class="container" style:width={containerWidth}>
+		<EditableText 
+			tag="span" 
+			value={"Whereas #beta disregard and :low contempt +project for human rights have resulted ".repeat(3)}
+			on:change={makeHandler("span")}
+		/>
+	</div>
+</Example>
+
+<style>
+	.c2 {
+		border:red thin solid;
+		height: auto;
+		display: inline-grid;
+	}
+
+	.c2 textarea{
+		height: auto;
+		resize: none;
+	}
+
+	.container{
+		/* border: gray thin solid; */
+		display: inline-block;
+		/* padding: 1rem; */
+	}
+</style>
+
 <script lang="ts">
     import { EditableText } from "$lib"
     import { Example } from "$lib/components/internal"
@@ -41,6 +79,12 @@
 		return function handleChange(event:CustomEvent<string>){
 			console.log({level:"dev", tag, text: event.detail })
 		}
+	}
+
+	let sliderValue = 300
+	$: containerWidth = `${sliderValue}px`
+	function onWidthChange(event:Event){
+		const input = event.target as HTMLInputElement
 	}
     
 </script>

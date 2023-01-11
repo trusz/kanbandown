@@ -1,5 +1,13 @@
-<h1>Presence</h1>
+<script>
+    import { CompItem } from "$lib"
+    import { Example } from "$lib/components/internal"
+    const label= "a short description about the task"
+    let sliderValue = 300
+    $: containerWidth = `${sliderValue}px`
+</script>
 
+
+<h1>Presence</h1>
 
 <Example name="Item">
         <CompItem label={label} />
@@ -15,15 +23,6 @@
         <CompItem label={label} />
     </div>
 </Example>
-
-<script>
-    import { CompItem } from "$lib"
-    import { Example } from "$lib/components/internal"
-
-    const label= "a short description about the task"
-    let sliderValue = 300
-    $: containerWidth = `${sliderValue}px`
-</script>
 
 <style>
     .container{

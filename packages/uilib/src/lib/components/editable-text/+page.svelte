@@ -1,3 +1,23 @@
+
+<script lang="ts">
+    import { EditableText } from "$lib"
+    import { Example } from "$lib/components/internal"
+
+	function makeHandler(tag: string){
+		return function handleChange(event:CustomEvent<string>){
+			console.log({level:"demo", tag, text: event.detail })
+		}
+	}
+
+	let sliderValue = 300
+	$: containerWidth = `${sliderValue}px`
+	function onWidthChange(event:Event){
+		const input = event.target as HTMLInputElement
+	}
+    
+</script>
+
+
 <h1>Editable Text</h1>
 
 <Example name="Header 1">
@@ -70,21 +90,3 @@
 		/* padding: 1rem; */
 	}
 </style>
-
-<script lang="ts">
-    import { EditableText } from "$lib"
-    import { Example } from "$lib/components/internal"
-
-	function makeHandler(tag: string){
-		return function handleChange(event:CustomEvent<string>){
-			console.log({level:"demo", tag, text: event.detail })
-		}
-	}
-
-	let sliderValue = 300
-	$: containerWidth = `${sliderValue}px`
-	function onWidthChange(event:Event){
-		const input = event.target as HTMLInputElement
-	}
-    
-</script>

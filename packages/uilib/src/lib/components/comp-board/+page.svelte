@@ -1,6 +1,4 @@
-<h1>Board</h1>
-
-<Example name="Board">
+<Example name="">
     <CompBoard board={board} on:board={handleBoardChange} />
 </Example>
 

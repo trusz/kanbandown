@@ -1,5 +1,5 @@
 {
-  "name": "@kanbandown/plugin",
+  "name": "kanbandown",
   "displayName": "kanban",
   "description": "kanban",
   "version": "0.0.1",
@@ -10,20 +10,11 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:kanban.helloWorld"
+    "onCustomEditor:kanbanDown.editor"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "customEditors": [
-      {
-        "viewType": "catCustoms.catScratch",
-        "displayName": "Cat Scratch",
-        "selector": [
-          {
-            "filenamePattern": "*.cscratch"
-          }
-        ]
-      },
       {
         "priority": "default",
         "viewType": "kanbanDown.editor",
@@ -33,12 +24,6 @@
             "filenamePattern": "*.knb.md"
           }
         ]
-      }
-    ],
-    "commands": [
-      {
-        "command": "kanban.helloWorld",
-        "title": "Hello World"
       }
     ]
   },

@@ -33,7 +33,7 @@
 	comp-item{
 		width:			  100%;
 		display: 	      grid;
-		place-items: 	  center;
+		place-items: 	  center start;
 		grid-template-columns: 1fr 2rem;
 
 		border:  		  var(--vscode-textBlockQuote-border) thin solid;

@@ -12,7 +12,7 @@
     <ol>
         {#each items as item, index}
             <li>
-                <Button on:click={item.onClick}>
+                <Button on:click={item.onClick} icon>
                     {item.label}
                 </Button>
             </li>

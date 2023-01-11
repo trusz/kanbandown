@@ -9,6 +9,7 @@
 	import { Button } from "../button";
   	import { EditableText } from "../editable-text";
 	import { IconAdd } from "../../icons"
+	import { OverflowMenu } from "../overflow-menu"
 
 
 
@@ -58,13 +59,28 @@
 	function addItem(){
 		dispatch("taskadd")
 	}
+	function handleDeleteColumn(){
+		dispatch("deletecolumn")
+	}
+
+	// 
+	// Options
+	// 
+	const headerOptions = [
+		{label:"Delete Column", onClick: handleDeleteColumn}
+	]
+
+
 </script>
 
 
 <comp-column >
-	<EditableText tag="h2" value={title} on:change={handleTitleChange} />
+	<header>
+		<EditableText tag="h3" value={title} on:change={handleTitleChange} />
+		<span class="options"><OverflowMenu items={headerOptions} /></span>
+	</header>
 	<div class="button-add-container">
-		<Button block on:click={addItem}> <IconAdd /> </Button>
+		<Button icon block on:click={addItem}> <IconAdd /> </Button>
 	</div>
 	<ul 
 		use:dndzone="{{items, flipDurationMs, dropTargetStyle, type:"items"}}" 
@@ -90,6 +106,21 @@
 	comp-column {
 		display: block;
 		width:13rem;
+	}
+
+	header {
+		display: flex;
+		flex-direction: row;
+		gap: 0.5rem;
+		align-items: center;
+	}
+
+	.options{
+		opacity: 0;
+		transition: opacity 0.1s;
+	}
+	header:hover .options {
+		opacity: 1;
 	}
 
 	ul{

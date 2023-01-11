@@ -1,9 +1,10 @@
 <script lang="ts">
-  	import { Board, type Column, type Item } from "@kanbandown/shared/esmodule";
+  	import { Board, Column, type Item } from "@kanbandown/shared/esmodule";
 	import { dndzone, SHADOW_ITEM_MARKER_PROPERTY_NAME, type DndEvent } from "svelte-dnd-action";
 	import { CompColumn } from "../comp-column"
 	import { createEventDispatcher } from "svelte"
-  	import EditableText from "$lib/components/editable-text/editable-text.svelte";
+  	import { EditableText } from "../editable-text";
+	import { OverflowMenu } from "../overflow-menu"
 
 	export let board: Board
 	$: modifiedBoard = Object.setPrototypeOf({...board}, Board.prototype) as Board
@@ -46,6 +47,14 @@
 		modifiedBoard.createItem("new",false,columnIndex, 0)
 		dispatchBoardChange()
 	}
+	function handleCreateColumn(){
+		modifiedBoard.createColumn("+new+")
+		dispatchBoardChange()
+	}
+	function handleDeleteColumn(columnIndex: number){
+		modifiedBoard.deleteColumn(columnIndex)
+		dispatchBoardChange()
+	}
 
 	// 
 	// DND
@@ -65,11 +74,20 @@
 		dispatchBoardChange()
     }
 
+	// 
+	// Title overflow menu
+	// 
+	let headerOptions = [
+		{label:"+Column", onClick: handleCreateColumn}
+	]
+
 </script>
 
 <comp-board>
-	<EditableText value={board.title} tag="h1" on:change={handleTitleChange} />
-
+	<header>
+		<EditableText value={board.title} tag="h2" on:change={handleTitleChange} />
+		<span class="options"><OverflowMenu items={headerOptions} /></span>
+	</header>
 	<ul
 		use:dndzone="{{items: columns, flipDurationMs, dropTargetStyle, type:"columns"}}" 
 		on:consider="{handleDndConsider}" 
@@ -89,12 +107,38 @@
 				on:taskchange={(e)=> handleTaskChange(index, e.detail.taskIndex, e.detail.newLabel)}
 				on:taskadd={() => handleTaskAdd(index)}
 				on:taskdelete={ (e) => handleTaskDelete(index, e.detail)}
+				on:deletecolumn={ () => handleDeleteColumn(index) }
 			/>
 		</li>
 	{/each}
 	</ul>
 
+</comp-board>
+
 <style>
+
+	comp-board {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	header{
+		display: 		flex;
+		gap:	   	    0.5rem;
+		flex-direction: row;
+		align-items: 	center;
+	}
+
+	.options {
+		opacity: 0;
+		transition: opacity 0.1s;
+	}
+
+	header:hover .options{
+		opacity: 1;
+	}
+
 	comp-board ul{
 		display: 		flex;
 		flex-direction: row;
@@ -122,5 +166,3 @@
 		border-radius: 4px;
 	}
 </style>
-
-</comp-board>

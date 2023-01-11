@@ -10,13 +10,15 @@
 	export let value: string = ""
 	export let newValue = value.replaceAll("<br />", "\n")
 	export let tag: SupportedTags = "span"
-	type SupportedTags = "h1" | "h2" | "span" | "p"
+	type SupportedTags = "h1" | "h2" | "h3" | "h4" | "span" | "p"
 
 	const dispatch = createEventDispatcher()
 
 	export const classMap: {[tag in SupportedTags]: string} ={
 		h1:   "h1",
 		h2:   "h2",
+		h3:   "h3",
+		h4:   "h4",
 		span: "span",
 		p: 	  "p",
 	}
@@ -79,8 +81,9 @@
 <style>
 
 	editable-text{
+		/* border: red thin solid; */
 		display: inline-grid;
-		width:	 100%;
+		/* width:	 100%; */
 	}
 
 	.growing-wrapper{

@@ -17,6 +17,9 @@ export class Board {
 		const newColumn = new Column(title, this.columns.length)
 		this.columns.splice(at,0,newColumn)
 	}
+	public deleteColumn(columnIndex: number) {
+		this.columns.splice(columnIndex,1)
+	}
 
 	private hasColumnAt(index:number): boolean{
 		const c = this.columns[index]

@@ -30,9 +30,7 @@ class KanbanDownEditorProvider {
             frontendAPI.sendBoard(newBoard);
         }
         frontendAPI.onSaveBoard((board) => {
-            console.log({ level: "dev", msg: "plugin>onSaveBoard", board });
             const renderedContent = (0, commonjs_1.render)(board);
-            console.log({ level: "dev", msg: "plugin>renderedcontent", renderedContent });
             const edit = new vscode.WorkspaceEdit();
             // Just replace the entire document every time for this example extension.
             // A more complete extension should compute minimal edits instead.

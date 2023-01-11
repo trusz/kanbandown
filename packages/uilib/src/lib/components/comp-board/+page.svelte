@@ -22,7 +22,7 @@
 	board.createItem("task 5 "+longText)
 
 	function handleBoardChange(event:CustomEvent<Board>) {
-		console.log({level:"dev", msg:"saving new board", board:event.detail})
 		board = Object.setPrototypeOf({...event.detail}, Board.prototype)
+		console.log({level:"demo", msg:"handle board change", board})
 	}
 </script>

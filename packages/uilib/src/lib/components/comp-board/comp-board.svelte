@@ -1,12 +1,17 @@
 <script lang="ts">
   	import { Board, type Column, type Item } from "@kanbandown/shared/esmodule";
+	import { dndzone, SHADOW_ITEM_MARKER_PROPERTY_NAME, type DndEvent } from "svelte-dnd-action";
 	import { CompColumn } from "../comp-column"
 	import { createEventDispatcher } from "svelte"
   	import EditableText from "$lib/components/editable-text/editable-text.svelte";
 
 	export let board: Board
 	$: modifiedBoard = Object.setPrototypeOf({...board}, Board.prototype) as Board
-	// $: console.log({level:"dev", msg:"modifiedBoard has been reset", modifiedBoard})
+
+	type ShadowItem = Item & {
+		[SHADOW_ITEM_MARKER_PROPERTY_NAME]: boolean
+	}
+	$: columns = [...board.columns]
 
 	const dispatch = createEventDispatcher()
 	function dispatchBoardChange(){
@@ -41,15 +46,40 @@
 		modifiedBoard.createItem("new",false,columnIndex, 0)
 		dispatchBoardChange()
 	}
+
+	// 
+	// DND
+	//
+	const flipDurationMs = 300;
+	const dropTargetStyle = {};
+	function handleDndConsider(e: CustomEvent<DndEvent<Column>>) {
+		columns = e.detail.items;
+		modifiedBoard.columns = columns
+    }
+    function handleDndFinalize(e: CustomEvent<DndEvent<Column>>) {
+		if(e.detail.info.trigger !== "droppedIntoZone"){
+			return
+		}
+		columns = e.detail.items;
+		modifiedBoard.columns = columns
+		dispatchBoardChange()
+    }
+
 </script>
 
 <comp-board>
-	<!-- <h1>{board.title}</h1> -->
 	<EditableText value={board.title} tag="h1" on:change={handleTitleChange} />
 
-	<ul>
-	{#each board.columns as column, index}
+	<ul
+		use:dndzone="{{items: columns, flipDurationMs, dropTargetStyle, type:"columns"}}" 
+		on:consider="{handleDndConsider}" 
+		on:finalize="{handleDndFinalize}"
+	>
+	{#each columns as column,index(column.id)}
 		<li>
+			{#if Object.hasOwn(column,SHADOW_ITEM_MARKER_PROPERTY_NAME)}
+					<div class='custom-shadow-item'><h1>{column.title}</h1></div>
+			{/if}
 			<CompColumn
 				title={column.title} 
 				items={column.items} 
@@ -69,6 +99,27 @@
 		display: 		flex;
 		flex-direction: row;
 		gap:			1rem;
+		min-height: 	6rem;
+	}
+	li{
+		position: relative;
+	}
+	.custom-shadow-item {
+		position: absolute;
+		top: 	  0; 
+		left:	  0; 
+		right: 	  0; 
+		bottom:   0;
+		
+		visibility:  visible;
+		border: 	 1px dashed grey;
+		background:  var(--vscode-list-activeSelectionBackground);
+		opacity: 	 0.9;
+		margin: 	 0;
+		display: 	 flex;
+		align-items: center;
+		padding: 	 0.5rem;
+		border-radius: 4px;
 	}
 </style>
 

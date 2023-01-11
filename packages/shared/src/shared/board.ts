@@ -14,7 +14,7 @@ export class Board {
 			throw new Error(JSON.stringify({msg:"`at` is outside of columns range", at}))
 		}
 
-		const newColumn = new Column(title)
+		const newColumn = new Column(title, this.columns.length)
 		this.columns.splice(at,0,newColumn)
 	}
 
@@ -51,7 +51,6 @@ export class Board {
 		this.items.push(newItem)
 		
 		const column = this.columns[columnIndex]
-		console.log({level:"dev", msg:"createItem", column})
 		this.addItemToColumn(column, newItem, position)
 		// column.addItem(newItem, position)
 	}
@@ -90,6 +89,7 @@ export class Column {
 
 	constructor(
 		public title: string,
+		public id:    number,
 	){}
 
 	public addItem(i: Item, at: number = this.items.length){

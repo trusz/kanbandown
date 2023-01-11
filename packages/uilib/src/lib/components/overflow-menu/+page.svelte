@@ -5,10 +5,10 @@
 
 
 	const items: DropdownItem[] = [
-		{label: "item 1", onClick: () => { console.log({level:"dev", msg:"clicked item", index:0}) } },
-		{label: "item 2", onClick: () => { console.log({level:"dev", msg:"clicked item", index:1}) } },
-		{label: "item 3", onClick: () => { console.log({level:"dev", msg:"clicked item", index:2}) } },
-		{label: "item 4", onClick: () => { console.log({level:"dev", msg:"clicked item", index:3}) } },
+		{label: "item 1", onClick: () => { console.log({level:"demo", msg:"clicked item", index:0}) } },
+		{label: "item 2", onClick: () => { console.log({level:"demo", msg:"clicked item", index:1}) } },
+		{label: "item 3", onClick: () => { console.log({level:"demo", msg:"clicked item", index:2}) } },
+		{label: "item 4", onClick: () => { console.log({level:"demo", msg:"clicked item", index:3}) } },
 	]
 
 </script>

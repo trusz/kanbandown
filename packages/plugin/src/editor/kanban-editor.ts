@@ -39,10 +39,8 @@ export class KanbanDownEditorProvider implements vscode.CustomTextEditorProvider
 		}
 
 		frontendAPI.onSaveBoard((board: Board)=>{
-			console.log({level:"dev", msg:"plugin>onSaveBoard", board});
 
 			const renderedContent = render(board);
-			console.log({level:"dev", msg:"plugin>renderedcontent", renderedContent});
 			const edit = new vscode.WorkspaceEdit();
 		// Just replace the entire document every time for this example extension.
 		// A more complete extension should compute minimal edits instead.

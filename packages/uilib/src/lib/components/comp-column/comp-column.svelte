@@ -1,4 +1,7 @@
 <script lang="ts">
+
+	// https://svelte.dev/repl/4949485c5a8f46e7bdbeb73ed565a9c7?version=3.55.1
+
 	import { createEventDispatcher } from "svelte"
 	import { dndzone, SHADOW_ITEM_MARKER_PROPERTY_NAME, type DndEvent } from "svelte-dnd-action";
 	import type { Item } from "@kanbandown/shared/esmodule";
@@ -6,6 +9,7 @@
 	import { Button } from "../button";
   	import { EditableText } from "../editable-text";
 	import { IconAdd } from "../../icons"
+
 
 
 	type ShadowItem = Item & {
@@ -21,6 +25,9 @@
 		dispatch("move",items)
 	}
 
+	// 
+	// DND
+	// 
 	const flipDurationMs = 300;
 	const dropTargetStyle = {};
     function handleDndConsider(e: CustomEvent<DndEvent<Item>>) {
@@ -34,6 +41,10 @@
         items = e.detail.items;
 		dispatchFinalize()
     }
+
+	// 
+	// Task
+	// 
 	function handleTitleChange(event:CustomEvent<string>){
 		const newTitle = event.detail
 		dispatch("titlechanged", newTitle)
@@ -56,7 +67,7 @@
 		<Button block on:click={addItem}> <IconAdd /> </Button>
 	</div>
 	<ul 
-		use:dndzone="{{items, flipDurationMs, dropTargetStyle}}" 
+		use:dndzone="{{items, flipDurationMs, dropTargetStyle, type:"items"}}" 
 		on:consider="{handleDndConsider}" 
 		on:finalize="{handleDndFinalize}"
 	>
@@ -86,6 +97,7 @@
 		flex-direction: column;
 		gap:			0.5rem;
 		min-height: 	6rem;
+		padding-bottom: 5rem;
 	}
 	li{
 		position: relative;

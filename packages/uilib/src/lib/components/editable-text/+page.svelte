@@ -77,7 +77,7 @@
 
 	function makeHandler(tag: string){
 		return function handleChange(event:CustomEvent<string>){
-			console.log({level:"dev", tag, text: event.detail })
+			console.log({level:"demo", tag, text: event.detail })
 		}
 	}
 

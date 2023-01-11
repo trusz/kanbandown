@@ -8,7 +8,6 @@
 		return {
 			label: item.label,
 			onClick: () => {
-				console.log({level:"dev", msg:"clicking item", item})
 				item.onClick()
 				isOpen = false
 			}

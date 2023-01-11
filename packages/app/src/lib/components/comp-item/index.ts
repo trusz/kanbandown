@@ -1,1 +1,0 @@
-export { default as CompItem } from "./comp-item.svelte"

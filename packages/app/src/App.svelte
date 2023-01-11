@@ -24,7 +24,6 @@
 	})
 
 	function handleBoard(e: CustomEvent<Board>){
-		console.log({level:"dev", msg:"saving board", board:e.detail})
 		backendAPI.saveBoard(e.detail)
 	}
 

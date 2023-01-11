@@ -1,1 +1,0 @@
-export { default as CompBoard } from "./comp-board.svelte"

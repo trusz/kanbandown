@@ -1,1 +1,0 @@
-export { default as CompColumn } from "./comp-column.svelte"

@@ -1,15 +1,11 @@
 <script lang="ts">
     import { Button } from "$lib/components/button"
+    import type { DropdownItem } from "./dropdown-item"
 
-    type Item = {
-        label: string
-        onClick: () => void
-    }
-    export let items: Item[]
+    export let items: DropdownItem[]
     export let selectedIndex = -1;
     export let isOpen = false
 
-    $: console.log({level:"dev", msg:"dropdown is open", isOpen})
 </script>
 
 <dropdown class:open={isOpen}>

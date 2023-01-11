@@ -1,35 +1,40 @@
 <script lang="ts">
 	import { IconOverflowMenu } from "$lib/icons"
 	import { Button } from "$lib/components/button"
-	import { Dropdown } from "$lib/components/dropdown"
+	import { Dropdown, type DropdownItem } from "$lib/components/dropdown"
 
+	export let items: DropdownItem[]
+	$: _items = items.map( item => {
+		return {
+			label: item.label,
+			onClick: () => {
+				console.log({level:"dev", msg:"clicking item", item})
+				item.onClick()
+				isOpen = false
+			}
+		}
+	})
+	
 	let isOpen = false
-	const items = [
-        {label: "Item 1", onClick: () => { handleClick(0) }},
-        {label: "Item 2", onClick: () => { handleClick(1) }},
-        {label: "Item 3", onClick: () => { handleClick(2) }},
-        {label: "Item 4", onClick: () => { handleClick(3) }},
-        {label: "Item 5", onClick: () => { handleClick(4) }},
-    ]
-
-	function handleClick(index:number){
-		console.log({level:"dev", msg:"clicked a menu", index })
-		isOpen = false
-	}
 
 	function toggleMenu(){
 		isOpen = !isOpen
 	}
 
-    
+	async function handleBlur(){
+		// TODO: hinders clicking an item, the event does not react the menu items
+		// isOpen = false
+	}
+
+
 </script>
 
 <overflow-menu>
-	<Button icon on:click={toggleMenu} forceHover={isOpen} on:blur={() => isOpen=false}>
+	<Button icon on:click={toggleMenu} forceHover={isOpen} on:blur={handleBlur}>
 		<IconOverflowMenu />
 	</Button>
 	<div class="dropdown">
-		<Dropdown items={items} isOpen={isOpen} />
+		<Dropdown items={_items} isOpen={isOpen} />
 	</div>
 </overflow-menu>
 

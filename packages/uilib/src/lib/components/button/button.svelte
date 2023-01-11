@@ -9,7 +9,7 @@
 	class:icon 
 	class:forceHover 
 	on:click
-	on:blur
+	on:blur|capture
 >
 	<slot></slot>
 </button>
@@ -24,6 +24,11 @@
 	}
 	.block{
 		width: 100%;
+	}
+
+	.icon{
+		height: 1.5rem;
+		min-width: 1.5rem;
 	}
 
 	.icon:not(:hover):not(.forceHover) {

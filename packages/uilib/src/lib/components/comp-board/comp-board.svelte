@@ -32,6 +32,11 @@
 		modifiedBoard.columns[columnIndex].items[taskIndex].label = newLabel
 		dispatchBoardChange()
 	}
+	function handleTaskDelete(columnIndex: number, taskIndex: number){
+		// modifiedBoard.columns[columnIndex].deleteItem(taskIndex)
+		modifiedBoard.deleteItemFromColumn(columnIndex, taskIndex)
+		dispatchBoardChange()
+	}
 	function handleTaskAdd(columnIndex: number){
 		modifiedBoard.createItem("new",false,columnIndex, 0)
 		dispatchBoardChange()
@@ -53,6 +58,7 @@
 				on:titlechanged={(e) => handleColumnTitleChange(index, e.detail)}
 				on:taskchange={(e)=> handleTaskChange(index, e.detail.taskIndex, e.detail.newLabel)}
 				on:taskadd={() => handleTaskAdd(index)}
+				on:taskdelete={ (e) => handleTaskDelete(index, e.detail)}
 			/>
 		</li>
 	{/each}

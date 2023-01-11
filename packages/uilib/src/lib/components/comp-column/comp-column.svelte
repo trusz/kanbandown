@@ -41,6 +41,9 @@
 	function handleTaskChange(taskIndex: number, newLabel:string){
 		dispatch("taskchange",{taskIndex, newLabel})
 	}
+	function handleDelete(taskIndex:number) {
+		dispatch("taskdelete", taskIndex)
+	}
 	function addItem(){
 		dispatch("taskadd")
 	}
@@ -62,7 +65,11 @@
 				{#if Object.hasOwn(item,SHADOW_ITEM_MARKER_PROPERTY_NAME)}
 					<div class='custom-shadow-item'>{item.label}</div>
 				{/if}
-				<CompItem label={item.label} on:change={(e) => {handleTaskChange(index, e.detail)}} />
+				<CompItem 
+					label={item.label} 
+					on:change={(e) => handleTaskChange(index, e.detail) } 
+					on:delete={() => handleDelete(index)}
+				/>
 			</li>
 		{/each}
 	</ul>

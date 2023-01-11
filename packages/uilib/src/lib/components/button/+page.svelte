@@ -16,3 +16,7 @@
 <Example name="Block">
     <Button block={true}>+</Button>
 </Example>
+
+<Example name="Icon">
+    <Button icon>+</Button>
+</Example>

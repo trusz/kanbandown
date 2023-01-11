@@ -1,7 +1,6 @@
 <script lang="ts">
     import { Example } from "$lib/components/internal"
     import { Dropdown }from "$lib"
-    import { dev } from "$app/environment";
 
     let selectedIndex = -1
     const items = [

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.KanbanDownEditorProvider = void 0;
+exports.KanbanDownSerializer = exports.KanbanDownEditorProvider = void 0;
 const vscode = require("vscode");
 const fs = require("fs");
 const path = require("path");
@@ -9,7 +9,7 @@ class KanbanDownEditorProvider {
     static register(context) {
         const provider = new KanbanDownEditorProvider(context);
         const providerRegistration = vscode.window.registerCustomEditorProvider(KanbanDownEditorProvider.viewType, provider);
-        return providerRegistration;
+        return [providerRegistration, provider];
     }
     constructor(context) {
         this.context = context;
@@ -23,7 +23,7 @@ class KanbanDownEditorProvider {
                 vscode.Uri.file(path.join(this.context.extensionPath, 'node_modules')),
             ]
         };
-        webviewPanel.webview.html = this.getHtmlForWebview(webviewPanel.webview);
+        webviewPanel.webview.html = this.getHtmlForWebview();
         const frontendAPI = new commonjs_1.FrontendAPI(webviewPanel.webview);
         function updateWebview() {
             const newBoard = (0, commonjs_1.parse)(document.getText());
@@ -72,8 +72,9 @@ class KanbanDownEditorProvider {
     /**
      * Get the static html used for the editor webviews.
      */
-    getHtmlForWebview(webview) {
-        const indexHTMLPath = path.join(this.context.extensionPath, 'node_modules', "@kanbandown/app/dist", "index.html");
+    getHtmlForWebview() {
+        // const indexHTMLPath = path.join(this.context.extensionPath, 'node_modules', "@kanbandown/app/dist", "index.html");
+        const indexHTMLPath = path.join(this.context.extensionPath, 'media', "index.html");
         const indexContent = fs.readFileSync(indexHTMLPath.toString(), 'utf-8');
         return indexContent;
     }
@@ -99,4 +100,19 @@ class KanbanDownEditorProvider {
 }
 exports.KanbanDownEditorProvider = KanbanDownEditorProvider;
 KanbanDownEditorProvider.viewType = 'kanbanDown.editor';
+class KanbanDownSerializer {
+    constructor(getWebviewContent) {
+        this.getWebviewContent = getWebviewContent;
+    }
+    async deserializeWebviewPanel(webviewPanel, state) {
+        // `state` is the state persisted using `setState` inside the webview
+        console.log(`Got state: ${state}`);
+        // Restore the content of our webview.
+        //
+        // Make sure we hold on to the `webviewPanel` passed in here and
+        // also restore any event listeners we need on it.
+        webviewPanel.webview.html = this.getWebviewContent();
+    }
+}
+exports.KanbanDownSerializer = KanbanDownSerializer;
 //# sourceMappingURL=kanban-editor.js.map

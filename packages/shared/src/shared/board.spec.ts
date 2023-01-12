@@ -13,8 +13,8 @@ suite("Board", () => {
 		board.createColumn("c2")
 
 		const expectedColumns: Column[] = [
-			new Column("c1"),
-			new Column("c2"),
+			new Column("c1",0),
+			new Column("c2",1),
 		]
 
 		expectedColumns.forEach( 

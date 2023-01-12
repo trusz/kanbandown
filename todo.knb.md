@@ -1,6 +1,6 @@
 # KanbanDown
 
-## Todo
+## ⏭️ Next
 
 - [ ] road map, planned features
 - [ ] Readme.md
@@ -13,14 +13,15 @@
 - [ ] nothing???
 - [ ] what is done?
 
-## In Progress
+## 🚧 In Progress
 
+- [ ] 1121111
+- [ ] [Readme](./readme.md)
 - [ ] render effort (:low, :medium, :high), tags (#tag1), @ (@person) project (+project), dates
 - [ ] markdown parsing and rendering: md -> object, object->md, md->html
 - [ ] 2 :low extract vscode-svelte-plugin starter template to another report
-- [ ] vscode marketplace
 
-## Done
+## ✅ Done
 
 - [ ] this bug
 - [ ] component library

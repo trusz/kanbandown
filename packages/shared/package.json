@@ -8,11 +8,13 @@
 	"_types": "lib/index.d.ts",
 	"scripts": {
 		"test": "vitest --root ./src --watch --reporter dot",
-		"build": "tsc --project . ./src/index.ts",
-		"build:commonjs": "tsc --project . --module commonjs --outDir commonjs --watch",
-		"build:esmodule": "tsc --project . --module esnext --outDir esmodule --watch",
+		"build": "concurrently pnpm:build:commonjs pnpm:build:esmodule",
+		"build:commonjs": "tsc --project . --module commonjs --outDir commonjs",
+		"build:esmodule": "tsc --project . --module esnext --outDir esmodule",
+		"build:commonjs:watch": "tsc --project . --module commonjs --outDir commonjs --watch",
+		"build:esmodule:watch": "tsc --project . --module esnext --outDir esmodule --watch",
 		"_build:watch": "tsc --project . --watch",
-		"build:watch": "concurrently pnpm:build:commonjs pnpm:build:esmodule",
+		"build:watch": "concurrently pnpm:build:commonjs:watch pnpm:build:esmodule:watch",
 		"dev": "npm run build:watch"
 	},
 	"keywords": [],

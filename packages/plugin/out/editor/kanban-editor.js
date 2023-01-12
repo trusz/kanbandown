@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.KanbanDownSerializer = exports.KanbanDownEditorProvider = void 0;
+exports.KanbanDownEditorProvider = void 0;
 const vscode = require("vscode");
 const fs = require("fs");
 const path = require("path");
@@ -9,7 +9,7 @@ class KanbanDownEditorProvider {
     static register(context) {
         const provider = new KanbanDownEditorProvider(context);
         const providerRegistration = vscode.window.registerCustomEditorProvider(KanbanDownEditorProvider.viewType, provider);
-        return [providerRegistration, provider];
+        return providerRegistration;
     }
     constructor(context) {
         this.context = context;
@@ -30,6 +30,21 @@ class KanbanDownEditorProvider {
             frontendAPI.sendBoard(newBoard);
         }
         frontendAPI.onSaveBoard((board) => {
+            const readme = "Readme.md";
+            // @ts-ignore
+            var filePath = path.join(vscode.workspace.workspaceFolders[0].uri.toString(), readme);
+            const content = "hello";
+            // fs.writeFileSync(filePath, content, 'utf8');
+            var openPath = vscode.Uri.file(filePath); //A request file path
+            vscode.workspace.openTextDocument(openPath).then(doc => {
+                vscode.window.showTextDocument(doc);
+            }, (err) => console.log({ level: "err", err }));
+            // @ts-ignore
+            // const root = vscode.workspace.wost(file);
+            // try{
+            // } catch(err){
+            // 	console.log({level:"error", msg:"could not open text file", file });
+            // }
             const renderedContent = (0, commonjs_1.render)(board);
             const edit = new vscode.WorkspaceEdit();
             // Just replace the entire document every time for this example extension.
@@ -56,7 +71,16 @@ class KanbanDownEditorProvider {
         });
         // Make sure we get rid of the listener when our editor is closed.
         webviewPanel.onDidDispose(() => {
+            console.log({ level: "dev", msg: "webviewpanel disposed" });
             changeDocumentSubscription.dispose();
+        });
+        // important!
+        // This make sure that we reload our view when we switch tabs
+        webviewPanel.onDidChangeViewState((e) => {
+            if (webviewPanel.visible) {
+                webviewPanel.webview.html = this.getHtmlForWebview();
+                updateWebview();
+            }
         });
         // Receive message from the webview.
         webviewPanel.webview.onDidReceiveMessage(e => {
@@ -73,46 +97,26 @@ class KanbanDownEditorProvider {
      * Get the static html used for the editor webviews.
      */
     getHtmlForWebview() {
-        // const indexHTMLPath = path.join(this.context.extensionPath, 'node_modules', "@kanbandown/app/dist", "index.html");
-        const indexHTMLPath = path.join(this.context.extensionPath, 'media', "index.html");
+        const indexHTMLPath = path.join(this.context.extensionPath, 'node_modules', "@kanbandown/app/dist", "index.html");
+        // const indexHTMLPath = path.join(this.context.extensionPath, 'media', "index.html");
         const indexContent = fs.readFileSync(indexHTMLPath.toString(), 'utf-8');
         return indexContent;
-    }
-    incDocument(document) {
-        let text = document.getText();
-        let counter = parseInt(text);
-        if (isNaN(counter)) {
-            counter = 0;
-        }
-        counter++;
-        const edit = new vscode.WorkspaceEdit();
-        // Just replace the entire document every time for this example extension.
-        // A more complete extension should compute minimal edits instead.
-        edit.replace(document.uri, new vscode.Range(0, 0, document.lineCount, 0), String(counter));
-        try {
-            vscode.workspace.applyEdit(edit);
-        }
-        catch (err) {
-            console.error(err);
-        }
-        return;
     }
 }
 exports.KanbanDownEditorProvider = KanbanDownEditorProvider;
 KanbanDownEditorProvider.viewType = 'kanbanDown.editor';
-class KanbanDownSerializer {
-    constructor(getWebviewContent) {
-        this.getWebviewContent = getWebviewContent;
-    }
-    async deserializeWebviewPanel(webviewPanel, state) {
-        // `state` is the state persisted using `setState` inside the webview
-        console.log(`Got state: ${state}`);
-        // Restore the content of our webview.
-        //
-        // Make sure we hold on to the `webviewPanel` passed in here and
-        // also restore any event listeners we need on it.
-        webviewPanel.webview.html = this.getWebviewContent();
-    }
-}
-exports.KanbanDownSerializer = KanbanDownSerializer;
+// export class KanbanDownSerializer implements vscode.WebviewPanelSerializer {
+// 	constructor(
+// 		private getWebviewContent: () => string 
+// 	){}
+// 	async deserializeWebviewPanel(webviewPanel: vscode.WebviewPanel, state: any) {
+// 	  // `state` is the state persisted using `setState` inside the webview
+// 	  console.log(`Got state: ${state}`);
+// 	  // Restore the content of our webview.
+// 	  //
+// 	  // Make sure we hold on to the `webviewPanel` passed in here and
+// 	  // also restore any event listeners we need on it.
+// 	  webviewPanel.webview.html = this.getWebviewContent();
+// 	}
+//   }
 //# sourceMappingURL=kanban-editor.js.map

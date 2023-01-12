@@ -91,13 +91,11 @@
 	}
 	.growing-wrapper > textarea,
 	.growing-wrapper::after {
-		/* border: 1px solid black; */
 		padding: 0.5rem;
 		grid-area: 1 / 1 / 2 / 2;
 	}
 	.growing-wrapper::after{
 		content: attr(data-replicated-value) " ";
-		/* white-space: pre-wrap; */
 		visibility: hidden;
 	}
 	textarea{

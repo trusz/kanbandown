@@ -1,6 +1,2 @@
 packages:
-  - "packages/api"
-  - "packages/plugin"
-  - "packages/app"
-  - "packages/shared"
-  - "packages/uilib/package"
+  - "packages/*"

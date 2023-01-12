@@ -3,7 +3,6 @@
     import type { DropdownItem } from "./dropdown-item"
 
     export let items: DropdownItem[]
-    export let selectedIndex = -1;
     export let isOpen = false
 
 </script>

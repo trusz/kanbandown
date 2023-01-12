@@ -1,2 +1,9 @@
 node_modules
 *.tsbuildinfo
+.turbo
+dist/**"
+lib/**"
+commonjs/**"
+esmodule/**"
+package/**
+*.vsix

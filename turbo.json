@@ -1,0 +1,22 @@
+{
+	"$schema": "https://turbo.build/schema.json",
+	"pipeline": {
+		"build:watch": {
+			"cache": false,
+			"persistent": true
+		},
+		"build": {
+			"dependsOn": [
+				"^build"
+			],
+			"outputs": [
+				"dist/**",
+				"lib/**",
+				"commonjs/**",
+				"esmodule/**",
+				"package/**",
+				"*.vsix"
+			]
+		}
+	}
+}

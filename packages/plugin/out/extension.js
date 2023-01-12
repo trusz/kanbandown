@@ -1,9 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deactivate = exports.activate = void 0;
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
-const vscode = require("vscode");
 const kanban_editor_1 = require("./editor/kanban-editor");
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -24,9 +21,7 @@ function activate(context) {
     // Mine
     // 
     // context.subscriptions.push(CatScratchEditorProvider.register(context));
-    const [disposable, kanbandown] = kanban_editor_1.KanbanDownEditorProvider.register(context);
-    vscode.window.registerWebviewPanelSerializer('kanbanDown', new kanban_editor_1.KanbanDownSerializer(kanbandown.getHtmlForWebview));
-    context.subscriptions.push(disposable);
+    context.subscriptions.push(kanban_editor_1.KanbanDownEditorProvider.register(context));
 }
 exports.activate = activate;
 // This method is called when your extension is deactivated

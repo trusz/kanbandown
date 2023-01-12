@@ -1,10 +1,10 @@
 
 export class Board {
 
-	public title				= ""
-	public description			= ""
-	public columns: Column[]	= []
-	public items:	 Item[]		= []
+	public title			 = ""
+	public description		 = ""
+	public columns: Column[] = []
+	public items:	 Item[]	 = []
 
 	// 
 	// Column

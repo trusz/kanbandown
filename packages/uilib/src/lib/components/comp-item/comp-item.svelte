@@ -41,6 +41,11 @@
 		box-shadow: 	  0px 0px 10px 2px var(--vscode-widget-shadow);
 		border-radius: 	  4px;
 		padding: 		  0.5rem;
+		transition: 	  all 0.1s;
+	}
+
+	comp-item:hover{
+		border-color: var(--vscode-inputValidation-infoBorder);
 	}
 
 	.menu{
@@ -56,9 +61,4 @@
 		opacity: 1;
 	}
 
-	p {
-		padding: 0;
-		margin:  0;
-		padding: 0.5rem 0.5rem;
-	}
 </style>

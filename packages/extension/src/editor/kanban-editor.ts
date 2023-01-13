@@ -114,9 +114,15 @@ export class KanbanDownEditorProvider implements vscode.CustomTextEditorProvider
 	 * Get the static html used for the editor webviews.
 	 */
 	public getHtmlForWebview(): string {
-
-		const indexHTMLPath = path.join(this.context.extensionPath, 'node_modules', "@kanbandown/app/dist", "index.html");
-		// const indexHTMLPath = path.join(this.context.extensionPath, 'media', "index.html");
+		let indexHTMLPath = "";
+		
+		if(this.context.extensionMode === vscode.ExtensionMode.Production){
+			indexHTMLPath = path.join(this.context.extensionPath, 'media', "index.html");
+		}else{
+			indexHTMLPath = path.join(this.context.extensionPath, 'node_modules', "@kanbandown/app/dist", "index.html");
+		}
+		
+		this.context.extensionMode;
 		const indexContent = fs.readFileSync(indexHTMLPath.toString(),'utf-8');
 
 		return indexContent;

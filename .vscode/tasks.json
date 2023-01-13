@@ -5,7 +5,7 @@
 	"tasks": [
 		{
 			"type": "npm",
-			"path": "packages/plugin",
+			"path": "packages/extension",
 			"script": "watch",
 			"problemMatcher": "$tsc-watch",
 			"isBackground": true,

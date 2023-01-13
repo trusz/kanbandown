@@ -15,6 +15,9 @@
 		const input = event.target as HTMLInputElement
 	}
     
+	function handleLinkClick(event: CustomEvent<string>){
+		console.log({level:"demo", msg:"clicked on a link", href: event.detail})
+	}
 </script>
 
 
@@ -66,8 +69,9 @@
 	<div class="container" style:width={containerWidth}>
 		<EditableText 
 			tag="span" 
-			value={"Whereas #beta disregard and :low contempt +project for human rights have resulted ".repeat(3)}
+			value={"Whereas #beta disregard and :low contempt +project [Readme.md](./readme.md) for human rights have resulted ".repeat(3)}
 			on:change={makeHandler("span")}
+			on:linkclick={handleLinkClick}
 		/>
 	</div>
 </Example>

@@ -101,6 +101,7 @@
 			<CompColumn
 				title={column.title} 
 				items={column.items} 
+				on:linkclick
 				on:move={(e) => handleMove(index, e.detail)}
 				on:finalize={handleFinalize}
 				on:titlechanged={(e) => handleColumnTitleChange(index, e.detail)}

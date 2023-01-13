@@ -47,12 +47,47 @@
 
 	}
 
+	function dispatchLinkClick(href: string){
+		dispatch("linkclick", href)
+	}
+
+	
+	// https://github.com/microsoft/vscode/blob/ac88f33e2ca851839a3cd2a972377558f654e0a6/extensions/markdown-language-features/preview-src/index.ts#L249
+	function handleLinkClicks(event: MouseEvent){
+		const passThroughLinkSchemes = ['http:', 'https:', 'mailto:', 'vscode:', 'vscode-insiders:'];
+		let node: any = event.target;
+		while (node) {
+			if (node.tagName && node.tagName === 'A' && node.href) {
+				if (node.getAttribute('href').startsWith('#')) {
+					return;
+				}
+				
+				let hrefText = node.getAttribute('href');
+				if (passThroughLinkSchemes.some(scheme => hrefText.startsWith(scheme))) {
+					return;
+				}
+
+				// If original link doesn't look like a url, delegate back to VS Code to resolve
+				if (!/^[a-z\-]+:/i.test(hrefText)) {
+					dispatchLinkClick(hrefText)
+					// messaging.postMessage('openLink', { href: hrefText });
+					event.preventDefault();
+					event.stopPropagation();
+					return;
+				}
+
+				return;
+			}
+			node = node.parentNode;
+		}
+	}
+
 	// @ts-ignore TODO: correct typing
 	marked.use({ extensions: [markedExtensionPrio, markedExtensionProject,markedExtensionTag]});
 	$: renderedValue = marked.parse(value)
 
 </script>
-<editable-text>
+<editable-text on:click={handleLinkClicks} on:keypress>
 	{#if !isEditing}
 	<svelte:element 
 		this={tag} 

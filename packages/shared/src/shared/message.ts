@@ -8,6 +8,7 @@ export type Message = {
 export enum MessageType {
     Board 	  = "board",
 	SaveBoard = "board",
+	OpenLink  = "openLink"
 }
 
 export type MessageBoard = Message & {
@@ -17,4 +18,9 @@ export type MessageBoard = Message & {
 export type MessageSaveBoard = Message & {
 	type: MessageType.SaveBoard,
 	payload: Board,
+}
+
+export type MessageOpenLink = Message & {
+	type: 	 MessageType.OpenLink,
+	payload: string // the link's href
 }

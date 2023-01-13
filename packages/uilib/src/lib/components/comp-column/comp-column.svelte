@@ -94,6 +94,7 @@
 				{/if}
 				<CompItem 
 					label={item.label} 
+					on:linkclick
 					on:change={(e) => handleTaskChange(index, e.detail) } 
 					on:delete={() => handleDelete(index)}
 				/>

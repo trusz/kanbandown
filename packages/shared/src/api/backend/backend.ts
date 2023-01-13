@@ -2,7 +2,7 @@ import { VSCodeAPI } from "./vscode-api"
 import { writable, Unsubscriber } from "svelte/store"
 import { filteredStore } from "../../shared/filtered-store"
 import { Board } from "../../shared/board"
-import { Message, MessageBoard, MessageSaveBoard, MessageType } from "../../shared/message"
+import { Message, MessageOpenLink, MessageSaveBoard, MessageType } from "../../shared/message"
 import { Window } from "./window"
 
 export type HandlerFn = (b?: Board) => void
@@ -29,6 +29,14 @@ export class BackendAPI {
 		const message: MessageSaveBoard = {
 			type:    MessageType.SaveBoard,
 			payload: b,
+		}
+		this.sendMessage(message)
+	}
+
+	public openLink(href: string) {
+		const message: MessageOpenLink = {
+			type:    MessageType.OpenLink,
+			payload: href,
 		}
 		this.sendMessage(message)
 	}

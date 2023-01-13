@@ -37,27 +37,21 @@ export class KanbanDownEditorProvider implements vscode.CustomTextEditorProvider
 			const newBoard = parse(document.getText());
 			frontendAPI.sendBoard(newBoard);
 		}
+		https://github.com/microsoft/vscode/blob/ac88f33e2ca851839a3cd2a972377558f654e0a6/extensions/markdown-language-features/src/preview/preview.ts#L447
+		frontendAPI.onOpenLink((href:string)=>{
+			const config = vscode.workspace.getConfiguration('markdown', document.uri);
+			
+			const wsFolder =  vscode.workspace.getWorkspaceFolder(document.uri);
+			// var filePath = path.join(vscode.workspace.workspaceFolders![0].uri.toString(), href);
+			var filePath = path.join(wsFolder?.uri.toString(), href);
+			const uri = vscode.Uri.parse(filePath);
+			
+			
+			console.log({level:"dev", msg:"onOpenLink", href, config, filePath, uri, wsFolder});
+			vscode.commands.executeCommand("vscode.open",uri);
+		});
 
 		frontendAPI.onSaveBoard((board: Board)=>{
-
-			const readme = "Readme.md";
-			// @ts-ignore
-			var filePath = path.join(vscode.workspace.workspaceFolders[0].uri.toString(), readme);
-			const content ="hello";
-			// fs.writeFileSync(filePath, content, 'utf8');
-
-			var openPath = vscode.Uri.file(filePath); //A request file path
-			vscode.workspace.openTextDocument(openPath).then(doc => {
-				vscode.window.showTextDocument(doc);
-			}, (err) => console.log({level:"err", err}));
-
-			// @ts-ignore
-			// const root = vscode.workspace.wost(file);
-
-			// try{
-			// } catch(err){
-			// 	console.log({level:"error", msg:"could not open text file", file });
-			// }
 
 			const renderedContent = render(board);
 			const edit = new vscode.WorkspaceEdit();

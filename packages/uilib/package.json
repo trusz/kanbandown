@@ -1,5 +1,7 @@
 {
 	"name": "@kanbandown/uilib",
+	"main": "package/index.js",
+	"types": "package/index.d.ts",
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "vite dev",

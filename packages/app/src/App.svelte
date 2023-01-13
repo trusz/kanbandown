@@ -27,13 +27,19 @@
 		backendAPI.saveBoard(e.detail)
 	}
 
+	function handleLinkClick(e: CustomEvent<string>){
+		backendAPI.openLink(e.detail)
+	}
+
 </script>
 
 <main>
 	{#if board}
 		<CompBoard 
-		{board} 
-		on:board={handleBoard} />
+			{board} 
+			on:linkclick={handleLinkClick}
+			on:board={handleBoard} 
+		/>
 	{/if}
 </main>
 

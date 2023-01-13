@@ -33,7 +33,7 @@
     "build": "vsce package --no-dependencies",
     "_vscode:prepublish": "pnpm run compile",
     "vscode:prepublish": "npm run esbuild-base -- --minify && npm run copy-app",
-    "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node",
+    "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/extension.js --external:vscode --format=cjs --platform=node",
     "copy-app": "mkdir -p ./media && cp -r ./node_modules/@kanbandown/app/dist/index.html ./media",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",

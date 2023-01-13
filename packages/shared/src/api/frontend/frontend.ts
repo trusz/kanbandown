@@ -29,11 +29,18 @@ export class FrontendAPI {
 		this.eventEmmiter.on(MessageType.SaveBoard,handler)
 	}
 
+	public onOpenLink(handler:(href:string) => void){
+		this.eventEmmiter.on(MessageType.OpenLink, handler)
+	}
+
 	private setUpListeners(){
 		this.webview.onDidReceiveMessage<Message>((msg: Message) => {
 			switch(msg.type){
 				case MessageType.SaveBoard: 
 					this.eventEmmiter.emit(MessageType.SaveBoard, msg.payload)
+					return
+				case MessageType.OpenLink:
+					this.eventEmmiter.emit(MessageType.OpenLink, msg.payload)
 					return
 			}
 		})

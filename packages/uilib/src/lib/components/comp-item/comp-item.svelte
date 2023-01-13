@@ -23,7 +23,7 @@
 </script>
 
 <comp-item>
-	<EditableText tag="p" value={label} on:change={handleLabelChange} />
+	<EditableText tag="p" value={label} on:change={handleLabelChange} on:linkclick />
 	<div class="menu">
 		<OverflowMenu items={menuItems} />
 	</div>

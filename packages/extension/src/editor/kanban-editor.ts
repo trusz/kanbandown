@@ -39,15 +39,13 @@ export class KanbanDownEditorProvider implements vscode.CustomTextEditorProvider
 		}
 		https://github.com/microsoft/vscode/blob/ac88f33e2ca851839a3cd2a972377558f654e0a6/extensions/markdown-language-features/src/preview/preview.ts#L447
 		frontendAPI.onOpenLink((href:string)=>{
-			const config = vscode.workspace.getConfiguration('markdown', document.uri);
 			
 			const wsFolder =  vscode.workspace.getWorkspaceFolder(document.uri);
-			// var filePath = path.join(vscode.workspace.workspaceFolders![0].uri.toString(), href);
+			if(!wsFolder){ return; }
+
 			var filePath = path.join(wsFolder?.uri.toString(), href);
 			const uri = vscode.Uri.parse(filePath);
 			
-			
-			console.log({level:"dev", msg:"onOpenLink", href, config, filePath, uri, wsFolder});
 			vscode.commands.executeCommand("vscode.open",uri);
 		});
 

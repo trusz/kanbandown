@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@kanbandown/shared": "workspace:^0.0.1",
-    "@kanbandown/uilib": "workspace:^0.0.1",
+    "@kanbandown/uilib": "../uilib/package",
     "svelte-dnd-action": "^0.9.22"
   },
   "devDependencies": {

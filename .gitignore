@@ -7,3 +7,5 @@ commonjs/**"
 esmodule/**"
 package/**
 *.vsix
+.vscode-test
+out

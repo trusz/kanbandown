@@ -19,7 +19,6 @@
 - [ ] [Readme](./readme.md)
 - [ ] render effort (:low, :medium, :high), tags (#tag1), @ (@person) project (+project), dates
 - [ ] markdown parsing and rendering: md -> object, object->md, md->html
-- [ ] 2 :low extract vscode-svelte-plugin starter template to another report
 
 ## ✅ Done
 

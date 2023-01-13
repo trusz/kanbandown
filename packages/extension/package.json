@@ -1,8 +1,9 @@
 {
   "name": "kanbandown",
   "displayName": "KanbanDown",
-  "description": "KanbanDown, a markdown base Kanban Board",
+  "description": "KanbanDown, a markdown based Kanban Board",
   "repository": "https://github.com/trusz/kanbandown",
+  "publisher": "TamasRuss",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.74.0"
@@ -39,7 +40,8 @@
     "watch": "tsc -watch -p ./",
     "pretest": "pnpm run compile && pnpm run lint",
     "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
+    "test": "node ./out/test/runTest.js",
+    "publish": "vsce publish"
   },
   "dependencies": {
     "@kanbandown/app": "workspace:^0.0.1",

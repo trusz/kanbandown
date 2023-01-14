@@ -58,13 +58,13 @@ export class Board {
 		// column.addItem(newItem, position)
 	}
 
-	public deleteItemFromColumn(columnIndex: number, itemIndex: number){
+	public deleteItemFromColumn(columnIndex: number, indexInColumn: number){
 		const column = this.columns[columnIndex]
-		const itemToDelete = column.items[itemIndex]
-		const indexInItems = this.items.indexOf(itemToDelete)
+		const itemToDelete = column.items[indexInColumn]
+		const indexInAllItems = this.items.indexOf(itemToDelete)
 
-		column.items.splice(indexInItems,1)
-		this.items.splice(indexInItems,1)
+		column.items.splice(indexInColumn,1)
+		this.items.splice(indexInAllItems,1)
 	}
 
 

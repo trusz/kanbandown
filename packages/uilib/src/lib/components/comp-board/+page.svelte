@@ -2,7 +2,7 @@
 <script lang="ts">
     import { CompBoard, CompColumn } from "$lib"
     import { Example } from "$lib/components/internal"
-    import { Board, Item } from "@kanbandown/shared/esmodule";
+    import { Board, Item, parseFromMarkdown, renderToMarkdown } from "@kanbandown/shared/esmodule";
 
     const longText = "Whereas +SOME disregard :low and +another contempt for :high uman rights [Readme](./Readme.md) have resulted #beta"
 	let board = new Board()
@@ -17,8 +17,9 @@
 	board.createItem("task 5 "+longText)
 
 	function handleBoardChange(event:CustomEvent<Board>) {
-		board = Object.setPrototypeOf({...event.detail}, Board.prototype)
-		console.log({level:"demo", msg:"handle board change", board})
+		const newBoard = event.detail
+		board = parseFromMarkdown(renderToMarkdown(newBoard))
+		console.log({level:"demo", msg:"handle board change", board, newBoard})
 	}
 
 	function handleLinkClick(event: CustomEvent<string>){

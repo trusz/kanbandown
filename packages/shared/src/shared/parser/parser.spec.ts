@@ -1,7 +1,7 @@
 import { expect, suite, test } from "vitest"
 import * as fs from "fs"
 import * as path from "path"
-import {parse} from "./parser"
+import { parseFromMarkdown } from "./parser"
 import { Board } from "../board"
 
 suite("Parser", () => {
@@ -39,7 +39,7 @@ suite("Parser", () => {
 				const filePath = path.join(__dirname,tc.file)
 
 				const fileContent = fs.readFileSync(filePath, "utf-8")
-				const board = parse(fileContent)
+				const board = parseFromMarkdown(fileContent)
 				console.log({level:"test", board})
 				const expectedBoard = tc.expectedBoard()
 

@@ -22,6 +22,6 @@
 
 ## ✅ Done
 
-- [ ] this bug
 - [ ] component library
 - [x] :low checkout dasyui
+- [ ] this bug

@@ -14,7 +14,7 @@ const loaders: LoaderConfig[] = [
 
 ]
 
-export function parse(content: string) {
+export function parseFromMarkdown(content: string) {
 	const tokens = marked.lexer(content)
 
 	const board = new Board()

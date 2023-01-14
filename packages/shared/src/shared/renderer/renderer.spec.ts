@@ -2,7 +2,7 @@ import { expect, suite, test } from 'vitest';
 import { Board } from '../board';
 import * as path from "path"
 import * as fs from "fs"
-import { render } from "./renderer"
+import { renderToMarkdown } from "./renderer"
  
 suite("renderer", () => {
     suite("render", () => {
@@ -38,7 +38,7 @@ suite("renderer", () => {
                 const filePath = path.join(__dirname,tc.expectedFile)
                 const fileContent = fs.readFileSync(filePath, "utf-8")
                 const board = tc.makeBoard()
-                const renderedAsMarkdown = render(board)
+                const renderedAsMarkdown = renderToMarkdown(board)
                 expect(renderedAsMarkdown).toEqual(fileContent)
 
             });

@@ -1,6 +1,6 @@
 import { Board, Column, Item } from "../board";
 
-export function render(board:Board): string {
+export function renderToMarkdown(board:Board): string {
 	let result = ""
 	result += renderTitle(board.title)
 	result += renderNewLine()

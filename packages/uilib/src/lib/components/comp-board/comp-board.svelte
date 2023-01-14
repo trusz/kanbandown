@@ -39,7 +39,8 @@
 		dispatchBoardChange()
 	}
 	function handleTaskDelete(columnIndex: number, taskIndex: number){
-		// modifiedBoard.columns[columnIndex].deleteItem(taskIndex)
+
+		console.log({level:"dev", msg:"taskdelete", columnIndex, taskIndex})
 		modifiedBoard.deleteItemFromColumn(columnIndex, taskIndex)
 		dispatchBoardChange()
 	}

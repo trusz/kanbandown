@@ -41,7 +41,8 @@
     "pretest": "pnpm run compile && pnpm run lint",
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js",
-    "publish": "vsce publish"
+    "release:pre": "npm run release -- --pre-release",
+    "release": "vsce publish --no-dependencies"
   },
   "dependencies": {
     "@kanbandown/app": "workspace:^0.0.1",

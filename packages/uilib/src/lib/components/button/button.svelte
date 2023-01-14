@@ -16,11 +16,13 @@
 
 <style>
 	button{
-		display: 	 grid;
-		place-items: center;
-		height: 	 2rem;
-		min-width:   2rem;
-		font-family: inherit;
+		display: 	 	 flex;
+		place-items: 	 center;
+		height: 	 	 2rem;
+		min-width:   	 2rem;
+		font-family: 	 inherit;
+		gap: 		 	 0.5rem;
+		justify-content: center;
 	}
 	.block{
 		width: 100%;

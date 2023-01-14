@@ -12,6 +12,9 @@
         {#each items as item, index}
             <li>
                 <Button on:click={item.onClick} icon>
+                    {#if item.icon}
+                        <svelte:component this={item.icon} />
+                    {/if}
                     {item.label}
                 </Button>
             </li>
@@ -28,9 +31,10 @@
         display:    none;
         opacity:    0;
         transition: opacity 0.2s;
-        padding:    0.5rem 0.5rem;
+        padding:    0.25rem 0.25rem;
         z-index:    1000;
-
+        
+        white-space:   nowrap;
         background:    var(--vscode-dropdown-background);
         color:         var(--vscode-dropdown-foreground);
         border:        var(--vscode-dropdown-border) 1px solid;
@@ -48,18 +52,11 @@
         padding:         0;
         margin:          0;
     }
-    /*
-    li::before{
-        content: "";
-        margin-right: 2ch;
+
+    li{
+        display:     flex;
+        align-items: center;
+        gap:         0.2rem;
     }
-    li.selected .content {
-        text-decoration: underline;
-    }
-    li.selected::before {
-        content: "> ";
-        margin-right: 0;
-        text-decoration: none;
-    }
-    */
+
 </style>

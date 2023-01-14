@@ -5,6 +5,7 @@
 	import { createEventDispatcher } from "svelte"
   	import { EditableText } from "../editable-text";
 	import { OverflowMenu } from "../overflow-menu"
+	import { IconAdd } from "../../icons"
 
 	export let board: Board
 	$: modifiedBoard = Object.setPrototypeOf({...board}, Board.prototype) as Board
@@ -79,7 +80,7 @@
 	// Title overflow menu
 	// 
 	let headerOptions = [
-		{label:"+Column", onClick: handleCreateColumn}
+		{label:"Add Column", onClick: handleCreateColumn, icon: IconAdd}
 	]
 
 </script>
@@ -89,6 +90,7 @@
 		<EditableText value={board.title} tag="h2" on:change={handleTitleChange} />
 		<span class="options"><OverflowMenu items={headerOptions} /></span>
 	</header>
+	<hr />
 	<ul
 		use:dndzone="{{items: columns, flipDurationMs, dropTargetStyle, type:"columns"}}" 
 		on:consider="{handleDndConsider}" 
@@ -132,8 +134,14 @@
 		align-items: 	center;
 	}
 
+	hr{
+		border: 0;
+		border-top: 1px solid var(--vscode-textSeparator-foreground);
+		width: 100%;
+	}
+
 	.options {
-		opacity: 0;
+		opacity: 1;
 		transition: opacity 0.1s;
 	}
 
@@ -144,7 +152,7 @@
 	comp-board ul{
 		display: 		flex;
 		flex-direction: row;
-		gap:			1rem;
+		gap:			1.5rem;
 		min-height: 	6rem;
 	}
 	li{

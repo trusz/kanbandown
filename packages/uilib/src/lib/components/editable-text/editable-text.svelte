@@ -8,7 +8,7 @@
 	} from "@kanbandown/shared/esmodule"
 
 	export let value: string = ""
-	export let newValue = value.replaceAll("<br />", "\n")
+	$: newValue = value.replaceAll("<br />", "\n")
 	export let tag: SupportedTags = "span"
 	type SupportedTags = "h1" | "h2" | "h3" | "h4" | "span" | "p"
 

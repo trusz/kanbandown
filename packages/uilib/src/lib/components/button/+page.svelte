@@ -1,6 +1,7 @@
 <script lang="ts">
     import { Example } from "$lib/components/internal"
 	import Button from "./button.svelte"
+    import { IconAdd  } from "../../icons"
 </script>
 
 <h1>Add Button</h1>
@@ -19,4 +20,8 @@
 
 <Example name="Icon">
     <Button icon>+</Button>
+</Example>
+
+<Example name="Icon and Text">
+    <Button><IconAdd /> Add Something New</Button>
 </Example>

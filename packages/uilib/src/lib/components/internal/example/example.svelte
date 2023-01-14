@@ -3,7 +3,9 @@
 </script>
 
 <example>
-    <h3>{name}</h3>
+    <div>
+        <h3>{name}</h3>
+    </div>
 
     <slot></slot>
 </example>

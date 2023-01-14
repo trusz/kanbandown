@@ -1,13 +1,4 @@
-<h1>Presence</h1>
 
-<Example name="Column">
-    <CompColumn 
-        title={title} 
-        items={items} 
-        on:move={handleMove}
-        on:finalize={handleFinalize}
-    />
-</Example>
 
 <script lang="ts">
     import { CompColumn } from "$lib"
@@ -31,4 +22,20 @@
     function handleFinalize(event:CustomEvent<unknown>){
         console.log({level:"dev", msg:"order is finalized"})
     }
+    function handleTaskAdd(){
+        const newItem = new Item("new", false, items.length)
+        items=[newItem, ...items]
+    }
 </script>
+
+<h1>Presence</h1>
+
+<Example name="Column">
+    <CompColumn 
+        title={title} 
+        items={items} 
+        on:move={handleMove}
+        on:finalize={handleFinalize}
+        on:taskadd={handleTaskAdd}
+    />
+</Example>

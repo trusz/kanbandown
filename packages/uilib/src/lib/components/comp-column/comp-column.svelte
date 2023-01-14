@@ -8,8 +8,9 @@
   	import { CompItem } from "../comp-item";
 	import { Button } from "../button";
   	import { EditableText } from "../editable-text";
-	import { IconAdd } from "../../icons"
+	import { IconAdd, IconColumnDelete } from "../../icons"
 	import { OverflowMenu } from "../overflow-menu"
+	import { Toolbar } from "../toolbar"
 
 
 
@@ -67,7 +68,7 @@
 	// Options
 	// 
 	const headerOptions = [
-		{label:"Delete Column", onClick: handleDeleteColumn}
+		{label:"Delete Column", onClick: handleDeleteColumn, icon: IconColumnDelete}
 	]
 
 
@@ -77,11 +78,13 @@
 <comp-column >
 	<header>
 		<EditableText tag="h3" value={title} on:change={handleTitleChange} />
-		<span class="options"><OverflowMenu items={headerOptions} /></span>
+		<span class="options">
+			<Toolbar>
+				<Button icon on:click={addItem} > <IconAdd /> </Button>
+				<OverflowMenu items={headerOptions} />
+			</Toolbar>
+		</span>
 	</header>
-	<div class="button-add-container">
-		<Button icon block on:click={addItem}> <IconAdd /> </Button>
-	</div>
 	<ul 
 		use:dndzone="{{items, flipDurationMs, dropTargetStyle, type:"items"}}" 
 		on:consider="{handleDndConsider}" 
@@ -110,14 +113,15 @@
 	}
 
 	header {
-		display: flex;
-		flex-direction: row;
-		gap: 0.5rem;
-		align-items: center;
+		display: 		 flex;
+		flex-direction:  row;
+		gap: 			 0.5rem;
+		align-items: 	 center;
+		justify-content: space-between;
 	}
 
 	.options{
-		opacity: 0;
+		opacity: 1;
 		transition: opacity 0.1s;
 	}
 	header:hover .options {

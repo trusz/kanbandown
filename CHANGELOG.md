@@ -2,18 +2,20 @@
 
 ## [Unreleased]
 
-## Fixed
+## [0.0.2] 2023-01-15
+
+### Fixed
 
 - could not delete item from column
 - new items on editing had the previous item's text
 - dropdown now has enough place and is position aware
 
-## Changed
+### Changed
 
 - move the big add item button with the context menu into a toolbar
   next to the column title
 
-## [0.0.1] 2023-01-14
+## [0.0.1] 2023-01-13
 
 ### Added
 

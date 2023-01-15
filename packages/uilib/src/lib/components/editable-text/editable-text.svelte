@@ -8,7 +8,10 @@
 	} from "@kanbandown/shared/esmodule"
 
 	export let value: string = ""
-	$: newValue = value.replaceAll("<br />", "\n")
+	// value can be set to undefined
+	$: safeValue = value ? value : "" 
+	$: textAreaValue = safeValue.replaceAll("<br />", "\n")
+
 	export let tag: SupportedTags = "span"
 	type SupportedTags = "h1" | "h2" | "h3" | "h4" | "span" | "p"
 
@@ -36,13 +39,15 @@
 
 	function cancelEditing(){
 		isEditing = false
-		newValue = value
+		// newValue = value
+		safeValue = value
 	}
 	
 	function dispatchChangeOnEnter(event: KeyboardEvent){
 		if(event.code !== "Enter" || event.shiftKey){ return }
-		dispatch("change",newValue)
-		value=newValue
+		dispatch("change",textAreaValue)
+		// value=newValue
+		safeValue=textAreaValue
 		isEditing = false
 
 	}
@@ -84,9 +89,10 @@
 
 	// @ts-ignore TODO: correct typing
 	marked.use({ extensions: [markedExtensionPrio, markedExtensionProject,markedExtensionTag]});
-	$: renderedValue = marked.parse(value)
+	$: renderedValue = marked.parse(safeValue)
 
 </script>
+
 <editable-text on:click={handleLinkClicks} on:keypress>
 	{#if !isEditing}
 	<svelte:element 
@@ -98,13 +104,12 @@
 		{@html renderedValue}
 	</svelte:element>
 	{:else}
-	<div class="growing-wrapper" data-replicated-value={newValue}>
-	<!-- <div class="growing-wrapper"> -->
+	<div class="growing-wrapper" data-replicated-value={textAreaValue}>
 		<textarea
 			rows=1
 			use:focus
 			on:blur={cancelEditing}
-			bind:value={newValue}
+			bind:value={textAreaValue}
 			on:keydown={dispatchChangeOnEnter}
 			class={sizeClass}
 		/>

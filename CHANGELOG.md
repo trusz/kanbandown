@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- refactored data and eventflow with stores
+
 ## [0.0.3] 2023-01-15
 
 ### Fixed

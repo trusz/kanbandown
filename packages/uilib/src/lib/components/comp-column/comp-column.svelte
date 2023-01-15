@@ -1,8 +1,6 @@
 <script lang="ts">
 
 	// https://svelte.dev/repl/4949485c5a8f46e7bdbeb73ed565a9c7?version=3.55.1
-
-	import { createEventDispatcher } from "svelte"
 	import { dndzone, SHADOW_ITEM_MARKER_PROPERTY_NAME, type DndEvent } from "svelte-dnd-action";
 	import type { Item } from "@kanbandown/shared/esmodule";
   	import { CompItem } from "../comp-item";
@@ -11,21 +9,22 @@
 	import { IconAdd, IconColumnDelete } from "../../icons"
 	import { OverflowMenu } from "../overflow-menu"
 	import { Toolbar } from "../toolbar"
+	import { useBoardContext } from "@kanbandown/shared/esmodule"
 
-
+	const { boardStore, saveBoard } = useBoardContext()
+	
 
 	type ShadowItem = Item & {
 		isDndShadowItem: boolean
 	}
-	export let title: string
-	export let items: (Item|ShadowItem)[]
+	// export let title: string
+	let items: (Item|ShadowItem)[]
+	export let index: number
 	
+	$: column = $boardStore.columns[index]
+	$: items = column.items
+	$: title = column.title
 
-	const dispatch = createEventDispatcher()
-	const dispatchFinalize = () => dispatch("finalize")
-	function dispatchMove(items:Item[]){
-		dispatch("move",items)
-	}
 
 	// 
 	// DND
@@ -34,34 +33,43 @@
 	const dropTargetStyle = {};
     function handleDndConsider(e: CustomEvent<DndEvent<Item>>) {
         items = e.detail.items;
-		dispatchMove(e.detail.items)
+		$boardStore.setItems(index, items)
     }
     function handleDndFinalize(e: CustomEvent<DndEvent<Item>>) {
 		if(e.detail.info.trigger !== "droppedIntoZone"){
 			return
 		}
         items = e.detail.items;
-		dispatchFinalize()
+		saveBoard($boardStore)
     }
+
+	// 
+	// Column
+	// 
+	function handleTitleChange(event:CustomEvent<string>){
+		const newTitle = event.detail
+		$boardStore.setColumnTitle(index, newTitle)
+		saveBoard($boardStore)
+	}
+	function handleDeleteColumn(){
+		$boardStore.deleteColumn(index)
+		saveBoard($boardStore)
+	}
 
 	// 
 	// Task
 	// 
-	function handleTitleChange(event:CustomEvent<string>){
-		const newTitle = event.detail
-		dispatch("titlechanged", newTitle)
-	}
 	function handleTaskChange(taskIndex: number, newLabel:string){
-		dispatch("taskchange",{taskIndex, newLabel})
+		$boardStore.setItemLabel(index, taskIndex, newLabel)
+		saveBoard($boardStore)
 	}
 	function handleDelete(taskIndex:number) {
-		dispatch("taskdelete", taskIndex)
+		$boardStore.deleteItem(index, taskIndex)
+		saveBoard($boardStore)
 	}
 	function addItem(){
-		dispatch("taskadd")
-	}
-	function handleDeleteColumn(){
-		dispatch("deletecolumn")
+		$boardStore.createItem("new", false, index, 0)
+		saveBoard($boardStore)
 	}
 
 	// 
@@ -90,16 +98,17 @@
 		on:consider="{handleDndConsider}" 
 		on:finalize="{handleDndFinalize}"
 	>
-		{#each items as item,index(item.id)}
+		{#each items as item,ii(item.id)}
 			<li>
 				{#if Object.hasOwn(item,SHADOW_ITEM_MARKER_PROPERTY_NAME)}
 					<div class='custom-shadow-item'>{item.label}</div>
 				{/if}
 				<CompItem 
-					label={item.label} 
+					columnIndex={index}
+					itemIndex={ii}
 					on:linkclick
-					on:change={(e) => handleTaskChange(index, e.detail) } 
-					on:delete={() => handleDelete(index)}
+					on:change={(e) => handleTaskChange(ii, e.detail) } 
+					on:delete={() => handleDelete(ii)}
 				/>
 			</li>
 		{/each}

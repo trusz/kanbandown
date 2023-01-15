@@ -1,62 +1,28 @@
 <script lang="ts">
-  	import { Board, Column, type Item } from "@kanbandown/shared/esmodule";
+  	import { Board, Column, type Item, useBoardContext } from "@kanbandown/shared/esmodule";
 	import { dndzone, SHADOW_ITEM_MARKER_PROPERTY_NAME, type DndEvent } from "svelte-dnd-action";
 	import { CompColumn } from "../comp-column"
-	import { createEventDispatcher } from "svelte"
   	import { EditableText } from "../editable-text";
 	import { OverflowMenu } from "../overflow-menu"
 	import { IconAdd } from "../../icons"
 
-	export let board: Board
-	$: modifiedBoard = Object.setPrototypeOf({...board}, Board.prototype) as Board
+	const { boardStore, saveBoard } = useBoardContext()
+	$: columns = $boardStore.columns
 
 	type ShadowItem = Item & {
 		[SHADOW_ITEM_MARKER_PROPERTY_NAME]: boolean
 	}
-	$: columns = [...board.columns]
-
-	const dispatch = createEventDispatcher()
-	function dispatchBoardChange(){
-		dispatch("board",modifiedBoard)
-	}
-	function handleMove(columnIndex:number, items: Item[]){
-		modifiedBoard.columns[columnIndex].items = items
-	}
-
-	function handleFinalize(){
-		dispatchBoardChange()
-	}
+	
 	function handleTitleChange(event:CustomEvent<string>){
 		const newTitle = event.detail
-		modifiedBoard.title = newTitle
-		dispatchBoardChange()
-	}
-	function handleColumnTitleChange(columnIndex: number, newTitle:string){
-		modifiedBoard.columns[columnIndex].title = newTitle
-		dispatchBoardChange()
-	}
-	function handleTaskChange(columnIndex: number, taskIndex:number, newLabel: string){
-		modifiedBoard.columns[columnIndex].items[taskIndex].label = newLabel
-		dispatchBoardChange()
-	}
-	function handleTaskDelete(columnIndex: number, taskIndex: number){
-
-		console.log({level:"dev", msg:"taskdelete", columnIndex, taskIndex})
-		modifiedBoard.deleteItemFromColumn(columnIndex, taskIndex)
-		dispatchBoardChange()
-	}
-	function handleTaskAdd(columnIndex: number){
-		modifiedBoard.createItem("new",false,columnIndex, 0)
-		dispatchBoardChange()
+		$boardStore.setTitle(newTitle)
+		saveBoard($boardStore)
 	}
 	function handleCreateColumn(){
-		modifiedBoard.createColumn("+new+")
-		dispatchBoardChange()
+		$boardStore.createColumn("+new+")
+		saveBoard($boardStore)
 	}
-	function handleDeleteColumn(columnIndex: number){
-		modifiedBoard.deleteColumn(columnIndex)
-		dispatchBoardChange()
-	}
+
 
 	// 
 	// DND
@@ -65,15 +31,15 @@
 	const dropTargetStyle = {};
 	function handleDndConsider(e: CustomEvent<DndEvent<Column>>) {
 		columns = e.detail.items;
-		modifiedBoard.columns = columns
+		$boardStore.setColumn(columns)
     }
     function handleDndFinalize(e: CustomEvent<DndEvent<Column>>) {
 		if(e.detail.info.trigger !== "droppedIntoZone"){
 			return
 		}
 		columns = e.detail.items;
-		modifiedBoard.columns = columns
-		dispatchBoardChange()
+		$boardStore.setColumn(columns)
+		saveBoard($boardStore)
     }
 
 	// 
@@ -87,7 +53,7 @@
 
 <comp-board>
 	<header>
-		<EditableText value={board.title} tag="h2" on:change={handleTitleChange} />
+		<EditableText value={$boardStore.title} tag="h2" on:change={handleTitleChange} />
 		<span class="options"><OverflowMenu items={headerOptions} /></span>
 	</header>
 	<hr />
@@ -102,16 +68,8 @@
 					<div class='custom-shadow-item'><h1>{column.title}</h1></div>
 			{/if}
 			<CompColumn
-				title={column.title} 
-				items={column.items} 
+				index={index}
 				on:linkclick
-				on:move={(e) => handleMove(index, e.detail)}
-				on:finalize={handleFinalize}
-				on:titlechanged={(e) => handleColumnTitleChange(index, e.detail)}
-				on:taskchange={(e)=> handleTaskChange(index, e.detail.taskIndex, e.detail.newLabel)}
-				on:taskadd={() => handleTaskAdd(index)}
-				on:taskdelete={ (e) => handleTaskDelete(index, e.detail)}
-				on:deletecolumn={ () => handleDeleteColumn(index) }
 			/>
 		</li>
 	{/each}

@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { onMount } from "svelte"
-	import svelteLogo from './assets/svelte.svg'
-	import Counter from './lib/Counter.svelte'
-	import { type MessageBoard, BackendAPI, Board} from "@kanbandown/shared/esmodule"
+	import { BackendAPI, Board, useBoardContext, initBoardContext} from "@kanbandown/shared/esmodule"
 	import { CompBoard } from "@kanbandown/uilib"
 	import "@kanbandown/uilib/style.css"
 
@@ -10,22 +8,28 @@
 	// @ts-ignore
 	const vscode = acquireVsCodeApi();
 	const backendAPI = new BackendAPI(vscode, window)
+	initBoardContext()
+	console.log({level:"dev", msg:"app.svelte", useBoardContext})
+	const { boardStore, displayBoard, onSaveBoard } = useBoardContext()
+
 
 	// 
 	// Listen
 	//
-	let board: Board
 	onMount(() => {
 		backendAPI.listenOnBoard((newBoard?: Board) => {
+			console.log({level:"dev", msg:"listenonboard", newBoard})
 			if(!newBoard){ return }
-
-			board = newBoard	
+			const realBoard = Object.setPrototypeOf(newBoard,Board.prototype)
+			displayBoard(realBoard)
 		})
-	})
 
-	function handleBoard(e: CustomEvent<Board>){
-		backendAPI.saveBoard(e.detail)
-	}
+		onSaveBoard((newBoard?: Board) => {
+			if(!newBoard){ return }
+			backendAPI.saveBoard(newBoard)
+		})
+
+	})
 
 	function handleLinkClick(e: CustomEvent<string>){
 		backendAPI.openLink(e.detail)
@@ -34,11 +38,9 @@
 </script>
 
 <main>
-	{#if board}
+	{#if $boardStore}
 		<CompBoard 
-			{board} 
 			on:linkclick={handleLinkClick}
-			on:board={handleBoard} 
 		/>
 	{/if}
 </main>

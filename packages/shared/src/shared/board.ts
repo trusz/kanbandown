@@ -7,6 +7,13 @@ export class Board {
 	public items:	 Item[]	 = []
 
 	// 
+	// Board
+	// 
+	public setTitle(newTitle: string){
+		this.title = newTitle
+	}
+
+	// 
 	// Column
 	// 
 	public createColumn(title:string, at:number = this.columns.length){
@@ -19,6 +26,15 @@ export class Board {
 	}
 	public deleteColumn(columnIndex: number) {
 		this.columns.splice(columnIndex,1)
+	}
+	public setColumnTitle(columnIndex: number, newTitle: string){
+		this.columns[columnIndex].title = newTitle
+	}
+	public setColumn(columns: Column[]){
+		this.columns = columns
+	}
+	public setItems(columnIndex: number, items: Item[]){
+		this.columns[columnIndex].items = items
 	}
 
 	private hasColumnAt(index:number): boolean{
@@ -56,6 +72,14 @@ export class Board {
 		const column = this.columns[columnIndex]
 		this.addItemToColumn(column, newItem, position)
 		// column.addItem(newItem, position)
+	}
+
+	public setItemLabel(
+		columnIndex: number,
+		taskIndex: number,
+		newLabel: string,
+	){
+		this.columns[columnIndex].items[taskIndex].label = newLabel
 	}
 
 	public deleteItemFromColumn(columnIndex: number, indexInColumn: number){

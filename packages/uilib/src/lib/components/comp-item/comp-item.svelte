@@ -1,18 +1,24 @@
 <script lang="ts">
-	import { createEventDispatcher } from "svelte"
 	import { EditableText } from "$lib/components/editable-text";
 	import { OverflowMenu } from "$lib/components/overflow-menu"
+  	import { useBoardContext } from "@kanbandown/shared/esmodule";
 
-	export let label: string
+	export let columnIndex: number
+	export let itemIndex: number
 
-	const dispatch = createEventDispatcher()
+	const { boardStore, saveBoard } = useBoardContext()
+	$: item = $boardStore?.columns[columnIndex]?.items[itemIndex]
 
 	function handleLabelChange(event:CustomEvent<string>){
-		dispatch("change", event.detail)
+		const newLabel = event.detail
+		$boardStore?.setItemLabel(columnIndex, itemIndex, newLabel)
+		saveBoard($boardStore)
 	}
 
+	// TODO: broken
 	function handleDelete(){
-		dispatch("delete")
+		$boardStore.deleteItemFromColumn(columnIndex, itemIndex)
+		saveBoard($boardStore)
 	}
 
 	let menuItems = [
@@ -23,7 +29,7 @@
 </script>
 
 <comp-item>
-	<EditableText tag="p" value={label} on:change={handleLabelChange} on:linkclick />
+	<EditableText tag="p" value={item?.label} on:change={handleLabelChange} on:linkclick />
 	<div class="menu">
 		<OverflowMenu items={menuItems} />
 	</div>

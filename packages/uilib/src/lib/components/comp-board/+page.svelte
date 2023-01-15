@@ -1,8 +1,18 @@
 
 <script lang="ts">
+	import { onDestroy } from "svelte"
     import { CompBoard, CompColumn } from "$lib"
     import { Example } from "$lib/components/internal"
-    import { Board, Item, parseFromMarkdown, renderToMarkdown } from "@kanbandown/shared/esmodule";
+    import { 
+		Board, 
+		Item, 
+		parseFromMarkdown, 
+		renderToMarkdown,
+		useBoardContext,
+		initBoardContext,
+	} from "@kanbandown/shared/esmodule";
+	
+
 
     const longText = "Whereas +SOME disregard :low and +another contempt for :high uman rights [Readme](./Readme.md) have resulted #beta"
 	let board = new Board()
@@ -16,18 +26,29 @@
 	board.createColumn("Done")
 	board.createItem("task 5 "+longText)
 
-	function handleBoardChange(event:CustomEvent<Board>) {
-		const newBoard = event.detail
-		board = parseFromMarkdown(renderToMarkdown(newBoard))
-		console.log({level:"demo", msg:"handle board change", board, newBoard})
-	}
+	initBoardContext()
+	const {boardStore, displayBoard, onSaveBoard} = useBoardContext()
+	displayBoard(board)
+
+	const unsubscribe = onSaveBoard((b) => {
+		if(!b){ return }
+		const mdContent = renderToMarkdown(b)
+		console.log({level:"demo", msg:"generated markdown", mdContent})
+		
+		const simulatedFileWriteAndReparsedBoard = parseFromMarkdown(mdContent)
+		displayBoard(simulatedFileWriteAndReparsedBoard)
+	})
+	onDestroy(() => unsubscribe())
 
 	function handleLinkClick(event: CustomEvent<string>){
 		console.log({level:"demo", msg:"handling link clicks", href: event.detail})
 	}
 
+
 </script>
 
 <Example name="">
-    <CompBoard board={board} on:board={handleBoardChange} on:linkclick={handleLinkClick} />
+    <CompBoard 
+		on:linkclick={handleLinkClick} 
+	/>
 </Example>

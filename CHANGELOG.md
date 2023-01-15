@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.0.3] 2023-01-15
+
+### Fixed
+
+- extension not loading because of a typo in a function name
+
 ## [0.0.2] 2023-01-15
 
 ### Fixed

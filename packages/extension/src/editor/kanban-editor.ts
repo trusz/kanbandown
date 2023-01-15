@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import { getNonce } from './util';
 import * as fs from "fs";
 import * as path from "path";
-import { Board, FrontendAPI, parse, render } from '@kanbandown/shared/commonjs';
+import { Board, FrontendAPI, parseFromMarkdown, renderToMarkdown } from '@kanbandown/shared/commonjs';
 export class KanbanDownEditorProvider implements vscode.CustomTextEditorProvider {
 
 	public static register(context: vscode.ExtensionContext): vscode.Disposable {
@@ -34,7 +34,7 @@ export class KanbanDownEditorProvider implements vscode.CustomTextEditorProvider
 		
 		const frontendAPI = new FrontendAPI(webviewPanel.webview);
 		function updateWebview() {
-			const newBoard = parse(document.getText());
+			const newBoard = parseFromMarkdown(document.getText());
 			frontendAPI.sendBoard(newBoard);
 		}
 		https://github.com/microsoft/vscode/blob/ac88f33e2ca851839a3cd2a972377558f654e0a6/extensions/markdown-language-features/src/preview/preview.ts#L447
@@ -51,7 +51,7 @@ export class KanbanDownEditorProvider implements vscode.CustomTextEditorProvider
 
 		frontendAPI.onSaveBoard((board: Board)=>{
 
-			const renderedContent = render(board);
+			const renderedContent = renderToMarkdown(board);
 			const edit = new vscode.WorkspaceEdit();
 		// Just replace the entire document every time for this example extension.
 		// A more complete extension should compute minimal edits instead.

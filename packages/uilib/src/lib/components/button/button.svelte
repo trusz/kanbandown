@@ -51,5 +51,4 @@
 		background-color: var(--vscode-button-secondaryHoverBackground);
 	}
 
-
 </style>

@@ -22,6 +22,11 @@ suite("Component", () => {
 				input: "before text :low after text",
 				expectedHTML: "before text <prio>:low</prio> after text"
             },
+            {
+                desc: "should not be part of a word",
+				input: "before text 10:30 after text",
+				expectedHTML: "before text 10:30 after text"
+            },
         ]
 
         featureTests.forEach(testFeature)

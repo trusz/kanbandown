@@ -22,6 +22,11 @@ suite("Component", () => {
 				input: "before text +project after text",
 				expectedHTML: "before text <project>+project</project> after text"
             },
+            {
+                desc: "not part of a word",
+				input: "before text a+b after text",
+				expectedHTML: "before text a+b after text"
+            },
         ]
 
         featureTests.forEach(testFeature)

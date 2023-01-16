@@ -22,6 +22,11 @@ suite("Marked Extension: Tag", () => {
 				input: "before text #tag after text",
 				expectedHTML: "before text <tag>#tag</tag> after text"
             },
+            {
+                desc: "not part of a word",
+				input: "before text url#target after text",
+				expectedHTML: "before text url#target after text"
+            },
         ]
 
         featureTests.forEach(testFeature)

@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+### Added
+
+- mention `@mention` syntax
+- "edit" context menu for project- and column title and for task
+
 ### Changed
 
 - refactored data and eventflow with stores

@@ -6,9 +6,6 @@ html {
 body {
 	font-family: var(--vscode-editor-font-family, "Inter, Avenir, Helvetica, Arial, sans-serif");
 	font-size:   12px;
-	/* line-height: 24px; */
-	/* font-weight: 400; */
-	/* color: white; */
 	padding: 1rem;
 	background-color: var(--vscode-editor-background);
     color:            var(--vscode-foreground);
@@ -60,6 +57,13 @@ tag{
     font-size: 0.75rem;
     text-transform: uppercase;
     font-weight: bold;
+}
+
+mention{
+    display: inline-block;
+    color: var(--vscode-charts-purple);
+    border-radius: 2px;
+    padding: 0 2px;
 }
 
 textarea,

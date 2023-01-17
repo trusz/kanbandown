@@ -5,6 +5,8 @@
   	import { EditableText } from "../editable-text";
 	import { OverflowMenu } from "../overflow-menu"
 	import { IconAdd } from "../../icons"
+  	import { IconEdit } from "$lib/icons";
+	import type { EditableTextAPI } from "$lib"
 
 	const { boardStore, saveBoard } = useBoardContext()
 	$: columns = $boardStore.columns
@@ -21,6 +23,11 @@
 	function handleCreateColumn(){
 		$boardStore.createColumn("+new+")
 		saveBoard($boardStore)
+	}
+	let titleTextAPI: EditableTextAPI
+	function handleEditTitle(){
+		if(!titleTextAPI){ return }
+		titleTextAPI.enableEditing()
 	}
 
 
@@ -46,14 +53,16 @@
 	// Title overflow menu
 	// 
 	let headerOptions = [
-		{label:"Add Column", onClick: handleCreateColumn, icon: IconAdd}
+		{label:"Edit", 	     onClick: handleEditTitle,    icon: IconEdit },
+		{label:"Add Column", onClick: handleCreateColumn, icon: IconAdd },
 	]
+
 
 </script>
 
 <comp-board>
 	<header>
-		<EditableText value={$boardStore.title} tag="h2" on:change={handleTitleChange} />
+		<EditableText value={$boardStore.title} tag="h2" on:change={handleTitleChange}  bind:api={titleTextAPI}/>
 		<span class="options"><OverflowMenu items={headerOptions} /></span>
 	</header>
 	<hr />

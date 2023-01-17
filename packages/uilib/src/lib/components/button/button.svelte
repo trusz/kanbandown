@@ -16,7 +16,7 @@
 
 <style>
 	button{
-		display: 	 	 flex;
+		display: 	 	 inline-flex;
 		place-items: 	 center;
 		height: 	 	 2rem;
 		min-width:   	 2rem;

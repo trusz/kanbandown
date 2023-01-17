@@ -1,11 +1,14 @@
 
 <script lang="ts">
-    import { EditableText } from "$lib"
+    import { EditableText, Button } from "$lib"
+
+  	import type { EditableTextAPI } from "./";
     import { Example } from "$lib/components/internal"
 
 	function makeHandler(tag: string){
 		return function handleChange(event:CustomEvent<string>){
 			console.log({level:"demo", tag, text: event.detail })
+			isEditing = false
 		}
 	}
 
@@ -18,6 +21,14 @@
 	function handleLinkClick(event: CustomEvent<string>){
 		console.log({level:"demo", msg:"clicked on a link", href: event.detail})
 	}
+
+	let isEditing = false
+	let api: EditableTextAPI
+	$: ((isEditing) =>{
+		if(!api){ return }
+		if(isEditing){ api.enableEditing() }
+		else { api.disableEditing() }
+	})(isEditing)
 </script>
 
 
@@ -52,6 +63,19 @@
     <EditableText 
 		tag="span" 
 		value="This text is editable"  
+		on:change={makeHandler("span")}
+	/>
+</Example>
+
+<Example name="API">
+	<div class="api-buttons">
+		<Button on:click={ () => api.enableEditing() }>Edit</Button>
+		<Button  on:click={ () => api.disableEditing() }>Finish</Button>
+	</div>
+    <EditableText 
+		tag="span" 
+		value="This text is editable"  
+		bind:api={api}
 		on:change={makeHandler("span")}
 	/>
 </Example>
@@ -92,5 +116,9 @@
 		/* border: gray thin solid; */
 		display: inline-block;
 		/* padding: 1rem; */
+	}
+
+	.api-buttons{
+		margin-bottom: 1rem;
 	}
 </style>

@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { EditableText } from "$lib/components/editable-text";
+	import { EditableText, type EditableTextAPI } from "$lib/components/editable-text";
 	import { OverflowMenu } from "$lib/components/overflow-menu"
+  	import { IconEdit, IconDelete } from "$lib/icons";
   	import { useBoardContext } from "@kanbandown/shared/esmodule";
 
 	export let columnIndex: number
@@ -15,21 +16,29 @@
 		saveBoard($boardStore)
 	}
 
-	// TODO: broken
 	function handleDelete(){
 		$boardStore.deleteItemFromColumn(columnIndex, itemIndex)
 		saveBoard($boardStore)
 	}
 
+	function handleEdit(){
+		if(!editableTextAPI){ return }
+
+		editableTextAPI.enableEditing()
+	}
+
 	let menuItems = [
-		{label:"Delete", onClick: handleDelete}
+		{label:"Edit", 	 onClick: handleEdit, 	icon: IconEdit },
+		{label:"Delete", onClick: handleDelete, icon: IconDelete },
 	]
+
+	let editableTextAPI: EditableTextAPI
 
 
 </script>
 
 <comp-item>
-	<EditableText tag="p" value={item?.label} on:change={handleLabelChange} on:linkclick />
+	<EditableText tag="p" value={item?.label} on:change={handleLabelChange} on:linkclick  bind:api={editableTextAPI}/>
 	<div class="menu">
 		<OverflowMenu items={menuItems} />
 	</div>

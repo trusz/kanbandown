@@ -1,3 +1,10 @@
+<script context="module" lang="ts">
+	export type State = "read" | "write"
+	export type API = {
+		enableEditing: () => void
+		disableEditing: () => void
+	}
+</script>
 <script lang="ts">
 	import {createEventDispatcher} from "svelte"
 	import {marked} from "marked"
@@ -5,15 +12,15 @@
 		markedExtensionPrio, 
 		markedExtensionProject, 
 		markedExtensionTag,
+		markedExtensionMention,
 	} from "@kanbandown/shared/esmodule"
-
-	export let value: string = ""
-	// value can be set to undefined
-	$: safeValue = value ? value : "" 
-	$: textAreaValue = safeValue.replaceAll("<br />", "\n")
 
 	export let tag: SupportedTags = "span"
 	type SupportedTags = "h1" | "h2" | "h3" | "h4" | "span" | "p"
+
+	export let value: string = ""
+	$: safeValue = value ? value : "" // value can be set to undefined
+	$: textAreaValue = safeValue.replaceAll("<br />", "\n")
 
 	const dispatch = createEventDispatcher()
 
@@ -28,7 +35,13 @@
 
 	$: sizeClass = classMap[tag]
 
+	export const api: API = {
+		enableEditing,
+		disableEditing: () => isEditing = false,
+	}
+
 	let isEditing = false
+	$: dispatchStateChange( isEditing ? "write" : "read" )
 	function enableEditing(){
 		isEditing = true
 	}
@@ -54,6 +67,10 @@
 
 	function dispatchLinkClick(href: string){
 		dispatch("linkclick", href)
+	}
+
+	function dispatchStateChange(state: State){
+		dispatch("state", state)
 	}
 
 	
@@ -87,8 +104,14 @@
 		}
 	}
 
+	const extensions = [
+		markedExtensionPrio, 
+		markedExtensionProject,
+		markedExtensionTag,
+		markedExtensionMention,
+	]
 	// @ts-ignore TODO: correct typing
-	marked.use({ extensions: [markedExtensionPrio, markedExtensionProject,markedExtensionTag]});
+	marked.use({ extensions: extensions});
 	$: renderedValue = marked.parse(safeValue)
 
 </script>

@@ -5,8 +5,8 @@
 	import type { Item } from "@kanbandown/shared/esmodule";
   	import { CompItem } from "../comp-item";
 	import { Button } from "../button";
-  	import { EditableText } from "../editable-text";
-	import { IconAdd, IconColumnDelete } from "../../icons"
+  	import { EditableText, type EditableTextAPI } from "../editable-text";
+	import { IconAdd, IconEdit, IconColumnDelete } from "../../icons"
 	import { OverflowMenu } from "../overflow-menu"
 	import { Toolbar } from "../toolbar"
 	import { useBoardContext } from "@kanbandown/shared/esmodule"
@@ -55,6 +55,11 @@
 		$boardStore.deleteColumn(index)
 		saveBoard($boardStore)
 	}
+	let titleTextAPI: EditableTextAPI
+	function handleEdit(){
+		if(!titleTextAPI){ return }
+		titleTextAPI.enableEditing()
+	}
 
 	// 
 	// Task
@@ -76,7 +81,8 @@
 	// Options
 	// 
 	const headerOptions = [
-		{label:"Delete Column", onClick: handleDeleteColumn, icon: IconColumnDelete}
+		{label:"Edit", 		    onClick: handleEdit,		 icon: IconEdit},
+		{label:"Delete Column", onClick: handleDeleteColumn, icon: IconColumnDelete},
 	]
 
 
@@ -85,7 +91,7 @@
 
 <comp-column >
 	<header>
-		<EditableText tag="h3" value={title} on:change={handleTitleChange} />
+		<EditableText tag="h3" value={title} on:change={handleTitleChange} bind:api={titleTextAPI} />
 		<span class="options">
 			<Toolbar>
 				<Button icon on:click={addItem} > <IconAdd /> </Button>

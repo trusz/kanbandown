@@ -10,10 +10,10 @@ export const markedExtensionMention = {
 	name: 'mention',
 	level: 'inline',                                 
 	// start(src: string) { return src.match(/([^\S])@(\S+)/)?.index; },    
-	start(src: string) { return src.match(/\B@\w+/)?.index; },    
+	start(src: string) { return src.match(/\B@\S+/)?.index; },    
 	tokenizer(src: string, tokens: unknown): any {
 		// const rule = /([^\S])^@(\S+)/;  // Regex for the complete token, anchor to string start
-		const rule = /^\B@\w+/;  // Regex for the complete token, anchor to string start
+		const rule = /^\B@(\S+)/;  // Regex for the complete token, anchor to string start
 		const match = rule.exec(src);
 		if (match) {
 			return {              // Token to generate

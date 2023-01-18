@@ -6,6 +6,7 @@
 
 - mention `@mention` syntax
 - "edit" context menu for project- and column title and for task
+- new command: "KanbanDown: Open as Markdown" to open the source markdown file
 
 ### Changed
 

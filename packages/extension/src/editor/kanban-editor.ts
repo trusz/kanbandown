@@ -31,6 +31,12 @@ export class KanbanDownEditorProvider implements vscode.CustomTextEditorProvider
 			]
 		};
 		webviewPanel.webview.html = this.getHtmlForWebview();
+
+		let disposable = vscode.commands.registerCommand('kanbanDown.openAsMarkdown', () => {
+			vscode.window.showTextDocument(document.uri);
+		});
+	
+		this.context.subscriptions.push(disposable);
 		
 		const frontendAPI = new FrontendAPI(webviewPanel.webview);
 		function updateWebview() {

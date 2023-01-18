@@ -28,6 +28,12 @@
           }
         ]
       }
+    ],
+    "commands": [
+      {
+        "command": "kanbanDown.openAsMarkdown",
+        "title": "KanbanDown: Open as Markdown"
+      }
     ]
   },
   "scripts": {

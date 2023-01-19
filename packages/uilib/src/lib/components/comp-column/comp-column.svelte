@@ -6,21 +6,26 @@
   	import { CompItem } from "../comp-item";
 	import { Button } from "../button";
   	import { EditableText, type EditableTextAPI } from "../editable-text";
-	import { IconAdd, IconEdit, IconColumnDelete } from "../../icons"
+	import { IconAdd, IconEdit, IconColumnDelete, IconClearItems } from "../../icons"
 	import { OverflowMenu } from "../overflow-menu"
 	import { Toolbar } from "../toolbar"
 	import { useBoardContext } from "@kanbandown/shared/esmodule"
 
+	// 
+	// Props
+	// 
+	export let index: number
+
+	// 
+	// Setup
+	// 
 	const { boardStore, saveBoard } = useBoardContext()
 	
-
 	type ShadowItem = Item & {
 		isDndShadowItem: boolean
 	}
-	// export let title: string
 	let items: (Item|ShadowItem)[]
-	export let index: number
-	
+
 	$: column = $boardStore.columns[index]
 	$: items = column.items
 	$: title = column.title
@@ -60,6 +65,10 @@
 		if(!titleTextAPI){ return }
 		titleTextAPI.enableEditing()
 	}
+	function handleClearItems(){
+		$boardStore.clearItems(index)
+		saveBoard($boardStore)
+	}
 
 	// 
 	// Task
@@ -82,7 +91,8 @@
 	// 
 	const headerOptions = [
 		{label:"Edit", 		    onClick: handleEdit,		 icon: IconEdit},
-		{label:"Delete Column", onClick: handleDeleteColumn, icon: IconColumnDelete},
+		{label:"Delete Column", onClick: handleDeleteColumn, icon: IconColumnDelete, color: "var(--vscode-editorError-foreground)"},
+		{label:"Clear Items",   onClick: handleClearItems,   icon: IconClearItems, color: "var(--vscode-editorError-foreground)"},
 	]
 
 
@@ -91,7 +101,13 @@
 
 <comp-column >
 	<header>
-		<EditableText tag="h3" value={title} on:change={handleTitleChange} bind:api={titleTextAPI} />
+		<EditableText 
+			tag="h3" 
+			value={title} 
+			placeholder="<title>"
+			on:change={handleTitleChange} 
+			bind:api={titleTextAPI} 
+		/>
 		<span class="options">
 			<Toolbar>
 				<Button icon on:click={addItem} > <IconAdd /> </Button>

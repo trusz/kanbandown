@@ -36,6 +36,9 @@ export class Board {
 	public setItems(columnIndex: number, items: Item[]){
 		this.columns[columnIndex].items = items
 	}
+	public clearItems(columnIndex: number){
+		this.columns[columnIndex].items = []
+	}
 
 	private hasColumnAt(index:number): boolean{
 		const c = this.columns[index]

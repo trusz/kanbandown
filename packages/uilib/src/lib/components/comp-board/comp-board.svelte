@@ -21,7 +21,7 @@
 		saveBoard($boardStore)
 	}
 	function handleCreateColumn(){
-		$boardStore.createColumn("+new+")
+		$boardStore.createColumn("")
 		saveBoard($boardStore)
 	}
 	let titleTextAPI: EditableTextAPI
@@ -62,7 +62,13 @@
 
 <comp-board>
 	<header>
-		<EditableText value={$boardStore.title} tag="h2" on:change={handleTitleChange}  bind:api={titleTextAPI}/>
+		<EditableText 
+			value={$boardStore.title} 
+			placeholder="<Project Title>"
+			tag="h2" 
+			on:change={handleTitleChange}  
+			bind:api={titleTextAPI}
+		/>
 		<span class="options"><OverflowMenu items={headerOptions} /></span>
 	</header>
 	<hr />

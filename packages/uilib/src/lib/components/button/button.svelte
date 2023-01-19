@@ -23,6 +23,7 @@
 		font-family: 	 inherit;
 		gap: 		 	 0.5rem;
 		justify-content: center;
+
 	}
 	.block{
 		width: 100%;
@@ -39,7 +40,7 @@
 
 	button {
 		background-color: var(--vscode-button-secondaryBackground);
-		color: 			  var(--vscode-button-secondaryForeground);
+		color: 			  var(--button__color, var(--vscode-button-secondaryForeground));
 		
 		border-radius: 4px;
 		border:		   none;

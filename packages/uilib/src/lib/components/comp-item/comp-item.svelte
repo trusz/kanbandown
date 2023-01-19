@@ -29,7 +29,7 @@
 
 	let menuItems = [
 		{label:"Edit", 	 onClick: handleEdit, 	icon: IconEdit },
-		{label:"Delete", onClick: handleDelete, icon: IconDelete },
+		{label:"Delete", onClick: handleDelete, icon: IconDelete, color:"var(--vscode-editorError-foreground)"},
 	]
 
 	let editableTextAPI: EditableTextAPI
@@ -38,7 +38,14 @@
 </script>
 
 <comp-item>
-	<EditableText tag="p" value={item?.label} on:change={handleLabelChange} on:linkclick  bind:api={editableTextAPI}/>
+	<EditableText 
+		tag="p" 
+		value={item?.label} 
+		placeholder="<description>"
+		on:change={handleLabelChange} 
+		on:linkclick  
+		bind:api={editableTextAPI}
+	/>
 	<div class="menu">
 		<OverflowMenu items={menuItems} />
 	</div>

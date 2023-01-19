@@ -15,13 +15,38 @@
 		markedExtensionMention,
 	} from "@kanbandown/shared/esmodule"
 
-	export let tag: SupportedTags = "span"
+	// 
+	// Internal Types
+	// 
 	type SupportedTags = "h1" | "h2" | "h3" | "h4" | "span" | "p"
 
+	// 
+	// Props
+	// 
+	export let tag: SupportedTags = "span"
 	export let value: string = ""
+	export let placeholder: string | undefined = undefined
+
+	// 
+	// Derived
+	// 
+	$: showValue = value !== ""
 	$: safeValue = value ? value : "" // value can be set to undefined
 	$: textAreaValue = safeValue.replaceAll("<br />", "\n")
 
+	const extensions = [
+		markedExtensionPrio, 
+		markedExtensionProject,
+		markedExtensionTag,
+		markedExtensionMention,
+	]
+	// @ts-ignore TODO: correct typing
+	marked.use({ extensions: extensions});
+	$: renderedValue = marked.parse(safeValue)
+
+	// 
+	// Setup
+	// 
 	const dispatch = createEventDispatcher()
 
 	export const classMap: {[tag in SupportedTags]: string} ={
@@ -104,27 +129,27 @@
 		}
 	}
 
-	const extensions = [
-		markedExtensionPrio, 
-		markedExtensionProject,
-		markedExtensionTag,
-		markedExtensionMention,
-	]
-	// @ts-ignore TODO: correct typing
-	marked.use({ extensions: extensions});
-	$: renderedValue = marked.parse(safeValue)
+	
 
 </script>
 
 <editable-text on:click={handleLinkClicks} on:keypress>
-	{#if !isEditing}
+	{#if !isEditing }
 	<svelte:element 
 		this={tag} 
 		class="text" 
+		class:placeholder={!showValue}
 		on:dblclick={enableEditing}
 		on:keypress={()=>{}}
 	>
-		{@html renderedValue}
+
+		{#if showValue}
+			{@html renderedValue}
+		{:else}
+			{placeholder}
+		{/if}
+
+
 	</svelte:element>
 	{:else}
 	<div class="growing-wrapper" data-replicated-value={textAreaValue}>
@@ -144,9 +169,8 @@
 <style>
 
 	editable-text{
-		/* border: red thin solid; */
-		display: inline-grid;
-		/* width:	 100%; */
+		/* display: inline-grid; */
+		display: inline-block;
 	}
 
 	.growing-wrapper{
@@ -188,6 +212,10 @@
 		margin:0;
 	}
 
+	h3.text{
+		margin-right: 3rem;
+	}
+
 
 	.h2{
 		font-size: 1.5em;
@@ -199,6 +227,10 @@
 		word-wrap: break-word;
 		margin: 0;
 		padding: 0;
+	}
+
+	.placeholder{
+		opacity: 0.5;
 	}
 
 	

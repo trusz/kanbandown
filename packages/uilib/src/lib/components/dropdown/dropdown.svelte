@@ -7,11 +7,11 @@
 
 </script>
 
-<dropdown class:open={isOpen}>
+<dropdown class:open={isOpen} >
     <ol>
         {#each items as item, index}
             <li>
-                <Button on:click={item.onClick} icon>
+                <Button on:click={item.onClick} icon --button__color={item.color}>
                     {#if item.icon}
                         <svelte:component this={item.icon} />
                     {/if}

@@ -1,6 +1,7 @@
 
 export type DropdownItem = {
-	label: string
-	icon?: new (...a: any[]) => any
-	onClick: () => void
+	label:   string,
+	onClick: () => void,
+	icon?:   new (...a: any[]) => any,
+	color?:   string,
 }

@@ -100,6 +100,14 @@
 	</div>
 </Example>
 
+<Example name="Placeholder">
+	<EditableText 
+		tag="span"
+		value=""
+		placeholder="<editme>"
+	/>
+</Example>
+
 <style>
 	.c2 {
 		border:red thin solid;

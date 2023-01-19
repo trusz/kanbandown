@@ -2,8 +2,7 @@
 
 ## ⏭️ Next
 
-- [ ] :low clear/archive column
-- [ ] :low item context menu: edit
+- [ ] :low column context menu: add columnr to the right
 - [ ] :medium item context-menu: create card
 - [ ] :low item display checkbox status
 - [ ] :medium allow editable description block
@@ -15,10 +14,12 @@
 
 ## 🚧 In Progress
 
-- [ ] :low board context menu:  <br />- edit <br />- open markdown file
+- [ ] :low clear/archive column
 
 ## ✅ Done
 
+- [ ] :low item context menu: edit
+- [ ] :low board context menu:  <br />- edit <br />- open markdown file
 - [ ] Changelog.md
 - [ ] component library
 - [x] :low checkout dasyui

@@ -5,6 +5,9 @@ import * as path from "path";
 import { Board, FrontendAPI, parseFromMarkdown, renderToMarkdown } from '@kanbandown/shared/commonjs';
 export class KanbanDownEditorProvider implements vscode.CustomTextEditorProvider {
 
+	private disposeCommand?: vscode.Disposable;
+	private static CommandKey = "kanbanDown.openAsMarkdown";
+
 	public static register(context: vscode.ExtensionContext): vscode.Disposable {
 		const provider = new KanbanDownEditorProvider(context);
 		const providerRegistration = vscode.window.registerCustomEditorProvider(KanbanDownEditorProvider.viewType, provider);
@@ -32,14 +35,11 @@ export class KanbanDownEditorProvider implements vscode.CustomTextEditorProvider
 		};
 		webviewPanel.webview.html = this.getHtmlForWebview();
 
-		let disposable = vscode.commands.registerCommand('kanbanDown.openAsMarkdown', () => {
-			vscode.window.showTextDocument(document.uri);
-		});
-	
-		this.context.subscriptions.push(disposable);
+
 		
 		const frontendAPI = new FrontendAPI(webviewPanel.webview);
 		function updateWebview() {
+			
 			const newBoard = parseFromMarkdown(document.getText());
 			frontendAPI.sendBoard(newBoard);
 		}
@@ -90,13 +90,17 @@ export class KanbanDownEditorProvider implements vscode.CustomTextEditorProvider
 
 		// Make sure we get rid of the listener when our editor is closed.
 		webviewPanel.onDidDispose(() => {
-			console.log({level:"dev", msg:"webviewpanel disposed"});
 			changeDocumentSubscription.dispose();
+			this.disposeCommand?.dispose();
+			this.disposeCommand = vscode.commands.registerCommand(KanbanDownEditorProvider.CommandKey, function noop(){});
 		});
 
 		// important!
 		// This make sure that we reload our view when we switch tabs
 		webviewPanel.onDidChangeViewState((e) => {
+			if(e.webviewPanel.active){
+				this.registerCommand(document.uri);
+			}
 			if(webviewPanel.visible){
 				webviewPanel.webview.html = this.getHtmlForWebview();
 				updateWebview();
@@ -104,16 +108,17 @@ export class KanbanDownEditorProvider implements vscode.CustomTextEditorProvider
 		});
 
 		// Receive message from the webview.
-		webviewPanel.webview.onDidReceiveMessage(e => {
-			switch (e.type) {
-				case 'inc':
-					console.warn("code is commented out");
-					// this.incDocument(document);
-					return;
-			}
-		});
 
 		updateWebview();
+	}
+
+	private registerCommand(uri: vscode.Uri){
+		this.disposeCommand?.dispose();
+		
+		this.disposeCommand =  vscode.commands.registerCommand(KanbanDownEditorProvider.CommandKey, () => {
+			vscode.window.showTextDocument(uri);
+		});
+	
 	}
 
 	/**
@@ -135,22 +140,3 @@ export class KanbanDownEditorProvider implements vscode.CustomTextEditorProvider
 	}
 
 }
-
-// export class KanbanDownSerializer implements vscode.WebviewPanelSerializer {
-	
-// 	constructor(
-// 		private getWebviewContent: () => string 
-// 	){}
-
-
-// 	async deserializeWebviewPanel(webviewPanel: vscode.WebviewPanel, state: any) {
-// 	  // `state` is the state persisted using `setState` inside the webview
-// 	  console.log(`Got state: ${state}`);
-  
-// 	  // Restore the content of our webview.
-// 	  //
-// 	  // Make sure we hold on to the `webviewPanel` passed in here and
-// 	  // also restore any event listeners we need on it.
-// 	  webviewPanel.webview.html = this.getWebviewContent();
-// 	}
-//   }

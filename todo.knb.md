@@ -3,6 +3,7 @@
 ## ⏭️ Next
 
 - [ ] :low column context menu: add columnr to the right
+- [ ] :low Light themes do not work well
 - [ ] :medium item context-menu: create card
 - [ ] :low item display checkbox status
 - [ ] :medium allow editable description block
@@ -10,14 +11,14 @@
 - [ ] road map, planned features
 - [ ] :medium Write Readme.md
 - [ ] :medium settings for file pattern
-- [ ] :high subtasks within the board
 
 ## 🚧 In Progress
 
-- [ ] :low clear/archive column
+- [ ] :high subtasks within the board
 
 ## ✅ Done
 
+- [ ] :low clear/archive column
 - [ ] :low item context menu: edit
 - [ ] :low board context menu:  <br />- edit <br />- open markdown file
 - [ ] Changelog.md

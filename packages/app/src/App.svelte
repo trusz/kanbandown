@@ -9,7 +9,6 @@
 	const vscode = acquireVsCodeApi();
 	const backendAPI = new BackendAPI(vscode, window)
 	initBoardContext()
-	console.log({level:"dev", msg:"app.svelte", useBoardContext})
 	const { boardStore, displayBoard, onSaveBoard } = useBoardContext()
 
 
@@ -18,7 +17,6 @@
 	//
 	onMount(() => {
 		backendAPI.listenOnBoard((newBoard?: Board) => {
-			console.log({level:"dev", msg:"listenonboard", newBoard})
 			if(!newBoard){ return }
 			const realBoard = Object.setPrototypeOf(newBoard,Board.prototype)
 			displayBoard(realBoard)

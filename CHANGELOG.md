@@ -2,15 +2,26 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- registering the "Open as Markdown" command more than once broke the extension
+  now we deregister before register it again
+
+
+## [0.0.4] 2023-01-19
+
 ### Added
 
 - mention `@mention` syntax
 - "edit" context menu for project- and column title and for task
 - new command: "KanbanDown: Open as Markdown" to open the source markdown file
+- placeholder for editable but empty text
+- clear all items in a column
 
 ### Changed
 
-- refactored data and eventflow with stores
+- refactored data and event flow with stores
+- make destructive action's text red
 
 ## [0.0.3] 2023-01-15
 

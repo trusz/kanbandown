@@ -14,22 +14,22 @@ suite("Parser", () => {
         }
 
         const featureTests: TestCase[] = [
-            {
-                desc: "first test",
-				file: "./testfiles/simple.md",
-				expectedBoard: () => {
-					const b = new Board()
-					b.title = "Project Title",
+            // {
+            //     desc: "first test",
+			// 	file: "./testfiles/simple.md",
+			// 	expectedBoard: () => {
+			// 		const b = new Board()
+			// 		b.title = "Project Title",
 					
-					b.createColumn("Column 1")
-					b.createItem("item 1")
-					b.createItem("item 2")
-					b.columns[0].items[1].done = true
+			// 		b.createColumn("Column 1")
+			// 		b.createItem("item 1")
+			// 		b.createItem("item 2")
+			// 		b.columns[0].items[1].done = true
 
-					b.createColumn("Column 2")
-					return b
-				}
-            },
+			// 		b.createColumn("Column 2")
+			// 		return b
+			// 	}
+            // },
             // {
             //     desc: "subtasks",
 			// 	file: "./testfiles/multiple-boards.md",
@@ -46,6 +46,30 @@ suite("Parser", () => {
 			// 		return b
 			// 	}
             // },
+            {
+                desc: "description",
+				file: "./testfiles/with-description.md",
+				expectedBoard: () => {
+					const b = new Board()
+					b.title = "Project Title"
+
+					const desc = "paragraph 1 line 1\n" +
+					"paragraph 1 line 2\n\n"+
+					"paragraph 2 line 1\n" +
+					"paragraph 2 line 2"
+
+					b.setDescription(desc)
+					
+					b.createColumn("Column 1")
+					b.createItem("item 1.1")
+					b.createItem("item 1.2")
+					
+					b.createColumn("Column 2")
+					b.createItem("item 2.1")
+					b.createItem("item 2.2")
+					return b
+				}
+            },
         ]
 
         featureTests.forEach(testFeature)

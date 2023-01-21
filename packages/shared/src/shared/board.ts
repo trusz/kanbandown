@@ -12,6 +12,9 @@ export class Board {
 	public setTitle(newTitle: string){
 		this.title = newTitle
 	}
+	public setDescription(newDesc: string){
+		this.description = newDesc
+	}
 
 	// 
 	// Column

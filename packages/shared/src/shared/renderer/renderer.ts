@@ -1,10 +1,16 @@
 import { Board, Column, Item } from "../board";
 
 export function renderToMarkdown(board:Board): string {
-	let result = ""
-	result += renderTitle(board.title)
-	result += renderNewLine()
-	result += renderColumns(board.columns)
+	const parts = [
+		renderTitle(board.title),
+		renderDescription(board.description),
+		renderColumns(board.columns),
+		
+	]
+	
+	let result = parts
+		.filter(p => Boolean(p))
+		.join(renderNewLine())
 
 	return result.trim() + "\n"
 }
@@ -12,6 +18,10 @@ export function renderToMarkdown(board:Board): string {
 
 function renderTitle(title:string, level = 1): string {
 	return `${"#".repeat(level)} ${title}`
+}
+
+function renderDescription(desc: string): string {
+	return desc
 }
 
 function renderNewLine(): string {

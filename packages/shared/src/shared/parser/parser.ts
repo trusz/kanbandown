@@ -10,7 +10,7 @@ const loaders: LoaderConfig[] = [
 	{type:"heading",   loaderFn: loadTitle},
 	{type:"heading",   loaderFn: loadColumn},
 	{type:"list",	   loaderFn: loadTasks},
-	// {type:"paragraph", loaderFn: loadDescription},
+	{type:"paragraph", loaderFn: loadDescription},
 
 ]
 
@@ -58,5 +58,12 @@ function loadTasks(board:Board, token: marked.Token){
 }
 
 function loadDescription(board:Board, token: marked.Token){
+	const alreadyReachedColumns = board.columns.length > 0
+	if(alreadyReachedColumns){ return }
+
 	token = token as marked.Tokens.Paragraph
+	const sep = board.description !== "" ? "\n\n" : ""
+	const newDesc = board.description + sep + token.text
+	board.setDescription(newDesc.trim())
 }
+

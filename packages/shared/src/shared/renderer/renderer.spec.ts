@@ -29,6 +29,30 @@ suite("renderer", () => {
                     return b
                 }
             },
+            {
+                desc: "description",
+                expectedFile: "./testfiles/with-description.md",
+                makeBoard: () => {
+                    const b = new Board()
+					b.title = "Project Title"
+
+					const desc = "paragraph 1 line 1\n" +
+					"paragraph 1 line 2\n\n"+
+					"paragraph 2 line 1\n" +
+					"paragraph 2 line 2"
+
+					b.setDescription(desc)
+					
+					b.createColumn("Column 1")
+					b.createItem("item 1.1")
+					b.createItem("item 1.2")
+					
+					b.createColumn("Column 2")
+					b.createItem("item 2.1")
+					b.createItem("item 2.2")
+					return b
+                }
+            },
         ];
 
         featureTests.forEach(testFeature);

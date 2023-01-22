@@ -13,6 +13,7 @@
 		markedExtensionProject, 
 		markedExtensionTag,
 		markedExtensionMention,
+		markedExtensionImageRenderer,
 	} from "@kanbandown/shared/esmodule"
 
 	// 
@@ -39,9 +40,11 @@
 		markedExtensionProject,
 		markedExtensionTag,
 		markedExtensionMention,
+		markedExtensionImageRenderer,
 	]
 	// @ts-ignore TODO: correct typing
 	marked.use({ extensions: extensions});
+	marked.setOptions({gfm:true, breaks:true})
 	$: renderedValue = marked.parse(safeValue)
 
 	// 
@@ -173,6 +176,10 @@
 		display: inline-block;
 	}
 
+	editable-text :global(p){
+		margin: 1rem 0;
+	}
+
 	.growing-wrapper{
 		display: grid;
 	}
@@ -184,6 +191,7 @@
 	.growing-wrapper::after{
 		content: attr(data-replicated-value) " ";
 		visibility: hidden;
+		white-space: pre-wrap;
 	}
 	textarea{
 		width: 100%;

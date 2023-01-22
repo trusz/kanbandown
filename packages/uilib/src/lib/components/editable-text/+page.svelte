@@ -29,6 +29,13 @@
 		if(isEditing){ api.enableEditing() }
 		else { api.disableEditing() }
 	})(isEditing)
+
+
+	let exampleContainerValue = "Whereas #beta disregard and :low contempt +project [Readme.md](./readme.md) for human rights have resulted\n\n\n".repeat(3)
+	function handleExampleContainerChange(event:CustomEvent<string>){
+		exampleContainerValue = event.detail
+	}
+
 </script>
 
 
@@ -93,8 +100,8 @@
 	<div class="container" style:width={containerWidth}>
 		<EditableText 
 			tag="span" 
-			value={"Whereas #beta disregard and :low contempt +project [Readme.md](./readme.md) for human rights have resulted ".repeat(3)}
-			on:change={makeHandler("span")}
+			bind:value={exampleContainerValue}
+			on:change={handleExampleContainerChange}
 			on:linkclick={handleLinkClick}
 		/>
 	</div>

@@ -17,6 +17,14 @@
     const longText = "Whereas +SOME disregard :low and +another contempt for :high uman rights [Readme](./Readme.md) have resulted #beta"
 	let board = new Board()
 	board.title = "Project"
+	board.setDescription(
+		"paragraph 1 line 1.1\n"+
+		"paragraph 1 line 1.2\n"+
+		"\n"+
+		"paragraph 2 line 2.1\n"+
+		"paragraph 2 line 2.2\n"
+	)
+
 	board.createColumn("Todo")
 	board.createItem("task 1 "+ longText)
 	board.createItem("task 2 "+ longText)

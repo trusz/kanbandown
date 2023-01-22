@@ -28,15 +28,26 @@ export class KanbanDownEditorProvider implements vscode.CustomTextEditorProvider
 	): Promise<void> {
 		webviewPanel.webview.options = {
 			enableScripts: 		true,
-			localResourceRoots: [
-				vscode.Uri.file(path.join(this.context.extensionPath, 'media')),
-				vscode.Uri.file(path.join(this.context.extensionPath, 'node_modules')),
-			]
+			// localResourceRoots: [
+			// 	vscode.Uri.file(path.join(this.context.extensionPath, 'media')),
+			// 	vscode.Uri.file(path.join(this.context.extensionPath, 'node_modules')),
+			// ]
 		};
-		webviewPanel.webview.html = this.getHtmlForWebview();
 
 
-		
+		const uri = document.uri;
+		const uriOfFile = webviewPanel.webview.asWebviewUri(
+			vscode.Uri.joinPath(this.context.extensionUri, document.fileName)
+		);
+		const pathParts = uri.path.split(path.sep);
+		const basePathParts = pathParts.slice(0,-1);
+		const basePath = basePathParts.join(path.sep);
+		const baseURL = `${uriOfFile.scheme}://${encodeURIComponent(uriOfFile.authority)}${basePath}`;
+		// console.log({level:"dev", msg:"in register", baseURL, filePathASWebViewURI: uri, asString: uri.toString()});
+
+
+		webviewPanel.webview.html = this.getHtmlForWebview(document.uri, baseURL);
+
 		const frontendAPI = new FrontendAPI(webviewPanel.webview);
 		function updateWebview() {
 			
@@ -102,7 +113,7 @@ export class KanbanDownEditorProvider implements vscode.CustomTextEditorProvider
 				this.registerCommand(document.uri);
 			}
 			if(webviewPanel.visible){
-				webviewPanel.webview.html = this.getHtmlForWebview();
+				webviewPanel.webview.html = this.getHtmlForWebview(document.uri, baseURL);
 				updateWebview();
 			}
 		});
@@ -124,7 +135,7 @@ export class KanbanDownEditorProvider implements vscode.CustomTextEditorProvider
 	/**
 	 * Get the static html used for the editor webviews.
 	 */
-	public getHtmlForWebview(): string {
+	public getHtmlForWebview(uri: vscode.Uri, basePath: string): string {
 		let indexHTMLPath = "";
 		
 		if(this.context.extensionMode === vscode.ExtensionMode.Production){
@@ -133,8 +144,9 @@ export class KanbanDownEditorProvider implements vscode.CustomTextEditorProvider
 			indexHTMLPath = path.join(this.context.extensionPath, 'node_modules', "@kanbandown/app/dist", "index.html");
 		}
 		
-		this.context.extensionMode;
-		const indexContent = fs.readFileSync(indexHTMLPath.toString(),'utf-8');
+		let indexContent = fs.readFileSync(indexHTMLPath.toString(),'utf-8');
+		indexContent = indexContent.replace("%DOCUMENT_URI%", uri.toString());
+		indexContent = indexContent.replace("%BASE_PATH%", basePath);
 
 		return indexContent;
 	}

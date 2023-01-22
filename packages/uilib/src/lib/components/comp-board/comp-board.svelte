@@ -20,6 +20,11 @@
 		$boardStore.setTitle(newTitle)
 		saveBoard($boardStore)
 	}
+	function handleDescriptionChange(event:CustomEvent<string>){
+		const newDescription = event.detail
+		$boardStore.setDescription(newDescription)
+		saveBoard($boardStore)
+	}
 	function handleCreateColumn(){
 		$boardStore.createColumn("")
 		saveBoard($boardStore)
@@ -71,6 +76,12 @@
 		/>
 		<span class="options"><OverflowMenu items={headerOptions} /></span>
 	</header>
+	<EditableText
+		value={$boardStore.description}
+		placeholder="<description>"
+		on:change={handleDescriptionChange}
+		tag="span"
+	/>
 	<hr />
 	<ul
 		use:dndzone="{{items: columns, flipDurationMs, dropTargetStyle, type:"columns"}}" 

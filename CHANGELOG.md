@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+
+## [0.0.6] 2023-01-24
+
 ### Added
 
 - render description of projects

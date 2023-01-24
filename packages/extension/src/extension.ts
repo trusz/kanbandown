@@ -7,7 +7,6 @@ import { KanbanDownEditorProvider  } from "./editor/kanban-editor";
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 
-
 	// 
 	// Mine
 	// 

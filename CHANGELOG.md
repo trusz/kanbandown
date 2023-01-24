@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+### Added
+
+- render description of projects
+
+### Changed
+
+- dangerous actions like delete look more dangerous
+
 ### Fixed
 
 - registering the "Open as Markdown" command more than once broke the extension

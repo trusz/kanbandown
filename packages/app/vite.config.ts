@@ -6,10 +6,13 @@ import * as path from "path"
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [svelte(), viteSingleFile()],
-  resolve:{
-    alias: {
-      "$lib": path.join(__dirname, "src","lib"),
-    }
-  }
+	plugins: [
+		svelte(), 
+		viteSingleFile(),
+	],
+	resolve:{
+		alias: {
+			"$lib": path.join(__dirname, "src","lib"),
+		}
+	}
 })

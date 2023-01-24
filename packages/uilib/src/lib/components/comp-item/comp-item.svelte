@@ -1,4 +1,5 @@
 <script lang="ts">
+  	import type { DropdownItem } from "$lib/components/dropdown";
 	import { EditableText, type EditableTextAPI } from "$lib/components/editable-text";
 	import { OverflowMenu } from "$lib/components/overflow-menu"
   	import { IconEdit, IconDelete } from "$lib/icons";
@@ -27,9 +28,9 @@
 		editableTextAPI.enableEditing()
 	}
 
-	let menuItems = [
+	let menuItems: DropdownItem[] = [
 		{label:"Edit", 	 onClick: handleEdit, 	icon: IconEdit },
-		{label:"Delete", onClick: handleDelete, icon: IconDelete, color:"var(--vscode-editorError-foreground)"},
+		{label:"Delete", onClick: handleDelete, icon: IconDelete, dangerous: true},
 	]
 
 	let editableTextAPI: EditableTextAPI

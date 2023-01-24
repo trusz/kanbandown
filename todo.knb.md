@@ -1,7 +1,10 @@
 # KanbanDown
 
+Tracking tasks for KanbanDown
+
 ## ⏭️ Next
 
+- [ ] :medium Copy & Paste    <br />between files <br /> <br />(needs context menu or selection for keyboard )
 - [ ] :low column context menu: add columnr to the right
 - [ ] :low Light themes do not work well
 - [ ] :medium item context-menu: create card
@@ -11,10 +14,11 @@
 - [ ] road map, planned features
 - [ ] :medium Write Readme.md
 - [ ] :medium settings for file pattern
+- [ ] :high subtasks within the board
 
 ## 🚧 In Progress
 
-- [ ] :high subtasks within the board
+
 
 ## ✅ Done
 

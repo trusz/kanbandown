@@ -14,6 +14,7 @@
 		markedExtensionTag,
 		markedExtensionMention,
 		markedExtensionImageRenderer,
+		markedExtensionHTMLImageRenderer,
 	} from "@kanbandown/shared/esmodule"
 
 	// 
@@ -41,6 +42,7 @@
 		markedExtensionTag,
 		markedExtensionMention,
 		markedExtensionImageRenderer,
+		markedExtensionHTMLImageRenderer,
 	]
 	// @ts-ignore TODO: correct typing
 	marked.use({ extensions: extensions});

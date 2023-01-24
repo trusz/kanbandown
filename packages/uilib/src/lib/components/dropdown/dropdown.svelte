@@ -11,7 +11,13 @@
     <ol>
         {#each items as item, index}
             <li>
-                <Button on:click={item.onClick} icon --button__color={item.color}>
+                <Button 
+                    block 
+                    icon 
+                    on:click={item.onClick}
+                    dangerous={item.dangerous}
+                    --button__justify-content="start"
+                >
                     {#if item.icon}
                         <svelte:component this={item.icon} />
                     {/if}

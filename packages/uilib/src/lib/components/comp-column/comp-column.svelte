@@ -10,6 +10,7 @@
 	import { OverflowMenu } from "../overflow-menu"
 	import { Toolbar } from "../toolbar"
 	import { useBoardContext } from "@kanbandown/shared/esmodule"
+  	import type { DropdownItem } from "$lib/components/dropdown";
 
 	// 
 	// Props
@@ -89,10 +90,10 @@
 	// 
 	// Options
 	// 
-	const headerOptions = [
+	const headerOptions: DropdownItem[] = [
 		{label:"Edit", 		    onClick: handleEdit,		 icon: IconEdit},
-		{label:"Delete Column", onClick: handleDeleteColumn, icon: IconColumnDelete, color: "var(--vscode-editorError-foreground)"},
-		{label:"Clear Items",   onClick: handleClearItems,   icon: IconClearItems, color: "var(--vscode-editorError-foreground)"},
+		{label:"Delete Column", onClick: handleDeleteColumn, icon: IconColumnDelete, dangerous: true},
+		{label:"Clear Items",   onClick: handleClearItems,   icon: IconClearItems,   dangerous: true},
 	]
 
 

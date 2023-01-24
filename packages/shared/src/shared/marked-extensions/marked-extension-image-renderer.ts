@@ -11,7 +11,6 @@ export const markedExtensionImageRenderer: marked.RendererExtension = {
 
 		const src = [basePath, token.href].join("/")
 		
-		console.log({level:"dev", msg:"object, renderer",src, token, baseURL: basePath})
 		return `<img src=${src} />`
 	}
 }

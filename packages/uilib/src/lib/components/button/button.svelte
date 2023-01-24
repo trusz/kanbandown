@@ -2,12 +2,14 @@
 	export let block = false
 	export let icon = false
 	export let forceHover = false
+	export let dangerous = false
 </script>
 
 <button 
 	class:block 
 	class:icon 
 	class:forceHover 
+	class:dangerous
 	on:click
 	on:blur|capture
 >
@@ -22,7 +24,7 @@
 		min-width:   	 2rem;
 		font-family: 	 inherit;
 		gap: 		 	 0.5rem;
-		justify-content: center;
+		justify-content: var(--button__justify-content, center);
 
 	}
 	.block{
@@ -39,7 +41,7 @@
 	}
 
 	button {
-		background-color: var(--vscode-button-secondaryBackground);
+		background-color: var(--button__background-color, var(--vscode-button-secondaryBackground));
 		color: 			  var(--button__color, var(--vscode-button-secondaryForeground));
 		
 		border-radius: 4px;
@@ -49,7 +51,17 @@
 
 	button.forceHover,
 	button:hover{
-		background-color: var(--vscode-button-secondaryHoverBackground);
+		background-color: var(--button__hover__background-color, var(--vscode-button-secondaryHoverBackground));
+		color: 			  var(--button__hover__color);
+	}
+
+	button.dangerous{
+		color: var(--vscode-editorError-foreground)
+	}
+
+	button.dangerous:hover {
+		background-color: var(--vscode-editorError-foreground);
+		color: 			  unset;
 	}
 
 </style>

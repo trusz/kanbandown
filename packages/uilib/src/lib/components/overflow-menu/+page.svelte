@@ -2,7 +2,7 @@
 	import { Example } from "$lib/components/internal"
 	import OverflowMenu from "./overflow-menu.svelte"
 	import type { DropdownItem } from "$lib/components/dropdown";
-	import { IconSettings, IconAdd, IconOverflowMenu } from "../../icons"
+	import { IconSettings, IconAdd, IconOverflowMenu, IconDelete } from "../../icons"
 
 
 	function makeLogger(index:number){
@@ -22,6 +22,7 @@
 		{label: "item 1", onClick: makeLogger(0), icon: IconAdd },
 		{label: "item 2", onClick: makeLogger(1), icon: IconOverflowMenu },
 		{label: "item 3", onClick: makeLogger(2), icon: IconSettings },
+		{label: "Delete", onClick: makeLogger(2), icon: IconDelete, dangerous: true },
 		{label: "item 4 create column", onClick: makeLogger(4) },
 	]
 

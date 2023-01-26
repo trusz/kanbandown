@@ -10,6 +10,8 @@
 		renderToMarkdown,
 		useBoardContext,
 		initBoardContext,
+		initSelectionContext,
+        useSelectionContext,
 	} from "@kanbandown/shared/esmodule";
 	
 
@@ -52,8 +54,20 @@
 		console.log({level:"demo", msg:"handling link clicks", href: event.detail})
 	}
 
+	// 
+	// Selection
+	// 
+	initSelectionContext()
+	const {reset} = useSelectionContext()
+
+    function resetSelection(e: MouseEvent){
+        const target = e.target
+        reset()
+    }   
+
 
 </script>
+
 
 <Example name="">
     <CompBoard 

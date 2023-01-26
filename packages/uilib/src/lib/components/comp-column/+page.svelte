@@ -3,7 +3,7 @@
 <script lang="ts">
     import { CompColumn } from "$lib"
     import { Example } from "$lib/components/internal"
-    import { Item } from "@kanbandown/shared/esmodule";
+    import { initSelectionContext, Item, useSelectionContext } from "@kanbandown/shared/esmodule";
     import { Board, useBoardContext, initBoardContext, parseFromMarkdown, renderToMarkdown } from "@kanbandown/shared/esmodule"
 
     const title="Todo"
@@ -28,9 +28,10 @@
         items=[newItem, ...items]
     }
 
-    
+    initSelectionContext()
     initBoardContext()
     const { displayBoard, onSaveBoard } = useBoardContext()
+    const { selectionStore, reset } = useSelectionContext()
 
     let board = new Board()
 	board.title = "Project"
@@ -46,7 +47,18 @@
         if(!b){ return }
         displayBoard(parseFromMarkdown(renderToMarkdown(b)))
     })
+
+    $: console.log({level:"demo", msg:"selection changed", selectedItem: $selectionStore})
+
+    function resetSelection(e: MouseEvent){
+        const target = e.target
+        console.log({level:"dev", msg:"reset selection", target})
+        reset()
+    }   
+
 </script>
+
+<svelte:body on:click|capture={resetSelection} />
 
 <h1>Presence</h1>
 

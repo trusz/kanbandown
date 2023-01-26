@@ -2,8 +2,23 @@
 
 ## [Unreleased]
 
+## [0.0.7] 2023-01-26
 
-## [0.0.6] 2023-01-24
+### Added
+
+- icon
+- select items for copy and paste
+- copy and paste one ore multiple items
+
+### Known Issues
+
+- the order of pasting items depends on the order of selecting them
+
+### Changed
+
+- decreased padding of items
+
+## [0.0.6] 2023-01-24p
 
 ### Added
 

@@ -1,6 +1,12 @@
 <script lang="ts">
 	import { onMount } from "svelte"
-	import { BackendAPI, Board, useBoardContext, initBoardContext} from "@kanbandown/shared/esmodule"
+	import { 
+		BackendAPI,
+		Board,
+		useBoardContext,
+		initBoardContext,
+		initSelectionContext,
+	} from "@kanbandown/shared/esmodule"
 	import { CompBoard } from "@kanbandown/uilib"
 	import "@kanbandown/uilib/style.css"
 
@@ -9,6 +15,7 @@
 	const vscode = acquireVsCodeApi();
 	const backendAPI = new BackendAPI(vscode, window)
 	initBoardContext()
+	initSelectionContext()
 	const { boardStore, displayBoard, onSaveBoard } = useBoardContext()
 
 

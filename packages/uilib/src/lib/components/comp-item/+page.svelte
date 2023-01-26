@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Example } from "$lib/components/internal"
     import { CompItem } from "$lib"
-    import { Board, useBoardContext, initBoardContext, parseFromMarkdown, renderToMarkdown } from "@kanbandown/shared/esmodule"
+    import { Board, useBoardContext, initBoardContext, parseFromMarkdown, renderToMarkdown, useSelectionContext, initSelectionContext } from "@kanbandown/shared/esmodule"
 
 
     const label= "a short description about the task"
@@ -10,6 +10,7 @@
 
 
     initBoardContext()
+    initSelectionContext()
     const { displayBoard, onSaveBoard } = useBoardContext()
 
     let board = new Board()
@@ -33,7 +34,10 @@
 <h1>Presence</h1>
 
 <Example name="Item">
-        <CompItem columnIndex={0} itemIndex={0}/>
+        <CompItem 
+            columnIndex={0} 
+            itemIndex={0} 
+        />
 </Example>
 
 <Example name="Item in Container">

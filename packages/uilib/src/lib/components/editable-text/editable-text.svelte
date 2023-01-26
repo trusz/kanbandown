@@ -177,7 +177,8 @@
 	}
 
 	editable-text :global(p){
-		margin: 1rem 0;
+		/* TODO: either 0 or 0.5rem */
+		margin: 0rem 0;
 	}
 
 	.growing-wrapper{

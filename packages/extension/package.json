@@ -4,7 +4,8 @@
   "description": "KanbanDown, a markdown based Kanban Board",
   "repository": "https://github.com/trusz/kanbandown",
   "publisher": "TamasRuss",
-  "version": "0.0.6",
+  "version": "0.0.7",
+  "icon": "icon.png",
   "engines": {
     "vscode": "^1.74.0"
   },

@@ -1,5 +1,5 @@
 import { getContext, setContext } from 'svelte';
-import { derived, writable, type Readable, type Unsubscriber, type Writable } from 'svelte/store';
+import { derived, writable, type Unsubscriber } from 'svelte/store';
 import { Board } from '../board';
 
 const key = {};

@@ -92,8 +92,8 @@
 	// 
 	const headerOptions: DropdownItem[] = [
 		{label:"Edit", 		    onClick: handleEdit,		 icon: IconEdit},
-		{label:"Delete Column", onClick: handleDeleteColumn, icon: IconColumnDelete, dangerous: true},
 		{label:"Clear Items",   onClick: handleClearItems,   icon: IconClearItems,   dangerous: true},
+		{label:"Delete Column", onClick: handleDeleteColumn, icon: IconColumnDelete, dangerous: true},
 	]
 
 

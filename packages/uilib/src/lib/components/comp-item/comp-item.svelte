@@ -3,14 +3,36 @@
 	import { EditableText, type EditableTextAPI } from "$lib/components/editable-text";
 	import { OverflowMenu } from "$lib/components/overflow-menu"
   	import { IconEdit, IconDelete } from "$lib/icons";
-  	import { useBoardContext } from "@kanbandown/shared/esmodule";
+  	import { useBoardContext, useSelectionContext } from "@kanbandown/shared/esmodule";
 
+	// 
+	// Props
+	// 
 	export let columnIndex: number
 	export let itemIndex: number
 
+
+	// 
+	// Configs
+	// 
+	let menuItems: DropdownItem[] = [
+		{label:"Edit", 	 onClick: handleEdit, 	icon: IconEdit },
+		{label:"Delete", onClick: handleDelete, icon: IconDelete, dangerous: true},
+	]
+
+	// 
+	// Data
+	// 
 	const { boardStore, saveBoard } = useBoardContext()
 	$: item = $boardStore?.columns[columnIndex]?.items[itemIndex]
 
+	const { selectionStore, select, selectAdd } = useSelectionContext()
+	$: selected = $selectionStore.indexOf(item) >= 0
+
+
+	// 
+	// Interaction
+	// 
 	function handleLabelChange(event:CustomEvent<string>){
 		const newLabel = event.detail
 		$boardStore?.setItemLabel(columnIndex, itemIndex, newLabel)
@@ -22,26 +44,28 @@
 		saveBoard($boardStore)
 	}
 
+	let editableTextAPI: EditableTextAPI
 	function handleEdit(){
 		if(!editableTextAPI){ return }
 
 		editableTextAPI.enableEditing()
 	}
 
-	let menuItems: DropdownItem[] = [
-		{label:"Edit", 	 onClick: handleEdit, 	icon: IconEdit },
-		{label:"Delete", onClick: handleDelete, icon: IconDelete, dangerous: true},
-	]
-
-	let editableTextAPI: EditableTextAPI
+	function handleClick(event: MouseEvent){
+		if (event.metaKey) {
+			selectAdd(item)
+			return
+		}
+		select(item)
+	}
 
 
 </script>
 
-<comp-item>
+<comp-item class:selected on:click={handleClick} on:keypress>
 	<EditableText 
 		tag="p" 
-		value={item?.label} 
+		value={item?.label}
 		placeholder="<description>"
 		on:change={handleLabelChange} 
 		on:linkclick  
@@ -67,9 +91,12 @@
 		transition: 	  all 0.1s;
 	}
 
+	comp-item.selected,
 	comp-item:hover{
 		border-color: var(--vscode-inputValidation-infoBorder);
 	}
+
+	
 
 	.menu{
 		opacity:    0;

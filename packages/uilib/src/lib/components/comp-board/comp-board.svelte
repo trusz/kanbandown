@@ -1,5 +1,10 @@
 <script lang="ts">
-  	import { Board, Column, type Item, useBoardContext } from "@kanbandown/shared/esmodule";
+  	import { 
+		Column, 
+		type Item, 
+		useBoardContext, 
+		useSelectionContext,
+} from "@kanbandown/shared/esmodule";
 	import { dndzone, SHADOW_ITEM_MARKER_PROPERTY_NAME, type DndEvent } from "svelte-dnd-action";
 	import { CompColumn } from "../comp-column"
   	import { EditableText } from "../editable-text";
@@ -62,8 +67,81 @@
 		{label:"Add Column", onClick: handleCreateColumn, icon: IconAdd },
 	]
 
+	// 
+	// Copy & Paste
+	// 
+	const { selectionStore, reset, selectMultiple } = useSelectionContext()
+
+	function handlePaste(event:ClipboardEvent){
+		const text = event.clipboardData?.getData('text/json');
+		if(!text){ return }
+		const items = JSON.parse(text) as Item[]
+
+		const newItems: Item[] = []
+		for(const item of items){
+			$boardStore.createItem(item.label,false,0,0)
+			const newItem = $boardStore.columns[0].items[0]
+			newItems.push(newItem)
+		}
+		
+		saveBoard($boardStore)
+		selectMultiple(newItems)		
+	}
+
+	function handleCopy(event:ClipboardEvent){
+		const items = $selectionStore
+		if(items.length === 0){ return }
+
+		event.clipboardData?.setData('text/json', JSON.stringify(items));
+    	event.preventDefault();
+	}
+
+	function handleCut(event:ClipboardEvent){
+
+		handleCopy(event)
+		
+		const items = $selectionStore
+		for(const item of items){
+			const [columnIndex, itemIndex] = $boardStore.findItemIndexes(item)
+			const foundIndexes = columnIndex >= 0 && itemIndex >= 0
+			if(!foundIndexes){ continue }
+
+			$boardStore.deleteItemFromColumn(columnIndex, itemIndex)
+		}
+		saveBoard($boardStore)
+	}
+
+	function resetSelection(e: MouseEvent){
+		const target = e.target as HTMLElement
+		if(hasCompItemParent(target)){ return }
+
+        reset()
+    }
+	
+	function hasCompItemParent(e: HTMLElement): boolean {
+		
+		let parent = e.parentElement
+		while(parent){
+			if(parent.localName === "comp-item"){
+				return true
+			}
+
+			parent = parent.parentElement
+		} 
+
+		return false
+	}
+
+
 
 </script>
+
+<svelte:body 
+	on:paste={handlePaste} 
+	on:copy|preventDefault={handleCopy} 
+	on:cut|preventDefault={handleCut} 
+	on:click|capture={resetSelection} 
+/>
 
 <comp-board>
 	<header>

@@ -1,10 +1,10 @@
 
 export class Board {
 
-	public title			 = ""
-	public description		 = ""
-	public columns: Column[] = []
-	public items:	 Item[]	 = []
+	public title			   = ""
+	public description		   = ""
+	public columns:   Column[] = []
+	public items:	  Item[]   = [] 
 
 	// 
 	// Board
@@ -69,7 +69,7 @@ export class Board {
 		done = false,
 		columnIndex = this.columns.length -1, 
 		position?: number
-	) {
+	): Item {
 		this.throwIfWrongColumnPosition(columnIndex)
 		
 		const newItem = new Item(label, done, this.items.length)
@@ -77,7 +77,8 @@ export class Board {
 		
 		const column = this.columns[columnIndex]
 		this.addItemToColumn(column, newItem, position)
-		// column.addItem(newItem, position)
+
+		return newItem
 	}
 
 	public setItemLabel(
@@ -113,6 +114,17 @@ export class Board {
 		this.items.splice(itemIndex,1)
 
 		column.deleteItem(position)
+	}
+	public findItemIndexes(item: Item): [coumnIndex:number, itemIndex:number]{
+		let wantedItem: Item
+		for(let ci=0, cl=this.columns.length; ci<cl; ci++){
+			const itemIndex = this.columns[ci].items.indexOf(item)
+			if(itemIndex >= 0){
+				return [ci, itemIndex]
+			}
+		}
+
+		return [-1, -1]
 	}
 
 }

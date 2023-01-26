@@ -4,7 +4,7 @@ Tracking tasks for KanbanDown
 
 ## ⏭️ Next
 
-- [ ] :medium Copy & Paste    <br />between files <br /> <br />(needs context menu or selection for keyboard )
+- [ ] :medium group by +proj #tag or :difficulty
 - [ ] :low column context menu: add columnr to the right
 - [ ] :low Light themes do not work well
 - [ ] :medium item context-menu: create card
@@ -22,6 +22,7 @@ Tracking tasks for KanbanDown
 
 ## ✅ Done
 
+- [ ] :medium Copy & Paste    <br />between files <br /> <br />(needs context menu or selection for keyboard )
 - [ ] :low clear/archive column
 - [ ] :low item context menu: edit
 - [ ] :low board context menu:  <br />- edit <br />- open markdown file

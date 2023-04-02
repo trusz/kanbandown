@@ -24,7 +24,6 @@
     onSaveBoard((b) => {
         if(!b){ return }
         displayBoard(b)
-        console.log({level:"dev", msg:"onSaveBoard",b})
         displayBoard(parseFromMarkdown(renderToMarkdown(b)))
     })
 

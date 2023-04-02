@@ -72,10 +72,12 @@ export class Board {
 	): Item {
 		this.throwIfWrongColumnPosition(columnIndex)
 		
-		const newItem = new Item(label, done, this.items.length)
-		this.items.push(newItem)
 		
 		const column = this.columns[columnIndex]
+		// const newItem = new Item(label, done, this.items.length)
+		const newItem = new Item(label, done, column.items.length)
+
+		this.items.push(newItem)
 		this.addItemToColumn(column, newItem, position)
 
 		return newItem

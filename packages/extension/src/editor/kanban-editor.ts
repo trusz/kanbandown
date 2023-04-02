@@ -43,7 +43,6 @@ export class KanbanDownEditorProvider implements vscode.CustomTextEditorProvider
 		const basePathParts = pathParts.slice(0,-1);
 		const basePath = basePathParts.join(path.sep);
 		const baseURL = `${uriOfFile.scheme}://${encodeURIComponent(uriOfFile.authority)}${basePath}`;
-		// console.log({level:"dev", msg:"in register", baseURL, filePathASWebViewURI: uri, asString: uri.toString()});
 
 
 		webviewPanel.webview.html = this.getHtmlForWebview(document.uri, baseURL);

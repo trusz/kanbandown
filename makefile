@@ -5,6 +5,8 @@ help:
 
     
 dev: ## Run project
-	echo "run"    
+	pnpm turbo build:watch
 
-	
+build: ## Build the plugin
+	pnpm turbo build
+

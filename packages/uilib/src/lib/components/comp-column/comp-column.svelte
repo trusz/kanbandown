@@ -3,6 +3,7 @@
 	// https://svelte.dev/repl/4949485c5a8f46e7bdbeb73ed565a9c7?version=3.55.1
 	import { dndzone, SHADOW_ITEM_MARKER_PROPERTY_NAME, type DndEvent } from "svelte-dnd-action";
 	import type { Item } from "@kanbandown/shared/esmodule";
+	import {tick} from "svelte"
   	import { CompItem } from "../comp-item";
 	import { Button } from "../button";
   	import { EditableText, initEditableTextAPI, useEditableTextAPI } from "../editable-text";
@@ -83,13 +84,16 @@
 		$boardStore.deleteItem(index, taskIndex)
 		saveBoard($boardStore)
 	}
-	function addItem(){
-		$boardStore.createItem("", false, index, 0)
+	async function addItem(){
+		$boardStore.createItem("  ", false, index, 0)
+		// $boardStore.createItem("", false, index)
 		saveBoard($boardStore)
-		const newId = $boardStore.columns[index].items[0].id
+		// const newId = $boardStore.columns[index].items[0].id
+		const newId = 0
 		editableTextAPI.activate(newId)
 		
 	}
+
 
 	// 
 	// Options
@@ -127,6 +131,7 @@
 	>
 		{#each items as item,ii(item.id)}
 			<li>
+				{item.id}
 				{#if Object.hasOwn(item,SHADOW_ITEM_MARKER_PROPERTY_NAME)}
 					<div class='custom-shadow-item'>{item.label}</div>
 				{/if}

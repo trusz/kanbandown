@@ -12,7 +12,7 @@ export function renderToMarkdown(board:Board): string {
 		.filter(p => Boolean(p))
 		.join(renderNewLine())
 
-	return result.trim() + "\n"
+	return result + "\n"
 }
 
 
@@ -45,7 +45,6 @@ function renderColumn(column: Column): string {
 	result += renderTitle(column.title, 2)
 	result += renderNewLine()
 	result += renderItems(column.items)
-
 	return result
 }
 

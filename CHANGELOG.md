@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.0.8] [Unreleased]
+
+### Added
+
+- New items are auto focused
+
 ## [0.0.7] 2023-01-26
 
 ### Added

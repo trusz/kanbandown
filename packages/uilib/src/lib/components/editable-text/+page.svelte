@@ -2,13 +2,13 @@
 <script lang="ts">
     import { EditableText, Button } from "$lib"
 
-  	import type { EditableTextAPI } from "./";
     import { Example } from "$lib/components/internal"
+  	import { initEditableTextAPI, useEditableTextAPI, type ID } from "./editable-text_context";
 
 	function makeHandler(tag: string){
 		return function handleChange(event:CustomEvent<string>){
 			console.log({level:"demo", tag, text: event.detail })
-			isEditing = false
+			// isEditing = false
 		}
 	}
 
@@ -22,14 +22,8 @@
 		console.log({level:"demo", msg:"clicked on a link", href: event.detail})
 	}
 
-	let isEditing = false
-	let api: EditableTextAPI
-	$: ((isEditing) =>{
-		if(!api){ return }
-		if(isEditing){ api.enableEditing() }
-		else { api.disableEditing() }
-	})(isEditing)
-
+	initEditableTextAPI()
+	const api = useEditableTextAPI()
 
 	let exampleContainerValue = "Whereas #beta disregard and :low contempt +project [Readme.md](./readme.md) for human rights have resulted\n\n\n".repeat(3)
 	function handleExampleContainerChange(event:CustomEvent<string>){
@@ -75,14 +69,15 @@
 </Example>
 
 <Example name="API">
+	{@const id = Symbol()}
 	<div class="api-buttons">
-		<Button on:click={ () => api.enableEditing() }>Edit</Button>
-		<Button  on:click={ () => api.disableEditing() }>Finish</Button>
+		<Button on:click={ () => api.activate(id) }>Edit</Button>
+		<Button  on:click={ () => api.deactivate(id) }>Finish</Button>
 	</div>
     <EditableText 
+		id={id}
 		tag="span" 
 		value="This text is editable"  
-		bind:api={api}
 		on:change={makeHandler("span")}
 	/>
 </Example>

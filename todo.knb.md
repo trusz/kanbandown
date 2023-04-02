@@ -4,6 +4,8 @@ Tracking tasks for KanbanDown
 
 ## ⏭️ Next
 
+- [ ] :medium multiple boards/subboards in a file
+- [ ] :medium +settings for new item position
 - [ ] :medium group by +proj #tag or :difficulty
 - [ ] :low column context menu: add columnr to the right
 - [ ] :low Light themes do not work well

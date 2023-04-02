@@ -1,10 +1,3 @@
-<script context="module" lang="ts">
-	export type State = "read" | "write"
-	export type API = {
-		enableEditing: () => void
-		disableEditing: () => void
-	}
-</script>
 <script lang="ts">
 	import {createEventDispatcher} from "svelte"
 	import {marked} from "marked"
@@ -15,6 +8,8 @@
 		markedExtensionMention,
 		markedExtensionImageRenderer,
 	} from "@kanbandown/shared/esmodule"
+
+	import { useEditableTextAPI } from "./editable-text_api";
 
 	// 
 	// Internal Types
@@ -27,6 +22,7 @@
 	export let tag: SupportedTags = "span"
 	export let value: string = ""
 	export let placeholder: string | undefined = undefined
+	export let id: unknown = Symbol()
 
 	// 
 	// Derived
@@ -52,6 +48,9 @@
 	// 
 	const dispatch = createEventDispatcher()
 
+	const api = useEditableTextAPI()
+	const state = api.useState(id)
+
 	export const classMap: {[tag in SupportedTags]: string} ={
 		h1:   "h1",
 		h2:   "h2",
@@ -62,25 +61,14 @@
 	}
 
 	$: sizeClass = classMap[tag]
-
-	export const api: API = {
-		enableEditing,
-		disableEditing: () => isEditing = false,
-	}
-
-	let isEditing = false
-	$: dispatchStateChange( isEditing ? "write" : "read" )
-	function enableEditing(){
-		isEditing = true
-	}
+	$: isEditing = $state.isEditing
 
 	function focus(node: HTMLTextAreaElement){
 		node.focus()
 	}
 
 	function cancelEditing(){
-		isEditing = false
-		// newValue = value
+		api.deactivate(id)
 		safeValue = value
 	}
 	
@@ -90,15 +78,12 @@
 		// value=newValue
 		safeValue=textAreaValue
 		isEditing = false
+		api.deactivate(id)
 
 	}
 
 	function dispatchLinkClick(href: string){
 		dispatch("linkclick", href)
-	}
-
-	function dispatchStateChange(state: State){
-		dispatch("state", state)
 	}
 
 	
@@ -142,7 +127,7 @@
 		this={tag} 
 		class="text" 
 		class:placeholder={!showValue}
-		on:dblclick={enableEditing}
+		on:dblclick={() => api.activate(id)}
 		on:keypress={()=>{}}
 	>
 

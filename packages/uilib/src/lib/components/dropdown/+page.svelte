@@ -12,7 +12,6 @@
     ]
 
     let isOpen = true
-    console.log({level:"dev", msg:"example isOpen", isOpen})
 
 </script>
 

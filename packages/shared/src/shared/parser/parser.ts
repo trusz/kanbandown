@@ -15,7 +15,7 @@ const loaders: LoaderConfig[] = [
 ]
 
 export function parseFromMarkdown(content: string): Board {
-	const tokens = marked.lexer(content,{gfm:true, breaks:true})
+	const tokens = marked.lexer(content, {gfm:true, breaks:true})
 	const board = new Board()
 	for(let token of tokens){
 		for(let loaderConfig of loaders){
@@ -23,7 +23,6 @@ export function parseFromMarkdown(content: string): Board {
 			loaderConfig.loaderFn(board, token)
 		}
 	}
-	
 	return board
 }
 

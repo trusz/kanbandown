@@ -6,15 +6,17 @@ This is a test file. It is here to test the extnsion directly
 
 ## Backlog
 
-- [ ] new
-- [ ] sub task <br />
-- [ ] another main task
+- [ ] 1-2
 
 ## Sprint
 
-- [ ] another
-- [ ] item 2
+- [ ] a
 
 ## Done
 
-- [ ] new
+- [ ] no it works
+- [ ] asdf
+
+## another one
+
+- [ ] i can add at the last point

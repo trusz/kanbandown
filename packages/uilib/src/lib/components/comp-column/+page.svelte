@@ -16,12 +16,10 @@
     ]
 
     function handleMove(event: CustomEvent<Item[]>){
-        console.log({level:"dev", msg:"item is moving", items:event.detail})
         items = event.detail 
     }
 
     function handleFinalize(event:CustomEvent<unknown>){
-        console.log({level:"dev", msg:"order is finalized"})
     }
     function handleTaskAdd(){
         const newItem = new Item("new", false, items.length)
@@ -52,7 +50,6 @@
 
     function resetSelection(e: MouseEvent){
         const target = e.target
-        console.log({level:"dev", msg:"reset selection", target})
         reset()
     }   
 

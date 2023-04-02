@@ -1,6 +1,6 @@
 <script lang="ts">
   	import type { DropdownItem } from "$lib/components/dropdown";
-	import { EditableText, type EditableTextAPI } from "$lib/components/editable-text";
+	import { EditableText, useEditableTextAPI } from "$lib/components/editable-text";
 	import { OverflowMenu } from "$lib/components/overflow-menu"
   	import { IconEdit, IconDelete } from "$lib/icons";
   	import { useBoardContext, useSelectionContext } from "@kanbandown/shared/esmodule";
@@ -19,6 +19,7 @@
 		{label:"Edit", 	 onClick: handleEdit, 	icon: IconEdit },
 		{label:"Delete", onClick: handleDelete, icon: IconDelete, dangerous: true},
 	]
+	const editableTextAPI = useEditableTextAPI()
 
 	// 
 	// Data
@@ -44,11 +45,11 @@
 		saveBoard($boardStore)
 	}
 
-	let editableTextAPI: EditableTextAPI
+
 	function handleEdit(){
 		if(!editableTextAPI){ return }
 
-		editableTextAPI.enableEditing()
+		editableTextAPI.activate(item.id)
 	}
 
 	function handleClick(event: MouseEvent){
@@ -68,8 +69,8 @@
 		value={item?.label}
 		placeholder="<description>"
 		on:change={handleLabelChange} 
-		on:linkclick  
-		bind:api={editableTextAPI}
+		on:linkclick
+		id={item.id}
 	/>
 	<div class="menu">
 		<OverflowMenu items={menuItems} />

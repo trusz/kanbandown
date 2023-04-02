@@ -5,7 +5,7 @@
 	import type { Item } from "@kanbandown/shared/esmodule";
   	import { CompItem } from "../comp-item";
 	import { Button } from "../button";
-  	import { EditableText, type EditableTextAPI } from "../editable-text";
+  	import { EditableText, initEditableTextAPI, useEditableTextAPI } from "../editable-text";
 	import { IconAdd, IconEdit, IconColumnDelete, IconClearItems } from "../../icons"
 	import { OverflowMenu } from "../overflow-menu"
 	import { Toolbar } from "../toolbar"
@@ -21,6 +21,8 @@
 	// Setup
 	// 
 	const { boardStore, saveBoard } = useBoardContext()
+	initEditableTextAPI()
+	const editableTextAPI = useEditableTextAPI()
 	
 	type ShadowItem = Item & {
 		isDndShadowItem: boolean
@@ -61,10 +63,9 @@
 		$boardStore.deleteColumn(index)
 		saveBoard($boardStore)
 	}
-	let titleTextAPI: EditableTextAPI
+	const titleTextID = Symbol()
 	function handleEdit(){
-		if(!titleTextAPI){ return }
-		titleTextAPI.enableEditing()
+		editableTextAPI.activate(titleTextID)
 	}
 	function handleClearItems(){
 		$boardStore.clearItems(index)
@@ -83,8 +84,11 @@
 		saveBoard($boardStore)
 	}
 	function addItem(){
-		$boardStore.createItem("new", false, index, 0)
+		$boardStore.createItem("", false, index, 0)
 		saveBoard($boardStore)
+		const newId = $boardStore.columns[index].items[0].id
+		editableTextAPI.activate(newId)
+		
 	}
 
 	// 
@@ -107,7 +111,7 @@
 			value={title} 
 			placeholder="<title>"
 			on:change={handleTitleChange} 
-			bind:api={titleTextAPI} 
+			id={titleTextID}
 		/>
 		<span class="options">
 			<Toolbar>

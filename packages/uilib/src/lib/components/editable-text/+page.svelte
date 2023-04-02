@@ -3,7 +3,7 @@
     import { EditableText, Button } from "$lib"
 
     import { Example } from "$lib/components/internal"
-  	import { initEditableTextAPI, useEditableTextAPI, type ID } from "./editable-text_context";
+  	import { initEditableTextAPI, useEditableTextAPI, type ID } from "./editable-text_api";
 
 	function makeHandler(tag: string){
 		return function handleChange(event:CustomEvent<string>){

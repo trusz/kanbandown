@@ -1,7 +1,7 @@
 import { getContext, setContext } from "svelte"
 import { type Writable, writable } from "svelte/store"
 
-export type ID = symbol
+export type ID = unknown
 const key = Symbol()
 
 
@@ -34,15 +34,19 @@ export class EditableTextAPI {
 	}
 
 	public useState(id: ID): Writable<EditableTextState>{
-		let state = this.states.get(id)
-		if (!state){
-			state = writable({...defaultEditableTextState})
-			this.states.set(id, state)
-		}
+		this.ensureState(id)
+		const state = this.states.get(id)!
 		return state
 	}
 
+	private ensureState(id: ID){
+		const state = this.states.get(id)
+		if(state){ return }
+		this.states.set(id, writable({...defaultEditableTextState}))
+	}
+
 	private setIsEditing(id: ID, isEditing: boolean){
+		this.ensureState(id)
 		const itemState = this.states.get(id)
 		if(!itemState){ return }
 	

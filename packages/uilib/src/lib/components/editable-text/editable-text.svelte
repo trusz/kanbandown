@@ -9,7 +9,7 @@
 		markedExtensionImageRenderer,
 	} from "@kanbandown/shared/esmodule"
 
-	import { useEditableTextAPI } from "./editable-text_context";
+	import { useEditableTextAPI } from "./editable-text_api";
 
 	// 
 	// Internal Types
@@ -22,7 +22,7 @@
 	export let tag: SupportedTags = "span"
 	export let value: string = ""
 	export let placeholder: string | undefined = undefined
-	export let id = Symbol()
+	export let id: unknown = Symbol()
 
 	// 
 	// Derived
@@ -49,7 +49,7 @@
 	const dispatch = createEventDispatcher()
 
 	const api = useEditableTextAPI()
-	const state = api.useState(id)	
+	const state = api.useState(id)
 
 	export const classMap: {[tag in SupportedTags]: string} ={
 		h1:   "h1",

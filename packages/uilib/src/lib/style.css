@@ -38,20 +38,20 @@ p {
 prio{
     display: inline-block;
     color: var(--vscode-textLink-foreground);
-    border-radius: 2px;
+    border-radius: 0px;
     font-weight: bold;
 }
 
 project{
     display: inline-block;
     color: var(--vscode-textPreformat-foreground);
-    border-radius: 2px;
-    padding: 0 4px;
+    border-radius: 0px;
+    padding: 0 0px;
 }
 
 tag{
     background-color: var(--vscode-badge-background);
-    padding: 2px 8px;
+    padding: 0px 6px;
     color: var(--vscode-badge-foreground);
     border-radius: 16px;
     font-size: 0.75rem;

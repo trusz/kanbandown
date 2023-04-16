@@ -63,7 +63,12 @@
 
 </script>
 
-<comp-item class:selected on:click={handleClick} on:keypress>
+<comp-item 
+	class:selected 
+	on:click={handleClick} 
+	on:keypress 
+	on:dblclick={() => editableTextAPI.activate(item.id)}
+>
 	<EditableText 
 		tag="p" 
 		value={item?.label}
@@ -88,7 +93,7 @@
 		background-color: var(--vscode-textBlockQuote-background);
 		box-shadow: 	  0px 0px 10px 2px var(--vscode-widget-shadow);
 		border-radius: 	  4px;
-		padding: 		  0.5rem;
+		padding: 		  0.25rem;
 		transition: 	  all 0.1s;
 	}
 

@@ -156,6 +156,10 @@
 
 <style>
 
+	:root {
+		--padding: 0.25rem;
+	}
+
 	editable-text{
 		/* display: inline-grid; */
 		display: inline-block;
@@ -171,7 +175,7 @@
 	}
 	.growing-wrapper > textarea,
 	.growing-wrapper::after {
-		padding: 0.5rem;
+		padding: var(--padding);
 		grid-area: 1 / 1 / 2 / 2;
 	}
 	.growing-wrapper::after{
@@ -180,11 +184,11 @@
 		white-space: pre-wrap;
 	}
 	textarea{
-		width: 100%;
-		height: auto;
-		padding: 0 0.5rem;
-		resize: none;
-  		overflow: hidden;
+		width: 		   100%;
+		height: 	   auto;
+		padding: 	   0 var(--padding);
+		resize: 	   none;
+  		overflow: 	   hidden;
 	}
 
 	.text {
@@ -218,7 +222,6 @@
 	.p,
 	.span{
 		font-size: 1em;
-		word-wrap: break-word;
 		margin: 0;
 		padding: 0;
 	}

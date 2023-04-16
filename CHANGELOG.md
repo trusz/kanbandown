@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+### Changed 
+
+- smaller text padding in item that looks better in VS Code
+- double click on the whole item to edit them not just on the text
+
 ## [0.0.8] 2023-04-02
 
 ### Added

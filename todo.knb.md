@@ -6,11 +6,11 @@ Tracking tasks for KanbanDown
 
 - [ ] :medium multiple boards/subboards in a file
 - [ ] :medium +settings for new item position
-- [ ] :medium group by +proj #tag or :difficulty
 - [ ] :low column context menu: add columnr to the right
+- [ ] :medium group by +proj #tag or :difficulty
 - [ ] :low Light themes do not work well
-- [ ] :medium item context-menu: create card
 - [ ] :low item display checkbox status
+- [ ] :medium item context-menu: create card
 - [ ] :medium allow editable description block
 - [ ] :low highlight dates: @[yyyy-MM-dd]
 - [ ] road map, planned features

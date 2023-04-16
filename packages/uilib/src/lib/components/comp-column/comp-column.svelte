@@ -131,7 +131,6 @@
 	>
 		{#each items as item,ii(item.id)}
 			<li>
-				{item.id}
 				{#if Object.hasOwn(item,SHADOW_ITEM_MARKER_PROPERTY_NAME)}
 					<div class='custom-shadow-item'>{item.label}</div>
 				{/if}

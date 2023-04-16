@@ -25,7 +25,7 @@
 	initEditableTextAPI()
 	const api = useEditableTextAPI()
 
-	let exampleContainerValue = "Whereas #beta disregard and :low contempt +project [Readme.md](./readme.md) for human rights have resulted\n\n\n".repeat(3)
+	let exampleContainerValue = "Whereas #beta disregard and :low contempt +project [Readme.md](<./path/with space/readme.md>) for human rights have resulted\n\n\n".repeat(3)
 	function handleExampleContainerChange(event:CustomEvent<string>){
 		exampleContainerValue = event.detail
 	}

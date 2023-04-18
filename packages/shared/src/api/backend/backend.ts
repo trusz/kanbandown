@@ -41,10 +41,10 @@ export class BackendAPI {
 		this.sendMessage(message)
 	}
 
-	public createNote(title:string){
+	public createNote(label: string, extension: string){
 		const message: MessageCreateNote = {
 			type:    MessageType.CreateNote,
-			payload: title,
+			payload: {label, extension},
 		}
 		this.sendMessage(message)
 	}

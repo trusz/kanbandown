@@ -10,7 +10,7 @@ This is a test file. It is here to test the extnsion directly
 
 ## Sprint
 
-- [ ] a
+- [ ] some new note
 
 ## Done
 

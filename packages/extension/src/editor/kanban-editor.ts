@@ -67,8 +67,8 @@ export class KanbanDownEditorProvider implements vscode.CustomTextEditorProvider
 			vscode.commands.executeCommand("vscode.open",uri);
 		});
 
-		frontendAPI.onCreateNote(async (title:string)=>{
-			const fileName = convertToFileName(title)
+		frontendAPI.onCreateNote(async (note)=>{
+			const fileName = convertToFileName(note.label, note.extension)
 			const tabInput = vscode.window.tabGroups.activeTabGroup?.activeTab?.input as {uri: vscode.Uri}
 			const uri = tabInput?.uri
 			if(!uri){
@@ -83,7 +83,7 @@ export class KanbanDownEditorProvider implements vscode.CustomTextEditorProvider
 				console.warn({level:"warn", msg:"file already exists, stopping", fileName, fileUri})
 				return
 			}
-			const contentTitle = removeDuplicateSpaces(title)
+			const contentTitle = removeDuplicateSpaces(note.label)
 			const content = `# ${contentTitle}`;
 			const contentBuffer = Buffer.from(content, 'utf8');
 			

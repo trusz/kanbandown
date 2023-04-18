@@ -33,7 +33,7 @@ export class FrontendAPI {
 		this.eventEmmiter.on(MessageType.OpenLink, handler)
 	}
 
-	public onCreateNote(handler:(title:string) => void){
+	public onCreateNote(handler:(note: {label: string, extension: string}) => void){
 		this.eventEmmiter.on(MessageType.CreateNote, handler)
 	}
 

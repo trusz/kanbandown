@@ -28,5 +28,5 @@ export type MessageOpenLink = Message & {
 
 export type MessageCreateNote = Message & {
 	type: 	 MessageType.CreateNote,
-	payload: string // the note's title
+	payload: {label: string, extension: string},
 }

@@ -3,7 +3,7 @@
   	import type { DropdownItem } from "$lib/components/dropdown";
 	import { EditableText, useEditableTextAPI } from "$lib/components/editable-text";
 	import { OverflowMenu } from "$lib/components/overflow-menu"
-  	import { IconEdit, IconDelete, IconCreateNote } from "$lib/icons";
+  	import { IconEdit, IconDelete, IconCreateNote, IconCreateBoard } from "$lib/icons";
   	import { convertToFileName, renderMarkdown, useBoardContext, useSelectionContext } from "@kanbandown/shared/esmodule";
 
 	// 
@@ -17,9 +17,10 @@
 	// Configs
 	// 
 	let menuItems: DropdownItem[] = [
-		{label:"Edit", 	 	  onClick: handleEdit, 	     icon: IconEdit },
-		{label:"Create Note", onClick: handleCreateNote, icon: IconCreateNote },
-		{label:"Delete", 	  onClick: handleDelete, 	 icon: IconDelete, dangerous: true},
+		{label:"Edit", 	 	   onClick: handleEdit, 	   icon: IconEdit },
+		{label:"Create Note",  onClick: handleCreateNote,  icon: IconCreateNote },
+		{label:"Create Board", onClick: handleCreateBoard, icon: IconCreateBoard },
+		{label:"Delete", 	   onClick: handleDelete, 	   icon: IconDelete, dangerous: true},
 	]
 	const editableTextAPI = useEditableTextAPI()
 	const dispatch = createEventDispatcher()
@@ -56,8 +57,24 @@
 	}
 
 	function handleCreateNote(){
-		if(!editableTextAPI){ return }
+		const sanitizedLabel = getSanitizedLabel()
+		const ext = ".md"
 
+		dispatch("createnote", {label: sanitizedLabel, extension: ext})
+		const generatedFilename = convertToFileName(sanitizedLabel, ext)
+		wrapLabelWithLink(sanitizedLabel, generatedFilename)
+	}
+	
+	function handleCreateBoard(){
+		const sanitizedLabel = getSanitizedLabel()
+		const ext = ".knb.md"
+
+		dispatch("createnote", {label: sanitizedLabel, extension: ext})
+		const generatedFilename = convertToFileName(sanitizedLabel, ext)
+		wrapLabelWithLink(sanitizedLabel, generatedFilename)
+	}
+
+	function getSanitizedLabel(): string {
 		const label = item.label
 		const parsedLabel = renderMarkdown(label)
 		
@@ -65,10 +82,11 @@
 		div.innerHTML = parsedLabel
 		const sanitizedLabel = div.innerText
 		
-		dispatch("createnote", sanitizedLabel)
-		
-		const generatedFilename = convertToFileName(sanitizedLabel)
-		const newLabel = `[${sanitizedLabel}](./${generatedFilename})`
+		return sanitizedLabel
+	}
+
+	function wrapLabelWithLink(label: string, fileName: string){
+		const newLabel = `[${label}](./${fileName})`
 		$boardStore?.setItemLabel(columnIndex, itemIndex, newLabel)
 		saveBoard($boardStore)
 	}

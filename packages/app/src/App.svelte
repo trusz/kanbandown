@@ -40,8 +40,10 @@
 		backendAPI.openLink(e.detail)
 	}
 
-	function handleCreateNote(e: CustomEvent<string>){
-		backendAPI.createNote(e.detail)
+
+
+	function handleCreateNote(e: CustomEvent<{label: string, extension: string}>){
+		backendAPI.createNote(e.detail.label, e.detail.extension)
 	}
 
 </script>

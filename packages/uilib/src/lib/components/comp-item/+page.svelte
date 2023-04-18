@@ -27,6 +27,10 @@
         displayBoard(parseFromMarkdown(renderToMarkdown(b)))
     })
 
+    function handleCreateNote(e: CustomEvent<string>){
+        console.log({level:"demo", msg: "Handle Create Note", title: e.detail, event:e})
+    }
+
 </script>
 
 
@@ -36,6 +40,7 @@
         <CompItem 
             columnIndex={0} 
             itemIndex={0} 
+            on:createnote={handleCreateNote}
         />
 </Example>
 

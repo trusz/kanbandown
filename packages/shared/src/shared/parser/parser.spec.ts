@@ -80,7 +80,6 @@ suite("Parser", () => {
 
 				const fileContent = fs.readFileSync(filePath, "utf-8")
 				const board = parseFromMarkdown(fileContent)
-				console.log({level:"test", board})
 				const expectedBoard = tc.expectedBoard()
 
 				expect(board).toEqual(expectedBoard)

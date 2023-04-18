@@ -138,6 +138,7 @@
 					columnIndex={index}
 					itemIndex={ii}
 					on:linkclick
+					on:createnote
 					on:change={(e) => handleTaskChange(ii, e.detail) } 
 					on:delete={() => handleDelete(ii)}
 				/>

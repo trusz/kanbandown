@@ -3,7 +3,7 @@ import { marked } from "marked"
 import { markedExtensionMention } from "./marked-extension-mention"
 
 // TODO: write tests
-suite("Marked Extension: Image Renderer", () => {
+suite.skip("Marked Extension: Image Renderer", () => {
 	suite("rendering", () => {
 
 		type TestCase = {

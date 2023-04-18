@@ -40,12 +40,17 @@
 		backendAPI.openLink(e.detail)
 	}
 
+	function handleCreateNote(e: CustomEvent<string>){
+		backendAPI.createNote(e.detail)
+	}
+
 </script>
 
 <main>
 	{#if $boardStore}
 		<CompBoard 
 			on:linkclick={handleLinkClick}
+			on:createnote={handleCreateNote}
 		/>
 	{/if}
 </main>

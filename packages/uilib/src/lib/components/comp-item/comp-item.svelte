@@ -1,9 +1,10 @@
 <script lang="ts">
+	import {createEventDispatcher} from "svelte";
   	import type { DropdownItem } from "$lib/components/dropdown";
 	import { EditableText, useEditableTextAPI } from "$lib/components/editable-text";
 	import { OverflowMenu } from "$lib/components/overflow-menu"
-  	import { IconEdit, IconDelete } from "$lib/icons";
-  	import { useBoardContext, useSelectionContext } from "@kanbandown/shared/esmodule";
+  	import { IconEdit, IconDelete, IconCreateNote } from "$lib/icons";
+  	import { convertToFileName, renderMarkdown, useBoardContext, useSelectionContext } from "@kanbandown/shared/esmodule";
 
 	// 
 	// Props
@@ -16,10 +17,12 @@
 	// Configs
 	// 
 	let menuItems: DropdownItem[] = [
-		{label:"Edit", 	 onClick: handleEdit, 	icon: IconEdit },
-		{label:"Delete", onClick: handleDelete, icon: IconDelete, dangerous: true},
+		{label:"Edit", 	 	  onClick: handleEdit, 	     icon: IconEdit },
+		{label:"Create Note", onClick: handleCreateNote, icon: IconCreateNote },
+		{label:"Delete", 	  onClick: handleDelete, 	 icon: IconDelete, dangerous: true},
 	]
 	const editableTextAPI = useEditableTextAPI()
+	const dispatch = createEventDispatcher()
 
 	// 
 	// Data
@@ -52,6 +55,24 @@
 		editableTextAPI.activate(item.id)
 	}
 
+	function handleCreateNote(){
+		if(!editableTextAPI){ return }
+
+		const label = item.label
+		const parsedLabel = renderMarkdown(label)
+		
+		const div = document.createElement("div")
+		div.innerHTML = parsedLabel
+		const sanitizedLabel = div.innerText
+		
+		dispatch("createnote", sanitizedLabel)
+		
+		const generatedFilename = convertToFileName(sanitizedLabel)
+		const newLabel = `[${sanitizedLabel}](./${generatedFilename})`
+		$boardStore?.setItemLabel(columnIndex, itemIndex, newLabel)
+		saveBoard($boardStore)
+	}
+
 	function handleClick(event: MouseEvent){
 		if (event.metaKey) {
 			selectAdd(item)
@@ -70,7 +91,7 @@
 	on:dblclick={() => editableTextAPI.activate(item.id)}
 >
 	<EditableText 
-		tag="p" 
+		tag="p"
 		value={item?.label}
 		placeholder="<description>"
 		on:change={handleLabelChange} 

@@ -174,6 +174,7 @@
 			<CompColumn
 				index={index}
 				on:linkclick
+				on:createnote
 			/>
 		</li>
 	{/each}

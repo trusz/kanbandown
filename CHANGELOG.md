@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- create notes from items
+
 ### Changed 
 
 - smaller text padding in item that looks better in VS Code

@@ -7,6 +7,7 @@
 		markedExtensionTag,
 		markedExtensionMention,
 		markedExtensionImageRenderer,
+		renderMarkdown,
 	} from "@kanbandown/shared/esmodule"
 
 	import { useEditableTextAPI } from "./editable-text_api";
@@ -38,10 +39,8 @@
 		markedExtensionMention,
 		markedExtensionImageRenderer,
 	]
-	// @ts-ignore TODO: correct typing
-	marked.use({ extensions: extensions});
-	marked.setOptions({gfm:true, breaks:true})
-	$: renderedValue = marked.parse(safeValue)
+	
+	$: renderedValue = renderMarkdown(safeValue)
 
 	// 
 	// Setup

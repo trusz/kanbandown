@@ -33,6 +33,10 @@ export class FrontendAPI {
 		this.eventEmmiter.on(MessageType.OpenLink, handler)
 	}
 
+	public onCreateNote(handler:(title:string) => void){
+		this.eventEmmiter.on(MessageType.CreateNote, handler)
+	}
+
 	private setUpListeners(){
 		this.webview.onDidReceiveMessage<Message>((msg: Message) => {
 			switch(msg.type){
@@ -41,6 +45,9 @@ export class FrontendAPI {
 					return
 				case MessageType.OpenLink:
 					this.eventEmmiter.emit(MessageType.OpenLink, msg.payload)
+					return
+				case MessageType.CreateNote:
+					this.eventEmmiter.emit(MessageType.CreateNote, msg.payload)
 					return
 			}
 		})

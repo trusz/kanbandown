@@ -2,7 +2,8 @@ import * as vscode from 'vscode';
 import { getNonce } from './util';
 import * as fs from "fs";
 import * as path from "path";
-import { Board, FrontendAPI, parseFromMarkdown, renderToMarkdown } from '@kanbandown/shared/commonjs';
+import { Board, FrontendAPI, convertToFileName, parseFromMarkdown, renderToMarkdown, removeDuplicateSpaces } from '@kanbandown/shared/commonjs';
+
 export class KanbanDownEditorProvider implements vscode.CustomTextEditorProvider {
 
 	private disposeCommand?: vscode.Disposable;
@@ -33,6 +34,7 @@ export class KanbanDownEditorProvider implements vscode.CustomTextEditorProvider
 			// 	vscode.Uri.file(path.join(this.context.extensionPath, 'node_modules')),
 			// ]
 		};
+		this.registerCommand()
 
 
 		const uri = document.uri;
@@ -65,12 +67,39 @@ export class KanbanDownEditorProvider implements vscode.CustomTextEditorProvider
 			vscode.commands.executeCommand("vscode.open",uri);
 		});
 
+		frontendAPI.onCreateNote(async (title:string)=>{
+			const fileName = convertToFileName(title)
+			const tabInput = vscode.window.tabGroups.activeTabGroup?.activeTab?.input as {uri: vscode.Uri}
+			const uri = tabInput?.uri
+			if(!uri){
+				console.error({level:"error", msg:"could not extract uri from active tab"})
+				return
+			}
+			const currentUri = uri
+			const currentDirUri = currentUri.with({ path: currentUri.path.replace(/\/[^\/]*$/, '') });
+			const fileUri = currentDirUri.with({ path: `${currentDirUri.path}/${fileName}` });
+
+			if(await this.doesFileExist(fileUri)){ 
+				console.warn({level:"warn", msg:"file already exists, stopping", fileName, fileUri})
+				return
+			}
+			const contentTitle = removeDuplicateSpaces(title)
+			const content = `# ${contentTitle}`;
+			const contentBuffer = Buffer.from(content, 'utf8');
+			
+			try {
+				await vscode.workspace.fs.writeFile(fileUri, contentBuffer);
+			} catch (err) {
+				console.error(err);
+			}
+		})
+
 		frontendAPI.onSaveBoard((board: Board)=>{
 
 			const renderedContent = renderToMarkdown(board);
 			const edit = new vscode.WorkspaceEdit();
-		// Just replace the entire document every time for this example extension.
-		// A more complete extension should compute minimal edits instead.
+			// Just replace the entire document every time for this example extension.
+			// A more complete extension should compute minimal edits instead.
 			edit.replace(
 				document.uri,
 				new vscode.Range(0, 0, document.lineCount, 0),
@@ -108,9 +137,6 @@ export class KanbanDownEditorProvider implements vscode.CustomTextEditorProvider
 		// important!
 		// This make sure that we reload our view when we switch tabs
 		webviewPanel.onDidChangeViewState((e) => {
-			if(e.webviewPanel.active){
-				this.registerCommand(document.uri);
-			}
 			if(webviewPanel.visible){
 				webviewPanel.webview.html = this.getHtmlForWebview(document.uri, baseURL);
 				updateWebview();
@@ -122,10 +148,16 @@ export class KanbanDownEditorProvider implements vscode.CustomTextEditorProvider
 		updateWebview();
 	}
 
-	private registerCommand(uri: vscode.Uri){
+	private registerCommand(){
 		this.disposeCommand?.dispose();
 		
 		this.disposeCommand =  vscode.commands.registerCommand(KanbanDownEditorProvider.CommandKey, () => {
+			const tabInput = vscode.window.tabGroups.activeTabGroup?.activeTab?.input as {uri: vscode.Uri}
+			const uri = tabInput?.uri
+			if(!uri){ 
+				console.error({level:"error", msg:"could not extract uri"})
+				return
+			}
 			vscode.window.showTextDocument(uri);
 		});
 	
@@ -148,6 +180,16 @@ export class KanbanDownEditorProvider implements vscode.CustomTextEditorProvider
 		indexContent = indexContent.replace("%BASE_PATH%", basePath);
 
 		return indexContent;
+	}
+
+	private async doesFileExist(uri: vscode.Uri): Promise<boolean> {
+		try{
+			await vscode.workspace.fs.stat(uri)
+		} catch {
+			return false
+		}
+
+		return true
 	}
 
 }

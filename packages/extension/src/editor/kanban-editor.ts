@@ -57,25 +57,26 @@ export class KanbanDownEditorProvider implements vscode.CustomTextEditorProvider
 		}
 		https://github.com/microsoft/vscode/blob/ac88f33e2ca851839a3cd2a972377558f654e0a6/extensions/markdown-language-features/src/preview/preview.ts#L447
 		frontendAPI.onOpenLink((href:string)=>{
+		
+			const currentUri = this.getActiveFile()
+			if(!currentUri){
+				console.error({level:"error", msg:"could not extract uri from active tab"})
+				return
+			}
+			const currentDirUri = currentUri.with({ path: currentUri.path.replace(/\/[^\/]*$/, '') });
+			const fileUri = currentDirUri.with({ path: `${currentDirUri.path}/${href}` });
 			
-			const wsFolder =  vscode.workspace.getWorkspaceFolder(document.uri);
-			if(!wsFolder){ return; }
-
-			var filePath = path.join(wsFolder?.uri.toString(), href);
-			const uri = vscode.Uri.parse(filePath);
-			
-			vscode.commands.executeCommand("vscode.open",uri);
+			vscode.commands.executeCommand("vscode.open",fileUri);
 		});
 
 		frontendAPI.onCreateNote(async (note)=>{
 			const fileName = convertToFileName(note.label, note.extension)
-			const tabInput = vscode.window.tabGroups.activeTabGroup?.activeTab?.input as {uri: vscode.Uri}
-			const uri = tabInput?.uri
-			if(!uri){
+			
+			const currentUri = this.getActiveFile()
+			if(!currentUri){
 				console.error({level:"error", msg:"could not extract uri from active tab"})
 				return
 			}
-			const currentUri = uri
 			const currentDirUri = currentUri.with({ path: currentUri.path.replace(/\/[^\/]*$/, '') });
 			const fileUri = currentDirUri.with({ path: `${currentDirUri.path}/${fileName}` });
 
@@ -190,6 +191,12 @@ export class KanbanDownEditorProvider implements vscode.CustomTextEditorProvider
 		}
 
 		return true
+	}
+
+	private getActiveFile(): vscode.Uri | undefined{
+		const tabInput = vscode.window.tabGroups.activeTabGroup?.activeTab?.input as {uri: vscode.Uri}
+		const uri = tabInput?.uri
+		return uri
 	}
 
 }

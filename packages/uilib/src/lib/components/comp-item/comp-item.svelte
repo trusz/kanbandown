@@ -130,10 +130,10 @@
 
 		border:  		  var(--vscode-textBlockQuote-border) thin solid;
 		background-color: var(--vscode-textBlockQuote-background);
-		box-shadow: 	  0px 0px 10px 2px var(--vscode-widget-shadow);
 		border-radius: 	  4px;
 		padding: 		  0.25rem;
 		transition: 	  all 0.1s;
+		box-sizing: 	  border-box;
 	}
 
 	comp-item.selected,

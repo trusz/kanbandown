@@ -11,6 +11,10 @@
 - smaller text padding in item that looks better in VS Code
 - double click on the whole item to edit them not just on the text
 
+### Fixed
+
+- links to file now take the current file as base
+
 ## [0.0.8] 2023-04-02
 
 ### Added

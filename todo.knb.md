@@ -4,33 +4,26 @@ Tracking tasks for KanbanDown
 
 ## ⏭️ Next
 
+- [ ] :medium group by +proj #tag or :difficulty
+- [ ] :low item display checkbox status
 - [ ] :medium multiple boards/subboards in a file
+- [ ] :high subtasks within the board
 - [ ] :medium +settings for new item position
 - [ ] :low column context menu: add columnr to the right
-- [ ] :medium group by +proj #tag or :difficulty
 - [ ] :low Light themes do not work well
-- [ ] :low item display checkbox status
-- [ ] :medium item context-menu: create card
-- [ ] :medium allow editable description block
-- [ ] :low highlight dates: @[yyyy-MM-dd]
 - [ ] road map, planned features
 - [ ] :medium Write Readme.md
 - [ ] :medium settings for file pattern
-- [ ] :high subtasks within the board
-
-## 🚧 In Progress
-
-
 
 ## ✅ Done
 
+- [ ] :medium item context-menu: create card
+- [ ] :low highlight dates: @[yyyy-MM-dd]
+- [ ] :medium allow editable description block
 - [ ] :medium Copy & Paste    <br />between files <br /> <br />(needs context menu or selection for keyboard )
 - [ ] :low clear/archive column
 - [ ] :low item context menu: edit
 - [ ] :low board context menu:  <br />- edit <br />- open markdown file
-- [ ] Changelog.md
-- [ ] component library
-- [x] :low checkout dasyui
 - [ ] this bug
 - [ ] render effort (:low, :medium, :high), tags (#tag1), @ (@person) project (+project), dates
 - [ ] markdown parsing and rendering: md -> object, object->md, md->html

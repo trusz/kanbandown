@@ -14,8 +14,8 @@ This is a test file. It is here to test the extnsion directly
 
 ## Done
 
-- [ ] no it works
 - [ ] asdf
+- [ ] no it works
 
 ## another one
 

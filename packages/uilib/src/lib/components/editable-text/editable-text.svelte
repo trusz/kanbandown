@@ -31,14 +31,6 @@
 	$: showValue = value !== ""
 	$: safeValue = value ? value : "" // value can be set to undefined
 	$: textAreaValue = safeValue.replaceAll("<br />", "\n")
-
-	const extensions = [
-		markedExtensionPrio, 
-		markedExtensionProject,
-		markedExtensionTag,
-		markedExtensionMention,
-		markedExtensionImageRenderer,
-	]
 	
 	$: renderedValue = renderMarkdown(safeValue)
 

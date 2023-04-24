@@ -4,10 +4,10 @@
 		type Item, 
 		useBoardContext, 
 		useSelectionContext,
-} from "@kanbandown/shared/esmodule";
+	} from "@kanbandown/shared/esmodule";
 	import { dndzone, SHADOW_ITEM_MARKER_PROPERTY_NAME, type DndEvent } from "svelte-dnd-action";
 	import { CompColumn } from "../comp-column"
-  	import { EditableText } from "../editable-text";
+  	import { EditableText, useEditableTextAPI } from "../editable-text";
 	import { OverflowMenu } from "../overflow-menu"
 	import { IconAdd } from "../../icons"
   	import { IconEdit } from "$lib/icons";
@@ -34,10 +34,12 @@
 		$boardStore.createColumn("")
 		saveBoard($boardStore)
 	}
-	let titleTextAPI: EditableTextAPI
+
+	
+	let titleId = "board-title"
+	let editableTextAPI: EditableTextAPI = useEditableTextAPI()
 	function handleEditTitle(){
-		if(!titleTextAPI){ return }
-		titleTextAPI.enableEditing()
+		editableTextAPI.activate(titleId)
 	}
 
 
@@ -146,11 +148,11 @@
 <comp-board>
 	<header>
 		<EditableText 
+			id={titleId}
 			value={$boardStore.title} 
 			placeholder="<Project Title>"
 			tag="h2" 
 			on:change={handleTitleChange}  
-			bind:api={titleTextAPI}
 		/>
 		<span class="options"><OverflowMenu items={headerOptions} /></span>
 	</header>
